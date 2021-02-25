@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="13px" viewBox="0 0 21 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>select-epayment</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Объявления" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="board-components" transform="translate(-138.000000, -85.000000)">
+            <g id="select-epayment" transform="translate(136.000000, 78.000000)">
+                <rect id="Rectangle" x="0" y="0" width="25" height="25"></rect>
+                <path d="M21,17 L23,17 L23,18 C23,19.1045695 22.1045695,20 21,20 L4,20 C2.8954305,20 2,19.1045695 2,18 L2,17 L4,17 L4,9 C4,7.8954305 4.8954305,7 6,7 L19,7 C20.1045695,7 21,7.8954305 21,9 L21,17 Z M21,18 L4,18 L3,18 C3,18.5522847 3.44771525,19 4,19 L21,19 C21.5522847,19 22,18.5522847 22,18 L21,18 Z M20,17 L20,9 C20,8.44771525 19.5522847,8 19,8 L6,8 C5.44771525,8 5,8.44771525 5,9 L5,17 L20,17 Z" id="Combined-Shape" fill="#b1b1b1" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

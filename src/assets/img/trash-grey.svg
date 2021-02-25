@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>Trash</title>
+    <desc>Created with Sketch.</desc>
+    <g id="New-version" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="-g-Emporium_Wallet_Qiwi04" transform="translate(-1331.000000, -341.000000)" fill="#c6c6c6" fill-rule="nonzero">
+            <g id="Content" transform="translate(100.000000, 0.000000)">
+                <g id="04" transform="translate(40.000000, 200.000000)">
+                    <g id="01" transform="translate(40.000000, 106.000000)">
+                        <g id="Trash" transform="translate(1151.000000, 35.000000)">
+                            <path d="M2,2 L5,2 L5,1 C5,0.44771525 5.44771525,1.01453063e-16 6,0 L12,0 C12.5522847,-1.01453063e-16 13,0.44771525 13,1 L13,2 L16,2 L18,2 L18,4 L16,4 L16,16 C16,17.1045695 15.1045695,18 14,18 L4,18 C2.8954305,18 2,17.1045695 2,16 L2,4 L0,4 L0,2 L2,2 Z M4,4 L4,16 L14,16 L14,4 L4,4 Z M6,6 L8,6 L8,14 L6,14 L6,6 Z M10,6 L12,6 L12,14 L10,14 L10,6 Z" id="Combined-Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

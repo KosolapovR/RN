@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>Attention@2x</title>
+    <desc>Created with Sketch.</desc>
+    <g id="New-version" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="-g-Emporium_Elements001" transform="translate(-950.000000, -460.000000)" fill="#F89F0B" fill-rule="nonzero">
+            <g id="Notifications" transform="translate(925.000000, 414.000000)">
+                <g id="Attention" transform="translate(25.000000, 46.000000)">
+                    <path d="M20,38 C29.9411255,38 38,29.9411255 38,20 C38,10.0588745 29.9411255,2 20,2 C10.0588745,2 2,10.0588745 2,20 C2,29.9411255 10.0588745,38 20,38 Z M20,40 C8.954305,40 0,31.045695 0,20 C0,8.954305 8.954305,0 20,0 C31.045695,0 40,8.954305 40,20 C40,31.045695 31.045695,40 20,40 Z M20,11 C20.5522847,11 21,11.4477153 21,12 L21,21 C21,21.5522847 20.5522847,22 20,22 C19.4477153,22 19,21.5522847 19,21 L19,12 C19,11.4477153 19.4477153,11 20,11 Z M20,25 C20.5522847,25 21,25.4477153 21,26 L21,28 C21,28.5522847 20.5522847,29 20,29 C19.4477153,29 19,28.5522847 19,28 L19,26 C19,25.4477153 19.4477153,25 20,25 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

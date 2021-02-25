@@ -1,0 +1,41 @@
+@import '_variables';
+
+@mixin min-screen-size($screen) {
+  @media (min-width: $screen+'px') {
+    @content;
+  }
+}
+
+@mixin screen-size-s {
+  @media (min-width: #{$screenS}) {
+    @content;
+  }
+}
+
+// в параметрах указан диапозон масштаба страницы
+// в некоторых случаях, когда рамка, линия пропадает, помогает простой вызов
+// в противном случае через параметры указывается нужный диапозон и корректируются стили
+@mixin zoom-fix($from: 0.45, $to: 0.95, $transform: true) {
+  @if $transform {
+    transform: rotate(360deg);
+  }
+
+  @media (-webkit-min-device-pixel-ratio: $from) and (-webkit-max-device-pixel-ratio: $to) {
+    @content;
+  }
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}

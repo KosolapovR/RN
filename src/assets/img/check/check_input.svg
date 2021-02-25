@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53 (72520) - https://sketchapp.com -->
+    <title>Good</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="8" cy="8" r="8"></circle>
+    </defs>
+    <g id="Desktop-Screens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Emporium_SignIn02" transform="translate(-879.000000, -392.000000)">
+            <g id="Popup" transform="translate(490.000000, 200.000000)">
+                <g id="01" transform="translate(40.000000, 156.000000)">
+                    <g id="Good" transform="translate(349.000000, 36.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Oval-6" fill="#6EAB27" xlink:href="#path-1"></use>
+                        <polyline id="Path-3" stroke="#FFFFFF" stroke-width="2" mask="url(#mask-2)" points="4 8 7 11 12 6"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

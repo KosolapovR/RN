@@ -1,0 +1,146 @@
+@import '_fonts';
+@import '_variables';
+@import '_keyframes';
+@import 'libraries';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@media (hover: none) {
+  a:hover { color: inherit; }
+}
+
+html {
+  @media screen and (max-width: $screenXS) {
+    height: 100%;
+    height: -moz-available;          /* WebKit-based browsers will ignore this. */
+    height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    height: fill-available;
+  }
+}
+
+body {
+  font-family: $primary-font-regular;
+  color: $primary-color;
+  margin: 0;
+  background-color: $color-grey;
+  position: relative;
+
+  @media screen and (max-width: $screenXS) {
+    color: $primary-color-mobile;
+    background-color: $color-black;
+    /* stylelint-disable */
+    min-height: 100vh;
+    min-height: -moz-available;          /* WebKit-based browsers will ignore this. */
+    min-height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    min-height: fill-available;
+    /* stylelint-enable */
+  }
+
+  @media screen and (min-width: $screenXS + 1) {
+    overflow-x: hidden;
+  }
+
+  @media screen and (min-width: $screenXS + 1) and  (max-width: $screenL) {
+    overflow-x: auto;
+  }
+}
+
+html,
+body,
+#root {
+  @media screen and (max-width: $screenXS) {
+    width: 100%;
+    min-width: 320px;
+    overflow-x: hidden;
+  }
+
+  @media screen and (min-width: $screenXS + 1) {
+    min-width: 1250px;
+  }
+
+  @media screen and (max-width: 320px) {
+    overflow-x: auto;
+  }
+}
+
+#root {
+  /* stylelint-disable */
+  min-height: 100vh;
+  min-height: -moz-available;          /* WebKit-based browsers will ignore this. */
+  min-height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+  min-height: fill-available;
+  /* stylelint-enable */
+}
+
+button {
+  background: none;
+  border: 0;
+  font-weight: normal;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+b {
+  font-weight: normal;
+}
+
+input {
+  border: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:invalid {
+    box-shadow: none;
+  }
+}
+
+textarea {
+  &:focus {
+    outline: none;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+.g-recaptcha-field {
+  transform: scale(0.77);
+  transform-origin: 0 0;
+}
+
+/* stylelint-disable */
+input,
+textarea,
+button,
+select,
+a,
+div {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  @media screen and (max-width: $screenXS) {
+    outline: none;
+  }
+}
+/* stylelint-enable */

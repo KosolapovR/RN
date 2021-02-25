@@ -1,114 +1,110 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator, HeaderBackground} from '@react-navigation/stack';
+import {StyleSheet, View, Image, StatusBar} from 'react-native';
+import InitialScreen from './src/screens/InitialScreen';
+import SignInScreen from './src/screens/SignInScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import Logo from './src/assets/img/logo/empo-logo-white.svg';
+import HelpIcon from './src/assets/img/help/help.svg';
+import styled, {ThemeProvider} from 'styled-components/native';
+import store from './src/configureStore';
+import theme from './src/theme';
+import {Provider} from 'react-redux';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const TitleWrapper = styled.View`
+  margin-left: 20px;
+  flex: 1;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+`;
 
-const App: () => React$Node = () => {
+const HeaderRightWrapper = styled.View`
+  margin-right: 20px;
+  flex: 1;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: center;
+`;
+
+const Stack = createStackNavigator();
+
+const LogoTitle = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <TitleWrapper>
+      <Logo width={140} />
+    </TitleWrapper>
   );
 };
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+const HeaderRight = () => {
+  return (
+    <HeaderRightWrapper>
+      <HelpIcon width={40} />
+    </HeaderRightWrapper>
+  );
+};
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <View style={{flex: 1}}>
+          <StatusBar translucent barStyle="light-content" />
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Initial">
+              <Stack.Screen
+                name="Initial"
+                component={InitialScreen}
+                options={{
+                  headerStyle: {
+                    shadowOffset: {height: 0, width: 0},
+                    backgroundColor: '#141416',
+                  },
+                  headerTitle: '',
+                  headerLeft: () => <LogoTitle />,
+                  headerRight: () => <HeaderRight />,
+                }}
+              />
+              <Stack.Screen
+                name="SignIn"
+                component={SignInScreen}
+                options={{
+                  headerStyle: {
+                    shadowOffset: {height: 0, width: 0},
+                    backgroundColor: '#141416',
+                  },
+                  headerTitleStyle: {
+                    color: '#b6b6b6',
+                  },
+                  headerTitle: 'Вход',
+                  headerRight: () => <HeaderRight />,
+                }}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUpScreen}
+                options={{
+                  headerStyle: {
+                    shadowOffset: {height: 0, width: 0},
+                    backgroundColor: '#141416',
+                  },
+                  headerTitleStyle: {
+                    color: '#b6b6b6',
+                  },
+                  headerTitle: 'Регистрация',
+                  headerRight: () => <HeaderRight />,
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </View>
+      </ThemeProvider>
+    </Provider>
+  );
+};
 
 export default App;

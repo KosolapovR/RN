@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>receive</title>
+    <desc>Created with Sketch.</desc>
+    <g id="New-version" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="-g-Emporium_Wallet_New05" transform="translate(-140.000000, -703.000000)" fill="#006FEE" fill-rule="nonzero">
+            <g id="Content" transform="translate(100.000000, 0.000000)">
+                <g id="02" transform="translate(40.000000, 703.000000)">
+                    <g id="receive">
+                        <path d="M19,18.5857864 L20.7928932,16.7928932 L22.2071068,18.2071068 L18,22.4142136 L13.7928932,18.2071068 L15.2071068,16.7928932 L17,18.5857864 L17,11 C17,10.4477153 17.4477153,10 18,10 C18.5522847,10 19,10.4477153 19,11 L19,18.5857864 Z M18,36 C8.0588745,36 0,27.9411255 0,18 C0,8.0588745 8.0588745,0 18,0 C27.9411255,0 36,8.0588745 36,18 C36,27.9411255 27.9411255,36 18,36 Z M18,34 C26.836556,34 34,26.836556 34,18 C34,9.163444 26.836556,2 18,2 C9.163444,2 2,9.163444 2,18 C2,26.836556 9.163444,34 18,34 Z M13,24 L23,24 C23.5522847,24 24,24.4477153 24,25 C24,25.5522847 23.5522847,26 23,26 L13,26 C12.4477153,26 12,25.5522847 12,25 C12,24.4477153 12.4477153,24 13,24 Z" id="Combined-Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

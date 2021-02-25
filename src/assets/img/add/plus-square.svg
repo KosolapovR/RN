@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>Button</title>
+    <desc>Created with Sketch.</desc>
+    <g id="[После-релиза]-Кошельки" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="wallet-popup-paysystem-add-after" transform="translate(-676.000000, -335.000000)" fill="#006FEE">
+            <g id="Popup" transform="translate(415.000000, 165.000000)">
+                <g id="Button" transform="translate(261.000000, 170.000000)">
+                    <polygon id="Path" points="8 6 14 6 14 8 8 8 8 14 6 14 6 8 0 8 0 6 6 6 6 0 8 0"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

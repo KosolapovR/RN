@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#EE6174" offset="0%"></stop>
+            <stop stop-color="#F89948" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="✅-Сделки" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="deals-disput-administrator" transform="translate(-700.000000, -182.000000)">
+            <g id="Popup" transform="translate(415.000000, 182.000000)">
+                <g id="Icon" transform="translate(285.000000, 0.000000)">
+                    <rect id="Rectangle-49" fill="url(#linearGradient-1)" x="0" y="0" width="40" height="40" rx="8"></rect>
+                    <g id="Judge" transform="translate(19.435029, 20.435029) rotate(-315.000000) translate(-19.435029, -20.435029) translate(11.435029, 9.435029)" fill="#FFFFFF">
+                        <path d="M9,12 L9,22 L7,22 L7,12 L2.5,12 C1.11928813,12 1.69088438e-16,10.8807119 0,9.5 L0,5.5 C-1.69088438e-16,4.11928813 1.11928813,3 2.5,3 L7,3 L7,3.63797881e-12 L9,3.63797881e-12 L9,3 L13.5,3 C14.8807119,3 16,4.11928813 16,5.5 L16,9.5 C16,10.8807119 14.8807119,12 13.5,12 L9,12 Z M2.5,5 C2.22385763,5 2,5.22385763 2,5.5 L2,9.5 C2,9.77614237 2.22385763,10 2.5,10 L13.5,10 C13.7761424,10 14,9.77614237 14,9.5 L14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L2.5,5 Z M4,5 L6,5 L6,10 L4,10 L4,5 Z M10,5 L12,5 L12,10 L10,10 L10,5 Z" id="Combined-Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

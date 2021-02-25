@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="25px" viewBox="0 0 26 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#EE6174" offset="0%"></stop>
+            <stop stop-color="#F89948" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="✅-Кошельки" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="wallets-list-1" transform="translate(-583.000000, -223.000000)">
+            <g id="tabs" transform="translate(140.000000, 201.000000)">
+                <g id="tab" transform="translate(420.000000, 0.000000)">
+                    <g id="Icon" transform="translate(20.000000, 19.000000)">
+                        <rect id="Rectangle" fill="#11223E" opacity="0" x="0" y="0" width="32" height="32"></rect>
+                        <g id="bank" transform="translate(3.000000, 3.000000)" fill="url(#linearGradient-1)">
+                            <path d="M16,9 L16,19 L18,19 L18,9 L16,9 Z M16,7 L18,7 L24,7 L24,6.3735982 L13,2.14282897 L1.99999999,6.3735982 L1.99999999,7 L8,7 L10,7 L16,7 Z M10,9 L8,9 L8,19 L10,19 L10,9 Z M2,9 L-1.26195019e-08,9 L-1.26195019e-08,5 L13,-5.1159077e-13 L26,5 L26,9 L24,9 L24,19 L25,19 C25.5522847,19 26,19.4477153 26,20 L26,24 C26,24.5522847 25.5522847,25 25,25 L1,25 C0.44771525,25 2.14235398e-12,24.5522847 2.14228635e-12,24 L2.14228635e-12,20 C2.14221871e-12,19.4477153 0.44771525,19 1,19 L2,19 L2,9 Z M22,9 L20,9 L20,19 L22,19 L22,9 Z M12,9 L12,19 L14,19 L14,9 L12,9 Z M6,9 L4,9 L4,19 L6,19 L6,9 Z M24,21 L18,21 L16,21 L10,21 L8,21 L2,21 L2,23 L24,23 L24,21 Z" id="Combined-Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
