@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text} from 'react-native';
+import {
+  View,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import {Field, reduxForm} from 'redux-form/immutable';
 
 import {
@@ -24,38 +30,42 @@ const StyledButtonsWrapper = styled.View`
 `;
 
 const AuthForm = ({handleSubmit, invalid, onResetPassword}) => (
-  <View>
-    <Field
-      name="email"
-      component={BasicField}
-      props={{
-        label: 'Ваша почта:',
-      }}
-      validate={[required, minLength6, email]}
-      type="text"
-    />
-    <Field
-      name="password"
-      component={BasicField}
-      props={{
-        label: 'Пароль:',
-        isSecurity: true,
-      }}
-      validate={[required, minLength6, maxLength30, password]}
-      type="text"
-    />
-    <StyledButtonsWrapper>
-      <BasicButton
-        color="primary"
-        title="Войти"
-        onClick={() => {
-          handleSubmit();
-        }}
-        isDisabled={invalid}
-      />
-      <BasicButton title="Восстановить пароль" onClick={onResetPassword} />
-    </StyledButtonsWrapper>
-  </View>
+  <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View>
+        <Field
+          name="email"
+          component={BasicField}
+          props={{
+            label: 'Ваша почта:',
+          }}
+          validate={[required, minLength6, email]}
+          type="text"
+        />
+        <Field
+          name="password"
+          component={BasicField}
+          props={{
+            label: 'Пароль:',
+            isSecurity: true,
+          }}
+          validate={[required, minLength6, maxLength30, password]}
+          type="text"
+        />
+        <StyledButtonsWrapper>
+          <BasicButton
+            color="primary"
+            title="Войти"
+            onClick={() => {
+              handleSubmit();
+            }}
+            isDisabled={invalid}
+          />
+          <BasicButton title="Восстановить пароль" onClick={onResetPassword} />
+        </StyledButtonsWrapper>
+      </View>
+    </TouchableWithoutFeedback>
+  </KeyboardAvoidingView>
 );
 
 AuthForm.propTypes = {
