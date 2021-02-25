@@ -3,6 +3,7 @@ import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import HttpApi from 'i18next-http-backend';
 import moment from 'moment';
+import 'moment/min/locales';
 
 import endpoints from '../api/endpoints';
 
@@ -50,7 +51,7 @@ i18n
 // });
 
 // изменяем язык в моменте при изменении языка в i18n и загружаем выбранный язык
-i18n.on('languageChanged', lng => {
+i18n.on('languageChanged', (lng) => {
   // prod version
   // if (!i18n.hasResourceBundle(lng, 'translation')) {
   //   getTranslate(lng, 'changeLang').then((res) => {

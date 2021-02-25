@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "storybook": "start-storybook -p 7007",
     "build-storybook": "build-storybook",
-    "prestorybook": "rnstl"
+    "prestorybook": "rnstl",
+    "android-release": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle"
   },
   "dependencies": {
     "@digitalwing.co/redux-query-immutable": "^2.4.13",
