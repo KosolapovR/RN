@@ -1,9 +1,10 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import {View} from 'react-native';
 import styled from 'styled-components/native';
 
 const StyledButton = styled.TouchableOpacity`
-  background-color: ${props => {
+  background-color: ${(props) => {
     switch (props.color) {
       case 'primary':
         return `${props.theme.main.backgroundColors.blue}${
@@ -26,12 +27,18 @@ const StyledButton = styled.TouchableOpacity`
   width: 100%;
   height: 40px;
   border-radius: 5px;
+  border-width: ${(props) =>
+    props.color === 'transparent-with-border' ? 1 : 0};
+  border-color: ${(props) =>
+    props.color === 'transparent-with-border'
+      ? props.theme.main.colors.secondary
+      : 'transparent'};
 `;
 
 const StyledText = styled.Text`
   font-weight: bold;
   font-size: 14px;
-  color: ${props => {
+  color: ${(props) => {
     switch (props.color) {
       case 'primary':
         return `#ffffff${props.isDisabled ? '99' : ''}`;
@@ -41,6 +48,8 @@ const StyledText = styled.Text`
         return `#ffffff${props.isDisabled ? '99' : ''}`;
       case 'danger-transparent':
         return '#ff4258';
+      case 'transparent-with-border':
+        return `#ffffff${props.isDisabled ? '99' : ''}`;
       case 'transparent':
         return `#ffffff${props.isDisabled ? '99' : ''}`;
       default:
@@ -49,17 +58,19 @@ const StyledText = styled.Text`
   }};
 `;
 
-const BasicButton = ({onClick, title, isDisabled, color}) => {
+const BasicButton = ({onClick, title, isDisabled, color, containerStyles}) => {
   return (
-    <StyledButton
-      color={color}
-      onPress={!isDisabled ? onClick : null}
-      activeOpacity={isDisabled ? 1 : 0.7}
-      isDisabled={isDisabled}>
-      <StyledText color={color} isDisabled={isDisabled}>
-        {title}
-      </StyledText>
-    </StyledButton>
+    <View style={containerStyles}>
+      <StyledButton
+        color={color}
+        onPress={!isDisabled ? onClick : null}
+        activeOpacity={isDisabled ? 1 : 0.7}
+        isDisabled={isDisabled}>
+        <StyledText color={color} isDisabled={isDisabled}>
+          {title}
+        </StyledText>
+      </StyledButton>
+    </View>
   );
 };
 
@@ -73,13 +84,16 @@ BasicButton.propTypes = {
     'danger',
     'danger-transparent',
     'transparent',
+    'transparent-with-border',
   ]),
+  containerStyles: PropTypes.object,
 };
 
 BasicButton.defaultProps = {
   title: '',
   isDisabled: false,
   color: 'transparent',
+  containerStyles: {},
 };
 
 export default BasicButton;

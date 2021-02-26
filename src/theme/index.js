@@ -4,6 +4,7 @@ export default {
       primary: '#b5b5b5',
       secondary: '#b5b5b588',
       error: 'red',
+      orange: '#f7924e',
     },
     backgroundColors: {
       primary: '#141416',

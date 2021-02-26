@@ -5,6 +5,7 @@
 
 function loadStories() {
   require('../src/components/buttons/BasicButton/BasicButton.stories');
+  require('../src/components/cards/DealCard/DealCard.stories');
   require('../src/components/fields/BasicField/BasicField.stories');
   require('../src/components/fields/CheckBoxField/CheckBoxField.stories');
   require('../src/components/fields/CodeField/CodeField.stories');
@@ -18,6 +19,7 @@ function loadStories() {
 
 const stories = [
   '../src/components/buttons/BasicButton/BasicButton.stories',
+  '../src/components/cards/DealCard/DealCard.stories',
   '../src/components/fields/BasicField/BasicField.stories',
   '../src/components/fields/CheckBoxField/CheckBoxField.stories',
   '../src/components/fields/CodeField/CodeField.stories',

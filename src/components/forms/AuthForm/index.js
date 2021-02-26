@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View,
-  KeyboardAvoidingView,
-  Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {Field, reduxForm} from 'redux-form/immutable';
 
@@ -24,15 +22,20 @@ import styled from 'styled-components/native';
 const minLength6 = minLength(6);
 const maxLength30 = maxLength(30);
 
+const StyledForm = styled.View`
+  flex: 1;
+`;
 const StyledButtonsWrapper = styled.View`
   justify-content: space-between;
   height: 100px;
 `;
 
 const AuthForm = ({handleSubmit, invalid, onResetPassword}) => (
-  <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View>
+  <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+      style={{backgroundColor: 'white'}}>
+      <StyledForm>
         <Field
           name="email"
           component={BasicField}
@@ -63,7 +66,7 @@ const AuthForm = ({handleSubmit, invalid, onResetPassword}) => (
           />
           <BasicButton title="Восстановить пароль" onClick={onResetPassword} />
         </StyledButtonsWrapper>
-      </View>
+      </StyledForm>
     </TouchableWithoutFeedback>
   </KeyboardAvoidingView>
 );

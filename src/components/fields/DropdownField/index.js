@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
-import {View} from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   withSpring,
@@ -16,7 +16,6 @@ import Arrow from '../../../assets/img/arrows/arrow-down-white.svg';
 const Container = styled.View`
   align-self: stretch;
   position: relative;
-  background-color: green;
   height: 100%;
 `;
 
@@ -28,28 +27,26 @@ const ItemsList = styled.View`
 `;
 
 const Item = styled.TouchableOpacity`
-  border-bottom-color: white;
-  border-style: solid;
   height: 40px;
   padding-top: 10px;
   padding-left: 15px;
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.theme.main.backgroundColors.primaryLighter};
 `;
 
 const InputWrapper = styled.TouchableOpacity`
-  border-radius: ${props => props.theme.main.borderRadius};
-  background-color: ${props =>
+  border-radius: ${(props) => props.theme.main.borderRadius};
+  background-color: ${(props) =>
     props.theme.main.backgroundColors.primaryLighter};
 `;
 
 const Label = styled.Text`
-  color: ${props => props.theme.main.colors.secondary};
+  color: ${(props) => props.theme.main.colors.secondary};
   margin-bottom: 10px;
 `;
 
 const StyledInput = styled.Text`
-  color: ${props =>
+  color: ${(props) =>
     props.readOnly || props.isDisabled
       ? props.theme.main.colors.secondary
       : props.theme.main.colors.primary};
@@ -87,7 +84,7 @@ const DropdownField = ({
     return {
       transform: [
         {
-          rotateZ: `${rotation.value}deg`,
+          rotateZ: `90deg`,
         },
       ],
       alignSelf: 'flex-end',
@@ -132,63 +129,45 @@ const DropdownField = ({
   let childrenIds;
 
   return (
-    <Container
-      onStartShouldSetResponder={evt => {
-        evt.persist();
-        // console.log('evt.target', evt.target);
-
-        if (childrenIds && childrenIds.length) {
-          if (childrenIds.includes(evt.target)) {
-            return;
-          }
-          // console.log('Tapped outside');
-        }
+    <TouchableWithoutFeedback
+      onPress={() => {
+        setDropdownOpen(false);
       }}>
-      <Label>{label}</Label>
-      <InputWrapper
-        activeOpacity={readOnly || isDisabled ? 1 : 0.6}
-        onPress={() => {
-          readOnly || isDisabled ? null : toggleDropdown();
-        }}>
-        <StyledInput readOnly={readOnly} isDisabled={isDisabled}>
-          {selectedItem ? selectedItem : placeholder}
-        </StyledInput>
-        <Animated.Text style={[arrowAnimatedStyles]}>
-          <Arrow />
-        </Animated.Text>
-      </InputWrapper>
-      <Animated.View style={[animatedStyles]}>
-        {isDropdownOpen && (
-          <ItemsList
-            ref={component => {
-              // console.log('component', component);
-              // console.log('component._children[0]', component._children[0]);
-              childrenIds = [];
-              // if (component) {
-              //   childrenIds = component._children[0]._children.map(
-              //     el => el._nativeTag,
-              //   );
-              // }
-              // console.log('childrenIds', childrenIds);
-            }}>
-            {dropdownItems.map(item => (
-              <Item
-                key={item.id}
-                activeOpacity={0.6}
-                onPress={() => {
-                  if (isDropdownOpen) {
-                    closeDropdown();
-                    setSelectedItem(item.value);
-                    onChange(item.value);
-                  }
-                }}>
-                {item.element}
-              </Item>
-            ))}
-          </ItemsList>
-        )}
-      </Animated.View>
-    </Container>
+      <Container>
+        <Label>{label}</Label>
+        <InputWrapper
+          activeOpacity={readOnly || isDisabled ? 1 : 0.6}
+          onPress={() => {
+            readOnly || isDisabled ? null : toggleDropdown();
+          }}>
+          <StyledInput readOnly={readOnly} isDisabled={isDisabled}>
+            {selectedItem ? selectedItem : placeholder}
+          </StyledInput>
+          <Animated.Text style={[arrowAnimatedStyles]}>
+            <Arrow />
+          </Animated.Text>
+        </InputWrapper>
+        <Animated.View style={[animatedStyles]}>
+          {isDropdownOpen && (
+            <ItemsList>
+              {dropdownItems.map((item) => (
+                <Item
+                  key={item.id}
+                  onPress={() => {
+                    if (isDropdownOpen) {
+                      closeDropdown();
+                      setSelectedItem(item.value);
+                      onChange(item.value);
+                    }
+                  }}>
+                  {item.element}
+                </Item>
+              ))}
+            </ItemsList>
+          )}
+        </Animated.View>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 };
 

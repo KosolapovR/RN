@@ -6,7 +6,7 @@ import React from 'react';
 import BasicButton from './index';
 
 storiesOf('Кнопки', module)
-  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+  .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
   .add('Обычная кнопка', () => (
     <BasicButton
       color={select(
@@ -16,6 +16,7 @@ storiesOf('Кнопки', module)
           Secondary: 'secondary',
           Danger: 'danger',
           DangerTransparent: 'danger-transparent',
+          TransparentWithBorder: 'transparent-with-border',
           None: null,
         },
         'primary',
