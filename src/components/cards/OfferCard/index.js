@@ -1,9 +1,17 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
-import {View} from 'react-native';
+import {View, Text, StatusBar} from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {useRef, useState} from 'react';
+import IconButton from '../../buttons/IconButton';
+import Popover from 'react-native-popover-view';
+import PauseIcon from '../../../assets/img/offer/pause-grey.svg';
+import EditIcon from '../../../assets/img/edit-mobile.svg';
+import CopyIcon from '../../../assets/img/copy-grey.svg';
+import PopoverContent from '../../overlays/PopoverContent';
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   background-color: ${(props) =>
     props.theme.main.backgroundColors.primaryLighter};
   border-radius: ${(props) => props.theme.main.borderRadius}; ;
@@ -36,6 +44,10 @@ const GreyTextSmall = styled(GreyText)`
 const WhiteText = styled.Text`
   color: ${(props) => props.theme.main.colors.primary};
 `;
+
+const PrimaryText = styled.Text`
+  color: ${(props) => props.theme.main.colors.primary};
+`;
 const StyledIcon = styled.Image`
   width: 40px;
   height: 40px;
@@ -66,81 +78,151 @@ const OfferCard = ({
   isOutdated,
   limitsInfo,
   rateInfo,
+  isPaused,
 }) => {
-  return (
-    <Container>
-      <TopBlock>
-        <StyledRow>
-          <GreyText>Отдаю</GreyText>
-          <GreyText>Получаю</GreyText>
-        </StyledRow>
+  const [showPopover, setShowPopover] = useState(false);
 
-        <StyledRow halfOpacity={isCanceled || isOutdated}>
-          <StyledRow>
-            <StyledIcon source={{uri: sellWalletIcon}} />
-            <View style={{marginLeft: 15}}>
-              <WhiteText>{sellCurrency}</WhiteText>
-              <GreyText>{sellWalletAlias}</GreyText>
-            </View>
-          </StyledRow>
-          <StyledRow>
-            <View style={{marginRight: 15, alignItems: 'flex-end'}}>
-              <WhiteText>{buyCurrency}</WhiteText>
-              <GreyText>{buyWalletAlias}</GreyText>
-            </View>
-            <StyledIcon
-              source={{
-                uri: buyWalletIcon,
-              }}
-            />
-          </StyledRow>
-        </StyledRow>
-      </TopBlock>
-      <BottomBlock>
-        <StyledRow>
-          <ExchangeIconWrapper>
-            <StyledIconSmall
-              source={{
-                uri:
-                  'https://cryptologos.cc/logos/binance-coin-bnb-logo.png?v=010',
-              }}
-            />
-          </ExchangeIconWrapper>
-          <View style={{flex: 1, justifyContent: 'flex-start'}}>
-            <GreyTextSmall>{rateInfo}</GreyTextSmall>
-            <GreyTextSmall>{limitsInfo}</GreyTextSmall>
+  const touchable = useRef();
+
+  const popoverItems = [
+    {
+      id: 1,
+      element: (
+        <>
+          <PauseIcon width={15} height={15} marginRight={10} />
+          <View>
+            <WhiteText>Приостановить объявление</WhiteText>
           </View>
-          <GreyText>1</GreyText>
-        </StyledRow>
-      </BottomBlock>
-    </Container>
+        </>
+      ),
+      onClick: () => {
+        setShowPopover(false);
+      },
+    },
+    {
+      id: 2,
+      element: (
+        <>
+          <CopyIcon width={15} height={15} marginRight={10} />
+          <View>
+            <WhiteText> Скопировать ссылку</WhiteText>
+          </View>
+        </>
+      ),
+      onClick: () => {
+        setShowPopover(false);
+      },
+    },
+    {
+      id: 3,
+      element: (
+        <>
+          <EditIcon width={15} height={15} marginRight={10} />
+          <View>
+            <WhiteText> Редактировать</WhiteText>
+          </View>
+        </>
+      ),
+      onClick: () => {
+        setShowPopover(false);
+      },
+    },
+  ];
+
+  if (isPaused) {
+    popoverItems.shift();
+  }
+
+  return (
+    <>
+      <Container>
+        <TopBlock>
+          <StyledRow>
+            <GreyText>Отдаю</GreyText>
+            <GreyText>Получаю</GreyText>
+          </StyledRow>
+          <StyledRow halfOpacity={isCanceled || isOutdated}>
+            <StyledRow>
+              <StyledIcon source={{uri: sellWalletIcon}} />
+              <View style={{marginLeft: 15}}>
+                <PrimaryText>{sellCurrency}</PrimaryText>
+                <GreyText>{sellWalletAlias}</GreyText>
+              </View>
+            </StyledRow>
+            <StyledRow>
+              <View style={{marginRight: 15, alignItems: 'flex-end'}}>
+                <PrimaryText>{buyCurrency}</PrimaryText>
+                <GreyText>{buyWalletAlias}</GreyText>
+              </View>
+              <StyledIcon
+                source={{
+                  uri: buyWalletIcon,
+                }}
+              />
+            </StyledRow>
+          </StyledRow>
+        </TopBlock>
+        <BottomBlock>
+          <StyledRow>
+            <ExchangeIconWrapper>
+              <StyledIconSmall
+                source={{
+                  uri:
+                    'https://cryptologos.cc/logos/binance-coin-bnb-logo.png?v=010',
+                }}
+              />
+            </ExchangeIconWrapper>
+            <View
+              style={{flex: 1, justifyContent: 'flex-start', paddingRight: 20}}>
+              <GreyTextSmall>{rateInfo}</GreyTextSmall>
+              <GreyTextSmall>{limitsInfo}</GreyTextSmall>
+            </View>
+            {isPaused && (
+              <IconButton
+                onClick={() => {}}
+                icon={<PauseIcon width={14} height={16} marginRight={20} />}
+              />
+            )}
+
+            <IconButton
+              dinamicRef={touchable}
+              onClick={() => setShowPopover(true)}
+              icon={
+                <FontAwesome5 name="ellipsis-v" size={16} color={'#b1b1b1'} />
+              }
+            />
+            <Popover
+              popoverStyle={{backgroundColor: 'transparent'}}
+              arrowStyle={{backgroundColor: 'transparent'}}
+              backgroundStyle={{backgroundColor: 'transparent'}}
+              from={touchable}
+              isVisible={showPopover}
+              onRequestClose={() => setShowPopover(false)}>
+              <PopoverContent items={popoverItems} />
+            </Popover>
+          </StyledRow>
+        </BottomBlock>
+      </Container>
+    </>
   );
 };
 
 OfferCard.propTypes = {
-  sellAmount: PropTypes.string.isRequired,
-  buyAmount: PropTypes.string.isRequired,
-  sellWalletIcon: PropTypes.string.isRequired,
-  buyWalletIcon: PropTypes.string.isRequired,
-  dealStatusText: PropTypes.string.isRequired,
-  additionalInfo: PropTypes.string.isRequired,
-  timerValue: PropTypes.string,
-  isCanceled: PropTypes.bool,
-  isOutdated: PropTypes.bool,
-  isWaitingConfirm: PropTypes.bool,
-  onReject: PropTypes.func,
-  onAccept: PropTypes.func,
-  onFindSimilarOffers: PropTypes.func,
+  sellCurrency: PropTypes.string.isRequired,
+  sellWalletAlias: PropTypes.string.isRequired,
+  sellWalletIcon: PropTypes.string,
+  buyCurrency: PropTypes.string.isRequired,
+  buyWalletAlias: PropTypes.string.isRequired,
+  buyWalletIcon: PropTypes.string,
+  limitsInfo: PropTypes.string.isRequired,
+  rateInfo: PropTypes.string.isRequired,
+  isPaused: PropTypes.bool,
 };
 
 OfferCard.defaultProps = {
-  timerValue: '',
-  isCanceled: false,
-  isOutdated: false,
-  isWaitingConfirm: false,
-  onReject: () => {},
-  onAccept: () => {},
-  onFindSimilarOffers: () => {},
+  isPaused: false,
+  sellWalletIcon: '',
+  buyWalletIcon: '',
 };
 
 export default OfferCard;

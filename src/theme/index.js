@@ -9,7 +9,7 @@ export default {
     backgroundColors: {
       primary: '#141416',
       primaryLighter: '#1b1b1d',
-      primaryLighterHover: '#232327',
+      primaryLighterHover: '#343438',
       blue: '#006fee',
     },
     fontSize: {
