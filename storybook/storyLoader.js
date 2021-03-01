@@ -10,6 +10,7 @@ function loadStories() {
   require('../src/components/cards/BankCountCard/BankCountCard.stories');
   require('../src/components/cards/CryptoWalletCard/CryptoWalletCard.stories');
   require('../src/components/cards/DealCard/DealCard.stories');
+  require('../src/components/cards/MarketItemCard/MarketItemCard.stories');
   require('../src/components/cards/OfferCard/OfferCard.stories');
   require('../src/components/cards/SubscriptionCard/SubscriptionCard.stories');
   require('../src/components/fields/BasicField/BasicField.stories');
@@ -30,6 +31,7 @@ const stories = [
   '../src/components/cards/BankCountCard/BankCountCard.stories',
   '../src/components/cards/CryptoWalletCard/CryptoWalletCard.stories',
   '../src/components/cards/DealCard/DealCard.stories',
+  '../src/components/cards/MarketItemCard/MarketItemCard.stories',
   '../src/components/cards/OfferCard/OfferCard.stories',
   '../src/components/cards/SubscriptionCard/SubscriptionCard.stories',
   '../src/components/fields/BasicField/BasicField.stories',

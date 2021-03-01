@@ -1,7 +1,5 @@
 import {storiesOf} from '@storybook/react-native';
 import CenterView from '../../../../storybook/stories/CenterView';
-import {action} from '@storybook/addon-actions';
-import {ScrollView, View} from 'react-native';
 import {text} from '@storybook/addon-knobs';
 import React from 'react';
 import OfferCard from './index';

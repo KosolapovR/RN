@@ -79,7 +79,7 @@ const SubscriptionCard = ({count, description, onEdit, additionalInfo}) => {
       <RightContainer>
         <IconButton
           onClick={onEdit}
-          icon={<EditIcon width={15} height={15} />}
+          icon={<EditIcon width={17} height={17} />}
         />
       </RightContainer>
     </Container>

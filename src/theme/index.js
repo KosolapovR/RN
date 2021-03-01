@@ -11,6 +11,7 @@ export default {
       primaryLighter: '#1b1b1d',
       primaryLighterHover: '#343438',
       blue: '#006fee',
+      green: '#6eab27',
     },
     fontSize: {
       small: '12px',

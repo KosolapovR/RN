@@ -10,8 +10,8 @@ storiesOf('Карточки', module)
   .add('Подписка', () => (
     <SubscriptionCard
       description={text('description', 'Покупка BTC/Яндекс Деньги')}
-      additionalInfo={text('additionalInfo', '1 BTC (\\U+003C) 690 000 RUB')}
       count={number('count', 0)}
       onEdit={action('onEdit')}
+      additionalInfo={'1 BTC > 2 690 000 RUB'}
     />
   ));
