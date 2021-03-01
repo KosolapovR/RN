@@ -9,7 +9,7 @@ const Container = styled.TouchableOpacity`
 const CustomCheckBox = styled.View`
   height: 20px;
   width: 20px;
-  background: ${props =>
+  background: ${(props) =>
     props.checkBoxActive
       ? props.theme.main.backgroundColors.blue
       : 'transparent'};
@@ -18,8 +18,8 @@ const CustomCheckBox = styled.View`
   justify-content: center;
   margin: 0 8px 0 0;
   border-style: solid;
-  border-color: ${props => props.theme.main.colors.secondary}
-  border-width: ${props => (!props.checkBoxActive ? '1px' : 0)};
+  border-color: ${(props) => props.theme.main.colors.secondary}
+  border-width: ${(props) => (!props.checkBoxActive ? '1px' : 0)};
 `;
 const CheckIcon = styled.View`
   border-radius: 0px;
@@ -27,7 +27,7 @@ const CheckIcon = styled.View`
   transform: rotate(-40deg);
 `;
 const Label = styled.Text`
-  color: ${props => props.theme.main.colors.secondary};
+  color: ${(props) => props.theme.main.colors.secondary};
 `;
 
 /*==============================
@@ -41,12 +41,12 @@ const CheckIconWrapper = styled.View`
 const CheckIconVertical = styled.View`
   height: 4px;
   width: 2px;
-  background: ${props => (props.checkBoxActive ? '#fff' : 'transparent')};
+  background: ${(props) => (props.checkBoxActive ? '#fff' : 'transparent')};
 `;
 const CheckIconHorizontal = styled.View`
   height: 2px;
   width: 12px;
-  background: ${props => (props.checkBoxActive ? '#fff' : 'transparent')};
+  background: ${(props) => (props.checkBoxActive ? '#fff' : 'transparent')};
 `;
 const CheckBoxField = ({input: {value, onChange}, label, isDisabled}) => {
   const [checked, setChecked] = useState(value);

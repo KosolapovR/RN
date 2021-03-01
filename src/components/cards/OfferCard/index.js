@@ -38,7 +38,8 @@ const GreyText = styled.Text`
   color: ${(props) => props.theme.main.colors.secondary};
 `;
 
-const GreyTextSmall = styled(GreyText)`
+const GreyTextSmall = styled.Text`
+  color: ${(props) => props.theme.main.colors.secondary};
   font-size: 12px;
 `;
 const WhiteText = styled.Text`
@@ -62,7 +63,8 @@ const ExchangeIconWrapper = styled.View`
   justify-content: center;
 `;
 
-const StyledIconSmall = styled(StyledIcon)`
+const StyledIconSmall = styled.Image`
+  margin: 20px 0;
   width: 25px;
   height: 25px;
 `;

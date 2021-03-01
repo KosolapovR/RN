@@ -7,9 +7,11 @@ function loadStories() {
   require('../src/components/blocks/PopoverContent/PopoverContent.stories');
   require('../src/components/buttons/BasicButton/BasicButton.stories');
   require('../src/components/buttons/IconButton/IconButton.stories');
+  require('../src/components/cards/BankCountCard/BankCountCard.stories');
   require('../src/components/cards/CryptoWalletCard/CryptoWalletCard.stories');
   require('../src/components/cards/DealCard/DealCard.stories');
   require('../src/components/cards/OfferCard/OfferCard.stories');
+  require('../src/components/cards/SubscriptionCard/SubscriptionCard.stories');
   require('../src/components/fields/BasicField/BasicField.stories');
   require('../src/components/fields/CheckBoxField/CheckBoxField.stories');
   require('../src/components/fields/CodeField/CodeField.stories');
@@ -25,9 +27,11 @@ const stories = [
   '../src/components/blocks/PopoverContent/PopoverContent.stories',
   '../src/components/buttons/BasicButton/BasicButton.stories',
   '../src/components/buttons/IconButton/IconButton.stories',
+  '../src/components/cards/BankCountCard/BankCountCard.stories',
   '../src/components/cards/CryptoWalletCard/CryptoWalletCard.stories',
   '../src/components/cards/DealCard/DealCard.stories',
   '../src/components/cards/OfferCard/OfferCard.stories',
+  '../src/components/cards/SubscriptionCard/SubscriptionCard.stories',
   '../src/components/fields/BasicField/BasicField.stories',
   '../src/components/fields/CheckBoxField/CheckBoxField.stories',
   '../src/components/fields/CodeField/CodeField.stories',

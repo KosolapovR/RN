@@ -8,10 +8,7 @@ import {imageSnapshot} from '@storybook/addon-storyshots-puppeteer';
 // function to customize the snapshot location
 const getMatchOptions = ({context: {fileName}}) => {
   // Generates a custom path based on the file name and the custom directory.
-  const snapshotPath = path.join(
-    path.dirname(fileName),
-    './src/components/buttons/BasicButton',
-  );
+  const snapshotPath = path.join(path.dirname(fileName), '');
   return {customSnapshotsDir: snapshotPath};
 };
 

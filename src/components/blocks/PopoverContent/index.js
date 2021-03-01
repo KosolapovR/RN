@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import styled from 'styled-components/native/';
 
-const StyledPopoverContent = styled(View)`
+const StyledPopoverContent = styled.View`
   background-color: ${(props) =>
     props.theme.main.backgroundColors.primaryLighterHover};
   border-radius: ${(props) => props.theme.main.borderRadius};
