@@ -4,8 +4,10 @@
 // https://github.com/elderfo/react-native-storybook-loader.git
 
 function loadStories() {
+  require('../src/components/blocks/PopoverContent/PopoverContent.stories');
   require('../src/components/buttons/BasicButton/BasicButton.stories');
   require('../src/components/buttons/IconButton/IconButton.stories');
+  require('../src/components/cards/CryptoWalletCard/CryptoWalletCard.stories');
   require('../src/components/cards/DealCard/DealCard.stories');
   require('../src/components/cards/OfferCard/OfferCard.stories');
   require('../src/components/fields/BasicField/BasicField.stories');
@@ -17,12 +19,13 @@ function loadStories() {
   require('../src/components/forms/RecoveryForm/RecoveryForm.stories');
   require('../src/components/forms/RegistrationForm/RegistrationForm.stories');
   require('../src/components/forms/ResetPasswordForm/ResetPasswordForm.stories');
-  require('../src/components/overlays/PopoverContent/PopoverContent.stories');
 }
 
 const stories = [
+  '../src/components/blocks/PopoverContent/PopoverContent.stories',
   '../src/components/buttons/BasicButton/BasicButton.stories',
   '../src/components/buttons/IconButton/IconButton.stories',
+  '../src/components/cards/CryptoWalletCard/CryptoWalletCard.stories',
   '../src/components/cards/DealCard/DealCard.stories',
   '../src/components/cards/OfferCard/OfferCard.stories',
   '../src/components/fields/BasicField/BasicField.stories',
@@ -34,7 +37,6 @@ const stories = [
   '../src/components/forms/RecoveryForm/RecoveryForm.stories',
   '../src/components/forms/RegistrationForm/RegistrationForm.stories',
   '../src/components/forms/ResetPasswordForm/ResetPasswordForm.stories',
-  '../src/components/overlays/PopoverContent/PopoverContent.stories',
 ];
 
 module.exports = {

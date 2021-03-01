@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
-import {View, Text, StatusBar} from 'react-native';
+import {View} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useRef, useState} from 'react';
 import IconButton from '../../buttons/IconButton';
@@ -9,7 +9,7 @@ import Popover from 'react-native-popover-view';
 import PauseIcon from '../../../assets/img/offer/pause-grey.svg';
 import EditIcon from '../../../assets/img/edit-mobile.svg';
 import CopyIcon from '../../../assets/img/copy-grey.svg';
-import PopoverContent from '../../overlays/PopoverContent';
+import PopoverContent from '../../blocks/PopoverContent';
 
 const Container = styled.TouchableOpacity`
   background-color: ${(props) =>

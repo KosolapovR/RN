@@ -24,7 +24,7 @@ const popoverItems = [
         </View>
       </>
     ),
-    onClick: null,
+    onClick: action('onClick'),
   },
   {
     id: 2,
@@ -32,11 +32,11 @@ const popoverItems = [
       <>
         <CopyIcon width={15} height={15} marginRight={10} />
         <View>
-          <WhiteText> Скопировать ссылку</WhiteText>
+          <WhiteText>Скопировать ссылку</WhiteText>
         </View>
       </>
     ),
-    onClick: null,
+    onClick: action('onClick'),
   },
   {
     id: 3,
@@ -44,11 +44,11 @@ const popoverItems = [
       <>
         <EditIcon width={15} height={15} marginRight={10} />
         <View>
-          <WhiteText> Редактировать</WhiteText>
+          <WhiteText>Редактировать</WhiteText>
         </View>
       </>
     ),
-    onClick: null,
+    onClick: action('onClick'),
   },
 ];
 

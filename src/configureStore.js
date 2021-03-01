@@ -21,7 +21,7 @@ const configureStore = () => {
     queryMiddleware(getQueries, getEntities, getResults),
   ];
 
-  const stateTransformer = state => {
+  const stateTransformer = (state) => {
     if (Iterable.isIterable(state)) {
       return state.toJS();
     }
@@ -34,12 +34,7 @@ const configureStore = () => {
 
   middlewares = applyMiddleware(...middlewares);
 
-  return createStore(
-    reducers,
-    middlewares,
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION__(),
-  );
+  return createStore(reducers, middlewares);
 };
 
 export default configureStore();
