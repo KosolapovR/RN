@@ -12,6 +12,7 @@ import Animated, {
 import {useSharedValue} from 'react-native-reanimated';
 
 import Arrow from '../../../assets/img/arrows/arrow-down-white.svg';
+import {SecondaryText} from '../../styled';
 
 const Container = styled.View`
   align-self: stretch;
@@ -40,8 +41,7 @@ const InputWrapper = styled.TouchableOpacity`
     props.theme.main.backgroundColors.primaryLighter};
 `;
 
-const Label = styled.Text`
-  color: ${(props) => props.theme.main.colors.secondary};
+const Label = styled(SecondaryText)`
   margin-bottom: 10px;
 `;
 

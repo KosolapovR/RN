@@ -76,9 +76,11 @@ const BasicField = ({
   rightSymbol,
   onClickLeftSymbol,
   onClickRightSymbol,
+  containerStyle,
+  fieldStyle,
 }) => {
   return (
-    <StyledInputWrapper>
+    <StyledInputWrapper style={containerStyle}>
       {Boolean(label) && (
         <StyledLabel isDisabled={isDisabled}>{label}</StyledLabel>
       )}
@@ -88,6 +90,7 @@ const BasicField = ({
         {leftSymbol}
       </StyledLeftSymbolWrapper>
       <StyledField
+        style={fieldStyle}
         editable={!isDisabled && !readOnly}
         onChangeText={onChange}
         {...restInput}
@@ -182,6 +185,10 @@ BasicField.propTypes = {
    * Callback по клику на правый символ
    */
   onClickRightSymbol: PropTypes.func,
+  /**
+   * Стили контейнера инпута
+   */
+  containerStyle: PropTypes.object,
 };
 
 BasicField.defaultProps = {
@@ -200,6 +207,7 @@ BasicField.defaultProps = {
   rightSymbol: null,
   onClickLeftSymbol: null,
   onClickRightSymbol: null,
+  containerStyle: {},
 };
 
 export default BasicField;

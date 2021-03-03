@@ -4,35 +4,19 @@ import styled from 'styled-components/native';
 import OwnerInfo from './OwnerInfo';
 import RatingInfo from './RatingInfo';
 import {duration} from 'moment/moment';
+import {
+  SecondaryTextSmall,
+  CardContainer,
+  PrimaryBoldLargeText,
+  RowSpaceBetween,
+} from '../../styled';
+import ReactionTimeInfo from './ReactionTimeInfo';
 
-const Container = styled.TouchableOpacity`
-  background-color: ${(props) =>
-    props.theme.main.backgroundColors.primaryLighter};
-  border-radius: ${(props) => props.theme.main.borderRadius};
-  padding: 20px;
+const Container = styled(CardContainer)`
   border-style: solid;
   border-left-width: ${(props) => (props.isOwn ? '3px' : 0)};
   border-left-color: ${(props) =>
     props.isOwn ? props.theme.main.backgroundColors.blue : 'transparent'};
-`;
-
-const StyledRow = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  opacity: ${(props) => (props.halfOpacity ? 0.5 : 1)};
-  padding-bottom: ${(props) => (props.paddingBottom ? props.paddingBottom : 0)};
-`;
-
-const SecondaryTextSmall = styled.Text`
-  color: ${(props) => props.theme.main.colors.secondary};
-  font-size: 12px;
-`;
-
-const PrimaryBoldText = styled.Text`
-  color: ${(props) => props.theme.main.colors.primary};
-  font-weight: bold;
-  font-size: 16px;
 `;
 
 const MarketItemCard = ({
@@ -57,30 +41,28 @@ const MarketItemCard = ({
   })();
 
   return (
-    <Container isOwn={isOwn}>
-      <StyledRow paddingBottom={15}>
+    <Container isOwn={isOwn} padding={20}>
+      <RowSpaceBetween paddingBottom={15}>
         <OwnerInfo
           ownerName={ownerName}
           isOwn={isOwn}
           isOwnerOnline={isOwnerOnline}
         />
-        <StyledRow>
+        <RowSpaceBetween>
           <SecondaryTextSmall>{dealsCountInfo}</SecondaryTextSmall>
           <RatingInfo rating={rating} />
-        </StyledRow>
-      </StyledRow>
+        </RowSpaceBetween>
+      </RowSpaceBetween>
 
-      <StyledRow paddingBottom={15}>
-        <PrimaryBoldText>{directionsInfo}</PrimaryBoldText>
-        <PrimaryBoldText>{rateInfo}</PrimaryBoldText>
-      </StyledRow>
+      <RowSpaceBetween paddingBottom={15}>
+        <PrimaryBoldLargeText>{directionsInfo}</PrimaryBoldLargeText>
+        <PrimaryBoldLargeText>{rateInfo}</PrimaryBoldLargeText>
+      </RowSpaceBetween>
 
-      <StyledRow>
-        <SecondaryTextSmall>
-          {duration(reaction).minutes()} мин
-        </SecondaryTextSmall>
+      <RowSpaceBetween>
+        <ReactionTimeInfo reaction={reaction} />
         <SecondaryTextSmall>{limitsInfo}</SecondaryTextSmall>
-      </StyledRow>
+      </RowSpaceBetween>
     </Container>
   );
 };

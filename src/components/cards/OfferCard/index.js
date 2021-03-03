@@ -10,12 +10,7 @@ import PauseIcon from '../../../assets/img/offer/pause-grey.svg';
 import EditIcon from '../../../assets/img/edit-mobile.svg';
 import CopyIcon from '../../../assets/img/copy-grey.svg';
 import PopoverContent from '../../blocks/PopoverContent';
-
-const Container = styled.TouchableOpacity`
-  background-color: ${(props) =>
-    props.theme.main.backgroundColors.primaryLighter};
-  border-radius: ${(props) => props.theme.main.borderRadius}; ;
-`;
+import {CardContainer} from '../../styled';
 
 const TopBlock = styled.View`
   padding: 20px 20px 0;
@@ -136,76 +131,74 @@ const OfferCard = ({
   }
 
   return (
-    <>
-      <Container>
-        <TopBlock>
+    <CardContainer>
+      <TopBlock>
+        <StyledRow>
+          <GreyText>Отдаю</GreyText>
+          <GreyText>Получаю</GreyText>
+        </StyledRow>
+        <StyledRow halfOpacity={isCanceled || isOutdated}>
           <StyledRow>
-            <GreyText>Отдаю</GreyText>
-            <GreyText>Получаю</GreyText>
-          </StyledRow>
-          <StyledRow halfOpacity={isCanceled || isOutdated}>
-            <StyledRow>
-              <StyledIcon source={{uri: sellWalletIcon}} />
-              <View style={{marginLeft: 15}}>
-                <PrimaryText>{sellCurrency}</PrimaryText>
-                <GreyText>{sellWalletAlias}</GreyText>
-              </View>
-            </StyledRow>
-            <StyledRow>
-              <View style={{marginRight: 15, alignItems: 'flex-end'}}>
-                <PrimaryText>{buyCurrency}</PrimaryText>
-                <GreyText>{buyWalletAlias}</GreyText>
-              </View>
-              <StyledIcon
-                source={{
-                  uri: buyWalletIcon,
-                }}
-              />
-            </StyledRow>
-          </StyledRow>
-        </TopBlock>
-        <BottomBlock>
-          <StyledRow>
-            <ExchangeIconWrapper>
-              <StyledIconSmall
-                source={{
-                  uri:
-                    'https://cryptologos.cc/logos/binance-coin-bnb-logo.png?v=010',
-                }}
-              />
-            </ExchangeIconWrapper>
-            <View
-              style={{flex: 1, justifyContent: 'flex-start', paddingRight: 20}}>
-              <GreyTextSmall>{rateInfo}</GreyTextSmall>
-              <GreyTextSmall>{limitsInfo}</GreyTextSmall>
+            <StyledIcon source={{uri: sellWalletIcon}} />
+            <View style={{marginLeft: 15}}>
+              <PrimaryText>{sellCurrency}</PrimaryText>
+              <GreyText>{sellWalletAlias}</GreyText>
             </View>
-            {isPaused && (
-              <IconButton
-                onClick={() => {}}
-                icon={<PauseIcon width={14} height={16} marginRight={20} />}
-              />
-            )}
-
-            <IconButton
-              dinamicRef={touchable}
-              onClick={() => setShowPopover(true)}
-              icon={
-                <FontAwesome5 name="ellipsis-v" size={16} color={'#b1b1b1'} />
-              }
-            />
-            <Popover
-              popoverStyle={{backgroundColor: 'transparent'}}
-              arrowStyle={{backgroundColor: 'transparent'}}
-              backgroundStyle={{backgroundColor: 'transparent'}}
-              from={touchable}
-              isVisible={showPopover}
-              onRequestClose={() => setShowPopover(false)}>
-              <PopoverContent items={popoverItems} />
-            </Popover>
           </StyledRow>
-        </BottomBlock>
-      </Container>
-    </>
+          <StyledRow>
+            <View style={{marginRight: 15, alignItems: 'flex-end'}}>
+              <PrimaryText>{buyCurrency}</PrimaryText>
+              <GreyText>{buyWalletAlias}</GreyText>
+            </View>
+            <StyledIcon
+              source={{
+                uri: buyWalletIcon,
+              }}
+            />
+          </StyledRow>
+        </StyledRow>
+      </TopBlock>
+      <BottomBlock>
+        <StyledRow>
+          <ExchangeIconWrapper>
+            <StyledIconSmall
+              source={{
+                uri:
+                  'https://cryptologos.cc/logos/binance-coin-bnb-logo.png?v=010',
+              }}
+            />
+          </ExchangeIconWrapper>
+          <View
+            style={{flex: 1, justifyContent: 'flex-start', paddingRight: 20}}>
+            <GreyTextSmall>{rateInfo}</GreyTextSmall>
+            <GreyTextSmall>{limitsInfo}</GreyTextSmall>
+          </View>
+          {isPaused && (
+            <IconButton
+              onClick={() => {}}
+              icon={<PauseIcon width={14} height={16} marginRight={20} />}
+            />
+          )}
+
+          <IconButton
+            dinamicRef={touchable}
+            onClick={() => setShowPopover(true)}
+            icon={
+              <FontAwesome5 name="ellipsis-v" size={16} color={'#b1b1b1'} />
+            }
+          />
+          <Popover
+            popoverStyle={{backgroundColor: 'transparent'}}
+            arrowStyle={{backgroundColor: 'transparent'}}
+            backgroundStyle={{backgroundColor: 'transparent'}}
+            from={touchable}
+            isVisible={showPopover}
+            onRequestClose={() => setShowPopover(false)}>
+            <PopoverContent items={popoverItems} />
+          </Popover>
+        </StyledRow>
+      </BottomBlock>
+    </CardContainer>
   );
 };
 

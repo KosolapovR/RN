@@ -25,7 +25,7 @@ storiesOf('Карточки', module)
       dealsCount={152}
       rating={3.9}
       directionsInfo="BTC/RUB"
-      reaction={1109123}
+      reaction={1800000}
       rateInfo={text('rateInfo', '2 590 000 RUB')}
       limitsInfo={text('limitsInfo', '1 000 RUB - 300 000 RUB')}
     />

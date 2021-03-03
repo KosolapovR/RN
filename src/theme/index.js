@@ -9,6 +9,7 @@ export default {
     backgroundColors: {
       primary: '#141416',
       primaryLighter: '#1b1b1d',
+      primaryLighter2: '#232327',
       primaryLighterHover: '#343438',
       blue: '#006fee',
       green: '#6eab27',

@@ -2,15 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
+import {PrimarySmallText, Row} from '../../../styled';
 
-const Row = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-const PrimarySmallText = styled.Text`
-  font-size: 12px;
-  color: ${(props) => props.theme.main.colors.primary};
-`;
 const Dot = styled.View`
   width: 5px;
   height: 5px;

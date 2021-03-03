@@ -1,41 +1,23 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {Text, View, Image} from 'react-native';
 import styled from 'styled-components/native';
 import BasicButton from '../../buttons/BasicButton';
+import {
+  CardContainer,
+  PrimaryText,
+  Row,
+  RowEnd,
+  RowSpaceBetween,
+  SecondaryBoldText,
+  WhiteBoldText,
+} from '../../styled';
 
-const Container = styled.View`
-  background-color: ${(props) =>
-    props.theme.main.backgroundColors.primaryLighter};
-  padding: 20px;
-  border-radius: ${(props) => props.theme.main.borderRadius}; ;
-`;
-const StyledInfoBlock = styled.View`
-  flex-direction: row;
-`;
-const StyledRow = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  opacity: ${(props) => (props.halfOpacity ? 0.5 : 1)};
-`;
-const StyledStatus = styled.Text`
-  color: white;
-  font-weight: bold;
-  padding-right: 10px;
-`;
-const StyledOutdatedStatus = styled.Text`
-  font-weight: bold;
-  color: ${(props) => props.theme.main.colors.secondary};
-`;
 const StyledCanceledStatus = styled.Text`
   font-weight: bold;
   color: ${(props) => props.theme.main.colors.error};
   opacity: 0.5;
 `;
-const StyledAdditionalInfo = styled.Text`
-  color: ${(props) => props.theme.main.colors.primary};
-`;
+
 const StyledTimer = styled.Text`
   color: ${(props) => props.theme.main.colors.orange};
   font-weight: bold;
@@ -68,41 +50,39 @@ const DealCard = ({
   onFindSimilarOffers,
 }) => {
   return (
-    <Container>
-      <StyledRow>
-        <StyledInfoBlock>
+    <CardContainer padding={20}>
+      <RowSpaceBetween>
+        <Row>
           {isOutdated ? (
-            <StyledOutdatedStatus>
-              Время на принятие истекло
-            </StyledOutdatedStatus>
+            <SecondaryBoldText>Время на принятие истекло</SecondaryBoldText>
           ) : isCanceled ? (
             <StyledCanceledStatus>Сделка отменена</StyledCanceledStatus>
           ) : (
             <>
-              <StyledStatus>{dealStatusText}</StyledStatus>
-              <StyledAdditionalInfo>{additionalInfo}</StyledAdditionalInfo>
+              <WhiteBoldText paddingRight={10}>{dealStatusText}</WhiteBoldText>
+              <PrimaryText>{additionalInfo}</PrimaryText>
             </>
           )}
-        </StyledInfoBlock>
+        </Row>
         <StyledTimer>{timerValue}</StyledTimer>
-      </StyledRow>
+      </RowSpaceBetween>
 
-      <StyledRow halfOpacity={isCanceled || isOutdated}>
-        <StyledRow>
+      <RowSpaceBetween halfOpacity={isCanceled || isOutdated}>
+        <Row>
           <StyledIcon source={{uri: sellWalletIcon}} />
           <BoldText>{sellAmount}</BoldText>
-        </StyledRow>
-        <StyledRow>
+        </Row>
+        <RowEnd>
           <BoldText>{buyAmount}</BoldText>
           <StyledIcon
             source={{
               uri: buyWalletIcon,
             }}
           />
-        </StyledRow>
-      </StyledRow>
+        </RowEnd>
+      </RowSpaceBetween>
 
-      <StyledRow>
+      <Row>
         {isWaitingConfirm ? (
           <BasicButton
             title="Ожидание подтверждения"
@@ -134,8 +114,8 @@ const DealCard = ({
             />
           </>
         )}
-      </StyledRow>
-    </Container>
+      </Row>
+    </CardContainer>
   );
 };
 

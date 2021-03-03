@@ -2,14 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components/native';
+import {PrimaryText} from '../../styled';
 
-const StyledText = styled.Text`
-  color: ${props => props.theme.main.colors.primary};
-  padding-bottom: ${props => props.paddingBottom};
+const PrimaryTextWithPadding = styled(PrimaryText)`
+  padding-bottom: ${(props) => props.paddingBottom};
 `;
 
 const AttentionBlock = ({text, paddingBottom}) => {
-  return <StyledText paddingBottom={paddingBottom}>{text}</StyledText>;
+  return (
+    <PrimaryTextWithPadding paddingBottom={paddingBottom}>
+      {text}
+    </PrimaryTextWithPadding>
+  );
 };
 
 AttentionBlock.propTypes = {

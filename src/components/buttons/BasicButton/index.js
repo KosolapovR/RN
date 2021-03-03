@@ -11,7 +11,7 @@ const StyledButton = styled.TouchableOpacity`
           props.isDisabled ? '99' : ''
         }`;
       case 'secondary':
-        return `${props.theme.main.backgroundColors.primaryLighterHover}${
+        return `${props.theme.main.backgroundColors.primaryLighter2}${
           props.isDisabled ? '99' : ''
         }`;
       case 'danger':

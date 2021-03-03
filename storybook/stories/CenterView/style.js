@@ -6,4 +6,7 @@ export default {
     alignItems: 'stretch',
     backgroundColor: '#141416',
   },
+  container: {
+    flex: 1,
+  },
 };

@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 import CodeInput from 'react-native-code-input';
 import {ThemeContext} from 'styled-components';
 import {Dimensions, View} from 'react-native';
-import styled from 'styled-components/native';
+import {SecondaryText} from '../../styled';
 
 const windowWidth = Dimensions.get('window').width;
-
-const Label = styled.Text`
-  color: ${props => props.theme.main.colors.secondary};
-`;
 
 const CodeField = ({onFinishCheckingCode, label}) => {
   const theme = useContext(ThemeContext);
 
-  const _onFinishCheckingCode = v => {
+  const _onFinishCheckingCode = (v) => {
     onFinishCheckingCode(v);
   };
 
@@ -25,7 +21,7 @@ const CodeField = ({onFinishCheckingCode, label}) => {
 
   return (
     <>
-      {label && <Label>{label}</Label>}
+      {label && <SecondaryText>{label}</SecondaryText>}
       <CodeInput
         keyboardType="numeric"
         codeLength={codeCount}
@@ -45,7 +41,7 @@ const CodeField = ({onFinishCheckingCode, label}) => {
           fontWeight: '100',
           backgroundColor: theme.main.backgroundColors.primaryLighter,
         }}
-        onFulfill={code => _onFinishCheckingCode(code)}
+        onFulfill={(code) => _onFinishCheckingCode(code)}
         input
       />
     </>

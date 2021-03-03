@@ -3,15 +3,8 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {PrimarySmallText, Row} from '../../../styled';
 
-const Row = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-const PrimarySmallText = styled.Text`
-  font-size: 12px;
-  color: ${(props) => props.theme.main.colors.primary};
-`;
 const IconWrapper = styled.View`
   margin: 0 6px;
 `;

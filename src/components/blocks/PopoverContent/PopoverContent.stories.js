@@ -7,11 +7,7 @@ import PopoverContent from './index';
 import PauseIcon from '../../../assets/img/offer/pause-grey.svg';
 import CopyIcon from '../../../assets/img/copy-grey.svg';
 import EditIcon from '../../../assets/img/edit-mobile.svg';
-import styled from 'styled-components/native';
-
-const WhiteText = styled.Text`
-  color: ${(props) => props.theme.main.colors.primary};
-`;
+import {WhiteText} from '../../styled';
 
 const popoverItems = [
   {

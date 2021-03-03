@@ -4,15 +4,13 @@ import styled from 'styled-components/native';
 import {View, Text} from 'react-native';
 import EditIcon from '../../../assets/img/edit-mobile.svg';
 import IconButton from '../../buttons/IconButton';
-
-const Container = styled.View`
-  background-color: ${(props) =>
-    props.theme.main.backgroundColors.primaryLighter};
-  border-radius: ${(props) => props.theme.main.borderRadius};
-  padding: 15px;
-  flex-direction: row;
-  justify-content: space-between;
-`;
+import {
+  CardContainer,
+  PrimaryText,
+  Row,
+  RowSpaceBetween,
+  WhiteBoldText,
+} from '../../styled';
 
 const Circle = styled.View`
   width: 25px;
@@ -32,22 +30,7 @@ const BlackCircle = styled(Circle)`
     props.theme.main.backgroundColors.primaryLighterHover};
 `;
 
-const WhiteText = styled.Text`
-  color: #ffffff;
-  font-weight: bold;
-`;
-const PrimaryText = styled.Text`
-  color: ${(props) => props.theme.main.colors.primary};
-`;
-
-const LeftContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const RightContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
+const RowWithBorder = styled(Row)`
   justify-content: center;
   padding: 0 0 0 10px;
   border-left-color: ${(props) => props.theme.main.colors.secondary};
@@ -57,7 +40,7 @@ const RightContainer = styled.View`
 const SubsCount = ({value}) => {
   return value > 0 ? (
     <OrangeCircle>
-      <WhiteText>{value}</WhiteText>
+      <WhiteBoldText>{value}</WhiteBoldText>
     </OrangeCircle>
   ) : (
     <BlackCircle>
@@ -68,21 +51,23 @@ const SubsCount = ({value}) => {
 
 const SubscriptionCard = ({count, description, onEdit, additionalInfo}) => {
   return (
-    <Container>
-      <LeftContainer>
-        <SubsCount value={count} />
-        <View>
-          <WhiteText>{description}</WhiteText>
-          <PrimaryText>{additionalInfo}</PrimaryText>
-        </View>
-      </LeftContainer>
-      <RightContainer>
-        <IconButton
-          onClick={onEdit}
-          icon={<EditIcon width={17} height={17} />}
-        />
-      </RightContainer>
-    </Container>
+    <CardContainer padding={15}>
+      <RowSpaceBetween>
+        <Row>
+          <SubsCount value={count} />
+          <View>
+            <WhiteBoldText>{description}</WhiteBoldText>
+            <PrimaryText>{additionalInfo}</PrimaryText>
+          </View>
+        </Row>
+        <RowWithBorder>
+          <IconButton
+            onClick={onEdit}
+            icon={<EditIcon width={17} height={17} />}
+          />
+        </RowWithBorder>
+      </RowSpaceBetween>
+    </CardContainer>
   );
 };
 
