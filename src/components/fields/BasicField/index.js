@@ -61,25 +61,33 @@ const StyledAdditionalInfoText = styled.Text`
   font-size: ${(props) => props.theme.main.fontSize.small};
 `;
 
-const BasicField = ({
-  input: {onChange, ...restInput},
-  meta: {error, active, touched, pristine, ...restMeta},
-  isDisabled,
-  placeholder,
-  label,
-  withError,
-  isValidChange,
-  isSecurity,
-  readOnly,
-  additionalInfo,
-  leftSymbol,
-  rightSymbol,
-  onClickLeftSymbol,
-  onClickRightSymbol,
-  containerStyle,
-  fieldStyle,
-}) => {
-  return (
+const areEqual = (prevProps, nextProps) =>
+  prevProps.additionalInfo === nextProps.additionalInfo &&
+  prevProps.readOnly === nextProps.readOnly &&
+  prevProps.input.value === nextProps.input.value &&
+  prevProps.meta.error === nextProps.meta.error &&
+  prevProps.meta.touched === nextProps.meta.touched &&
+  prevProps.isDisabled === nextProps.isDisabled;
+
+const BasicField = React.memo(
+  ({
+    input: {onChange, ...restInput},
+    meta: {error, active, touched, pristine, ...restMeta},
+    isDisabled,
+    placeholder,
+    label,
+    withError,
+    isValidChange,
+    isSecurity,
+    readOnly,
+    additionalInfo,
+    leftSymbol,
+    rightSymbol,
+    onClickLeftSymbol,
+    onClickRightSymbol,
+    containerStyle,
+    fieldStyle,
+  }) => (
     <StyledInputWrapper style={containerStyle}>
       {Boolean(label) && (
         <StyledLabel isDisabled={isDisabled}>{label}</StyledLabel>
@@ -112,8 +120,9 @@ const BasicField = ({
         <StyledAdditionalInfoText>{additionalInfo}</StyledAdditionalInfoText>
       )}
     </StyledInputWrapper>
-  );
-};
+  ),
+  areEqual,
+);
 
 BasicField.propTypes = {
   /**

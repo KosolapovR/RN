@@ -10,7 +10,7 @@ import {
 import {ThemeProvider} from 'styled-components/native';
 import {Provider} from 'react-redux';
 
-import theme from '../../../src/theme';
+import theme from 'theme';
 import store from '../../../src/configureStore';
 
 export default function CenterView({children}) {

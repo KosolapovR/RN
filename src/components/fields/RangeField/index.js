@@ -1,32 +1,23 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/native';
+import {View} from 'react-native';
 import Slider from 'rn-range-slider';
+
+import {RowSpaceBetween, SecondaryText} from 'components/styled';
+import BasicField from 'components/fields/BasicField';
 import Thumb from './Thumb';
 import Rail from './Rail';
 import RailSelected from './RailSelected';
 import Notch from './Notch';
 import Label from './Label';
-import BasicField from '../BasicField';
-import {RowSpaceBetween, SecondaryText} from '../../styled';
 
-const Container = styled.View``;
-
-function areEqual(prevProps, nextProps) {
-  let equal =
-    prevProps.label === nextProps.label &&
-    prevProps.min === nextProps.min &&
-    prevProps.max === nextProps.max &&
-    prevProps.low === nextProps.low &&
-    prevProps.high === nextProps.high &&
-    prevProps.isDisabled === nextProps.isDisabled;
-  return equal;
-  /*
-  возвращает true, если nextProps рендерит
-  тот же результат что и prevProps,
-  иначе возвращает false
-  */
-}
+const areEqual = (prevProps, nextProps) =>
+  prevProps.label === nextProps.label &&
+  prevProps.min === nextProps.min &&
+  prevProps.max === nextProps.max &&
+  prevProps.low === nextProps.low &&
+  prevProps.high === nextProps.high &&
+  prevProps.isDisabled === nextProps.isDisabled;
 
 const RangeField = React.memo(
   ({
@@ -41,7 +32,6 @@ const RangeField = React.memo(
     isDisabled,
     inputFieldWidth,
   }) => {
-    console.log(label, 'was rendered ');
     const [low, setLow] = useState(min);
     const [high, setHigh] = useState(max);
     const renderThumb = useCallback(() => <Thumb />, []);
@@ -50,18 +40,10 @@ const RangeField = React.memo(
     const renderLabel = useCallback((value) => <Label text={value} />, []);
     const renderNotch = useCallback(() => <Notch />, []);
     const handleValueChange = useCallback((l, h) => {
-      if (low !== l) {
-        setLow(l);
-      }
-      if (high !== h) {
-        setHigh(h);
-      }
-      if (outerLow !== l) {
-        setOuterLow(l);
-      }
-      if (outerHigh !== h) {
-        setOuterHigh(h);
-      }
+      setLow(l);
+      setHigh(h);
+      setOuterLow(l);
+      setOuterHigh(h);
     }, []);
 
     useEffect(() => {
@@ -72,17 +54,27 @@ const RangeField = React.memo(
     }, [outerHigh]);
 
     const onChangeLowField = (v) => {
-      if (outerLow !== v) setOuterLow(v);
-      if (low !== v) setLow(v);
+      if (v <= high) {
+        if (outerLow !== v) setOuterLow(v);
+        if (low !== v) setLow(v);
+      } else {
+        setLow(high);
+        setOuterLow(high);
+      }
     };
 
     const onChangeHighField = (v) => {
-      if (outerHigh !== v) setOuterHigh(v);
-      if (high !== v) setHigh(v);
+      if (v >= low) {
+        if (outerHigh !== v) setOuterHigh(v);
+        if (high !== v) setHigh(v);
+      } else {
+        setOuterHigh(low);
+        setHigh(low);
+      }
     };
 
     return (
-      <Container>
+      <View>
         <SecondaryText paddingBottom={10}>{label}</SecondaryText>
         <Slider
           disabled={isDisabled}
@@ -114,7 +106,7 @@ const RangeField = React.memo(
             input={{value: high.toString(), onChange: onChangeHighField}}
           />
         </RowSpaceBetween>
-      </Container>
+      </View>
     );
   },
   areEqual,

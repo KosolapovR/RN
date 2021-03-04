@@ -1,11 +1,12 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
-import {Row, SecondaryTextSmall} from '../../../styled';
-import FastLogo from '../../../../assets/img/faster.svg';
+import {ThemeContext} from 'styled-components';
 import {duration} from 'moment/moment';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {ThemeContext} from 'styled-components';
+
+import {Row, SecondaryTextSmall} from 'components/styled';
+import FastLogo from 'assets/img/faster.svg';
 
 const IconWrapper = styled.View`
   margin-right: 6px;

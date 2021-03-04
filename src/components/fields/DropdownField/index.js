@@ -1,18 +1,17 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/native';
 import {TouchableWithoutFeedback} from 'react-native';
+import styled from 'styled-components/native';
 import Animated, {
   useAnimatedStyle,
+  useSharedValue,
   withSpring,
   withTiming,
   Easing,
 } from 'react-native-reanimated';
 
-import {useSharedValue} from 'react-native-reanimated';
-
-import Arrow from '../../../assets/img/arrows/arrow-down-white.svg';
-import {SecondaryText} from '../../styled';
+import {SecondaryText} from 'components/styled';
+import Arrow from 'assets/img/arrows/arrow-down-white.svg';
 
 const Container = styled.View`
   align-self: stretch;
@@ -69,7 +68,7 @@ const DropdownField = ({
 
   const offset = useSharedValue(0);
   const opacity = useSharedValue(0);
-  const rotation = useSharedValue(0);
+  const rotation = useSharedValue(90);
   const arrowTop = useSharedValue(15);
 
   const animatedStyles = useAnimatedStyle(() => {
@@ -84,7 +83,7 @@ const DropdownField = ({
     return {
       transform: [
         {
-          rotateZ: `90deg`,
+          rotateZ: `${rotation.value}deg`,
         },
       ],
       alignSelf: 'flex-end',
@@ -120,13 +119,8 @@ const DropdownField = ({
     }
   }, [isDropdownOpen]);
 
-  const buttonRef = useRef(null);
-  const dropdownRef = useRef(null);
-
   const closeDropdown = () => setDropdownOpen(false);
   const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
-
-  let childrenIds;
 
   return (
     <TouchableWithoutFeedback

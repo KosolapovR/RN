@@ -1,23 +1,23 @@
-import React, {useCallback, useState} from 'react';
-import styled from 'styled-components/native';
-import {PrimaryBoldText, RowSpaceBetween} from '../styled';
-import BasicButton from '../buttons/BasicButton';
-import CheckBoxField from '../fields/CheckBoxField';
-import RangeField from '../fields/RangeField';
+import React, {useCallback, useContext, useState} from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from 'react-native';
+import PropTypes from 'prop-types';
+import styled, {ThemeContext} from 'styled-components/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const Container = styled.ScrollView`
-  border-style: solid;
-  border-width: 1px;
-  border-radius: ${(props) => props.theme.main.borderRadius};
-`;
+import {PrimaryBoldText, RowSpaceBetween} from 'components/styled';
+import BasicButton from 'components/buttons/BasicButton';
+import CheckBoxField from 'components/fields/CheckBoxField';
+import RangeField from 'components/fields/RangeField';
+import IconButton from 'components/buttons/IconButton';
+
+const Container = styled.ScrollView``;
 
 const Header = styled(RowSpaceBetween)`
-  padding: 20px;
+  padding: 15px 20px;
   height: 50px;
   background-color: ${(props) =>
     props.theme.main.backgroundColors.primaryLighter};
@@ -32,21 +32,48 @@ const Body = styled.View`
   border-bottom-right-radius: ${(props) => props.theme.main.borderRadius};
 `;
 
-const MarketFilter = ({onFilter}) => {
-  const [lowRate, setLowRate] = useState(420000);
-  const [highRate, setHighRate] = useState(490000);
-  const [lowResponseTime, setLowResponseTime] = useState(1);
-  const [highResponseTime, setHighResponseTime] = useState(60);
-  const [lowDealsCount, setLowDealsCount] = useState(0);
-  const [highDealsCount, setHighDealsCount] = useState(100);
-  const onClear = () => {
-    setLowRate(420000);
-    setHighRate(490000);
-    setLowResponseTime(1);
-    setHighResponseTime(60);
-    setLowDealsCount(0);
-    setHighDealsCount(100);
-  };
+const MarketFilter = ({
+  onFilter,
+  onClose,
+  currencyAlias,
+  availableMinRate,
+  availableMaxRate,
+  availableMinResponseTime,
+  availableMaxResponseTime,
+  availableMinDealsCount,
+  availableMaxDealsCount,
+}) => {
+  const theme = useContext(ThemeContext);
+
+  const [lowRate, setLowRate] = useState(availableMinRate);
+  const [highRate, setHighRate] = useState(availableMaxRate);
+  const [lowResponseTime, setLowResponseTime] = useState(
+    availableMinResponseTime,
+  );
+  const [highResponseTime, setHighResponseTime] = useState(
+    availableMaxResponseTime,
+  );
+  const [lowDealsCount, setLowDealsCount] = useState(availableMinDealsCount);
+  const [highDealsCount, setHighDealsCount] = useState(availableMaxDealsCount);
+  const onClear = useCallback(() => {
+    setLowRate(availableMinRate);
+    setHighRate(availableMaxRate);
+    setLowResponseTime(availableMinResponseTime);
+    setHighResponseTime(availableMaxResponseTime);
+    setLowDealsCount(availableMinDealsCount);
+    setHighDealsCount(availableMaxDealsCount);
+  }, []);
+
+  const handleFilter = useCallback(() => {
+    onFilter({
+      lowRate,
+      highRate,
+      lowResponseTime,
+      highResponseTime,
+      lowDealsCount,
+      highDealsCount,
+    });
+  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -59,13 +86,22 @@ const MarketFilter = ({onFilter}) => {
         <Container>
           <Header>
             <PrimaryBoldText>Фильтры</PrimaryBoldText>
-            <PrimaryBoldText>Х</PrimaryBoldText>
+            <IconButton
+              onClick={onClose}
+              icon={
+                <Icon
+                  name="close"
+                  size={16}
+                  color={theme.main.colors.secondary}
+                />
+              }
+            />
           </Header>
           <Body>
             <RangeField
-              label="Курс (ETH)"
-              min={420000}
-              max={480000}
+              label={`Курс (${currencyAlias})`}
+              min={+availableMinRate}
+              max={+availableMaxRate}
               low={lowRate}
               high={highRate}
               setLow={useCallback((v) => setLowRate(v), [])}
@@ -73,20 +109,25 @@ const MarketFilter = ({onFilter}) => {
             />
             <RangeField
               label="Время отклика (мин.)"
-              min={1}
-              max={60}
+              min={+availableMinResponseTime}
+              max={+availableMaxResponseTime}
               low={lowResponseTime}
               high={highResponseTime}
-              setLow={useCallback((v) => setLowResponseTime(v), [])}
+              setLow={useCallback(
+                (v) => {
+                  setLowResponseTime(v);
+                },
+                [setLowResponseTime],
+              )}
               setHigh={useCallback((v) => setHighResponseTime(v), [])}
               inputFieldWidth={50}
             />
             <RangeField
               label="Сделок покупателя"
-              min={0}
-              max={100}
-              low={lowDealsCount}
-              high={highDealsCount}
+              min={availableMinDealsCount}
+              max={availableMaxDealsCount}
+              low={+lowDealsCount}
+              high={+highDealsCount}
               setLow={useCallback((v) => setLowDealsCount(v), [])}
               setHigh={useCallback((v) => setHighDealsCount(v), [])}
               inputFieldWidth={50}
@@ -99,7 +140,7 @@ const MarketFilter = ({onFilter}) => {
               containerStyles={{marginBottom: 15, marginTop: 20}}
             />
             <BasicButton
-              onClick={onFilter}
+              onClick={handleFilter}
               title="Применить"
               color={'primary'}
             />
@@ -110,6 +151,21 @@ const MarketFilter = ({onFilter}) => {
   );
 };
 
-MarketFilter.propTypes = {};
+MarketFilter.propTypes = {
+  onFilter: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  currencyAlias: PropTypes.string.isRequired,
+  availableMinRate: PropTypes.number.isRequired,
+  availableMaxRate: PropTypes.number.isRequired,
+  availableMinResponseTime: PropTypes.number.isRequired,
+  availableMaxResponseTime: PropTypes.number.isRequired,
+  availableMinDealsCount: PropTypes.number.isRequired,
+  availableMaxDealsCount: PropTypes.number.isRequired,
+  onlineOnly: PropTypes.bool,
+};
+
+MarketFilter.defaultProps = {
+  onlineOnly: false,
+};
 
 export default MarketFilter;

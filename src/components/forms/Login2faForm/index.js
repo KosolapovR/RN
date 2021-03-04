@@ -5,11 +5,11 @@ import {
   Keyboard,
   KeyboardAvoidingView,
 } from 'react-native';
-import {Field, reduxForm} from 'redux-form/immutable';
-
-import BasicButton from '../../buttons/BasicButton';
 import styled from 'styled-components/native';
-import CodeField from '../../fields/CodeField';
+import {reduxForm} from 'redux-form/immutable';
+
+import BasicButton from 'components/buttons/BasicButton';
+import CodeField from 'components/fields/CodeField';
 
 const StyledForm = styled.View`
   flex: 1;

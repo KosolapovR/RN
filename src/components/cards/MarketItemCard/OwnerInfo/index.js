@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
-import {PrimarySmallText, Row} from '../../../styled';
+
+import {PrimarySmallText, Row} from 'components/styled';
 
 const Dot = styled.View`
   width: 5px;

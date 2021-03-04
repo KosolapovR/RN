@@ -57,9 +57,13 @@ const StyledText = styled.Text`
     }
   }};
 `;
+const areEqual = (prevProps, nextProps) =>
+  prevProps.title === nextProps.title &&
+  prevProps.isDisabled === nextProps.isDisabled &&
+  prevProps.color === nextProps.color;
 
-const BasicButton = ({onClick, title, isDisabled, color, containerStyles}) => {
-  return (
+const BasicButton = React.memo(
+  ({onClick, title, isDisabled, color, containerStyles}) => (
     <View style={containerStyles}>
       <StyledButton
         color={color}
@@ -71,8 +75,9 @@ const BasicButton = ({onClick, title, isDisabled, color, containerStyles}) => {
         </StyledText>
       </StyledButton>
     </View>
-  );
-};
+  ),
+  areEqual,
+);
 
 BasicButton.propTypes = {
   title: PropTypes.string,

@@ -1,16 +1,16 @@
-import * as React from 'react';
+import React, {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/native';
 import {View} from 'react-native';
+import styled from 'styled-components/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import {useRef, useState} from 'react';
-import IconButton from '../../buttons/IconButton';
 import Popover from 'react-native-popover-view';
-import PauseIcon from '../../../assets/img/offer/pause-grey.svg';
-import EditIcon from '../../../assets/img/edit-mobile.svg';
-import CopyIcon from '../../../assets/img/copy-grey.svg';
-import PopoverContent from '../../blocks/PopoverContent';
-import {CardContainer} from '../../styled';
+
+import IconButton from 'components/buttons/IconButton';
+import PopoverContent from 'components/blocks/PopoverContent';
+import {CardContainer} from 'components/styled';
+import PauseIcon from 'assets/img/offer/pause-grey.svg';
+import EditIcon from 'assets/img/edit-mobile.svg';
+import CopyIcon from 'assets/img/copy-grey.svg';
 
 const TopBlock = styled.View`
   padding: 20px 20px 0;

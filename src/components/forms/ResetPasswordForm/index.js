@@ -6,12 +6,12 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import {Field, reduxForm} from 'redux-form/immutable';
+import styled from 'styled-components/native';
 
 import {minLength, required, password} from 'shared/validators';
 
-import BasicField from '../../fields/BasicField';
-import BasicButton from '../../buttons/BasicButton';
-import styled from 'styled-components/native';
+import BasicField from 'components/fields/BasicField';
+import BasicButton from 'components/buttons/BasicButton';
 
 const minLength6 = minLength(6);
 const maxLength30 = minLength(30);

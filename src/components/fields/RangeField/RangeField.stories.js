@@ -9,11 +9,5 @@ storiesOf('Инпуты', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
 
   .add('Range', () => (
-    <RangeField
-      label={text('label', 'Курс (ETH)')}
-      min={420000}
-      max={480000}
-      step={1}
-      isDisabled={true}
-    />
+    <RangeField label={text('label', 'Курс (ETH)')} step={1} />
   ));

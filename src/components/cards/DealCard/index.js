@@ -1,7 +1,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
-import BasicButton from '../../buttons/BasicButton';
+
+import BasicButton from 'components/buttons/BasicButton';
 import {
   CardContainer,
   PrimaryText,
@@ -10,7 +11,7 @@ import {
   RowSpaceBetween,
   SecondaryBoldText,
   WhiteBoldText,
-} from '../../styled';
+} from 'components/styled';
 
 const StyledCanceledStatus = styled.Text`
   font-weight: bold;

@@ -1,19 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from 'react-native';
 import {Field, reduxForm} from 'redux-form/immutable';
+import styled from 'styled-components/native';
 
 import {email, minLength, required} from 'shared/validators';
 
-import BasicField from '../../fields/BasicField';
-import BasicButton from '../../buttons/BasicButton';
-import styled from 'styled-components/native';
-import AttentionBlock from '../../blocks/AttentionBlock';
+import BasicField from 'components/fields/BasicField';
+import BasicButton from 'components/buttons/BasicButton';
+import AttentionBlock from 'components/blocks/AttentionBlock';
 
 const minLength6 = minLength(6);
 

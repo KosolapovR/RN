@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import styled from 'styled-components/native';
-import {PrimaryText} from '../../styled';
+
+import {PrimaryText} from 'components/styled';
 
 const PrimaryTextWithPadding = styled(PrimaryText)`
   padding-bottom: ${(props) => props.paddingBottom};

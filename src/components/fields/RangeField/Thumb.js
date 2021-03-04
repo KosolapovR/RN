@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import {View, StyleSheet} from 'react-native';
 
-const THUMB_RADIUS = 10;
+const THUMB_RADIUS = 7;
 
 const Thumb = () => {
   return <View style={styles.root} />;
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     width: THUMB_RADIUS * 2,
     height: THUMB_RADIUS * 2,
     borderRadius: THUMB_RADIUS,
-    borderWidth: 0,
+    borderWidth: 1,
     borderColor: '#7f7f7f',
     backgroundColor: '#ffffff',
   },

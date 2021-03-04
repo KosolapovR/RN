@@ -1,14 +1,15 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/native';
 import {View} from 'react-native';
+import styled from 'styled-components/native';
+
 import {
   CardContainer,
   PrimaryText,
   Row,
   RowSpaceBetween,
   WhiteBoldText,
-} from '../../styled';
+} from 'components/styled';
 
 const StyledIcon = styled.Image`
   width: 30px;

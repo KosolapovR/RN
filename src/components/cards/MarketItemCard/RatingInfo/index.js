@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {PrimarySmallText, Row} from '../../../styled';
+
+import {PrimarySmallText, Row} from 'components/styled';
 
 const IconWrapper = styled.View`
   margin: 0 6px;

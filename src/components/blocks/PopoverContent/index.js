@@ -1,22 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View} from 'react-native';
 import styled from 'styled-components/native/';
+import {Row} from 'components/styled';
 
 const StyledPopoverContent = styled.View`
   background-color: ${(props) =>
     props.theme.main.backgroundColors.primaryLighterHover};
   border-radius: ${(props) => props.theme.main.borderRadius};
 `;
-const StyledPopoverContentItem = styled.TouchableOpacity`
-  flex-direction: row;
+const StyledPopoverContentItem = styled(Row)`
   padding: 15px;
-  color: white;
 `;
-const StyledPopoverContentItemWithoutFeedBack = styled.View`
-  flex-direction: row;
+const StyledPopoverContentItemWithoutFeedBack = styled(Row)`
   padding: 15px;
-  color: white;
 `;
 const PopoverContent = ({items}) => {
   return (

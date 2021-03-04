@@ -1,16 +1,16 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
-import OwnerInfo from './OwnerInfo';
-import RatingInfo from './RatingInfo';
-import {duration} from 'moment/moment';
+
 import {
   SecondaryTextSmall,
   CardContainer,
   PrimaryBoldLargeText,
   RowSpaceBetween,
-} from '../../styled';
+} from 'components/styled';
 import ReactionTimeInfo from './ReactionTimeInfo';
+import OwnerInfo from './OwnerInfo';
+import RatingInfo from './RatingInfo';
 
 const Container = styled(CardContainer)`
   border-style: solid;

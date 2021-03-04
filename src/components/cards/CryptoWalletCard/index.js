@@ -1,17 +1,18 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/native';
 import {View} from 'react-native';
-import SendIcon from '../../../assets/img/arrows/send-arrow-white.svg';
-import ReceiveIcon from '../../../assets/img/arrows/receive-arrow-white.svg';
-import IconButton from '../../buttons/IconButton';
+import styled from 'styled-components/native';
+
+import IconButton from 'components/buttons/IconButton';
 import {
   CardContainer,
   PrimaryText,
   Row,
   RowSpaceBetween,
   WhiteBoldText,
-} from '../../styled';
+} from 'components/styled';
+import SendIcon from 'assets/img/arrows/send-arrow-white.svg';
+import ReceiveIcon from 'assets/img/arrows/receive-arrow-white.svg';
 
 const StyledIcon = styled.Image`
   width: 30px;

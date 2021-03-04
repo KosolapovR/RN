@@ -1,16 +1,17 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import {View} from 'react-native';
 import styled from 'styled-components/native';
-import {View, Text} from 'react-native';
-import EditIcon from '../../../assets/img/edit-mobile.svg';
-import IconButton from '../../buttons/IconButton';
+
+import IconButton from 'components/buttons/IconButton';
 import {
   CardContainer,
   PrimaryText,
   Row,
   RowSpaceBetween,
   WhiteBoldText,
-} from '../../styled';
+} from 'components/styled';
+import EditIcon from 'assets/img/edit-mobile.svg';
 
 const Circle = styled.View`
   width: 25px;
