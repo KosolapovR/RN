@@ -1,21 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
-import LinearGradient from 'react-native-linear-gradient';
-import {Dimensions, Image, View} from 'react-native';
+import {Dimensions} from 'react-native';
 
-import {
-  ColumnAlignCenter,
-  Row,
-  RowSpaceAround,
-  SecondaryText,
-  WhiteBoldText,
-  WhiteExtraLargeText,
-} from 'components/styled';
-import BasicButton from 'components/buttons/BasicButton';
-import SendIcon from 'assets/img/arrows/send-arrow-white.svg';
-import ReceiveIcon from 'assets/img/arrows/receive-arrow-white.svg';
-import LockIcon from 'assets/img/lock-white.svg';
+import {Column, RowSpaceBetween, SecondaryText} from 'components/styled';
+import SelectedCryptoItem from 'components/blocks/SelectedCryptoBlock/SelectedCryptoItem';
 
 const Container = styled.View`
   height: ${(props) => `${props.height}px`};
@@ -30,87 +19,33 @@ const IconWrapper = styled.View`
   align-items: center;
 `;
 
-const windowWidth = Dimensions.get('window').width;
-
-function WalletHeaderBlock({
-  amount,
-  lockedAmount,
-  currency,
-  onSend,
-  onReceive,
-  currencyIcon,
-}) {
+function SelectedCryptoBlock({items}) {
+  const handleClickItem = (id) => {
+    items[id].selected = !items[id].selected;
+    console.log(id);
+  };
   return (
-    <Container height={windowWidth / 2.5}>
-      <LinearGradient
-        colors={['#004594', '#006ae4']}
+    <Column>
+      <SecondaryText paddingBottom={10}>
+        Интересующие меня валюты (до 3-х):
+      </SecondaryText>
+      <RowSpaceBetween
         style={{
-          flex: 1,
-          paddingTop: 50,
-          paddingBottom: 20,
-          justifyContent: 'space-between',
-          borderRadius: 5,
+          flexWrap: 'wrap',
         }}>
-        <ColumnAlignCenter>
-          <WhiteExtraLargeText paddingBottom={3}>
-            {amount} {currency}
-          </WhiteExtraLargeText>
-          <Row>
-            <LockIcon
-              width={12}
-              height={12}
-              style={{opacity: 0.5, marginRight: 5}}
-            />
-            <SecondaryText>
-              {lockedAmount} {currency}
-            </SecondaryText>
-          </Row>
-        </ColumnAlignCenter>
-        <RowSpaceAround>
-          <BasicButton
-            onClick={onReceive}
-            title={
-              <Row>
-                <ReceiveIcon
-                  width={15}
-                  height={15}
-                  style={{marginRight: 8, opacity: 0.7}}
-                />
-                <WhiteBoldText>Пополнить</WhiteBoldText>
-              </Row>
-            }
+        {items.map((i) => (
+          <SelectedCryptoItem
+            key={i.id}
+            currency={i.currency}
+            currencyIcon={i.currencyIcon}
           />
-          <BasicButton
-            onClick={onSend}
-            title={
-              <Row>
-                <SendIcon
-                  width={15}
-                  height={15}
-                  style={{marginRight: 8, opacity: 0.7}}
-                />
-                <WhiteBoldText>Отправить</WhiteBoldText>
-              </Row>
-            }
-          />
-        </RowSpaceAround>
-      </LinearGradient>
-      <IconWrapper>
-        <Image
-          source={{
-            uri: currencyIcon,
-          }}
-          style={{
-            width: 48,
-            height: 48,
-          }}
-        />
-      </IconWrapper>
-    </Container>
+        ))}
+      </RowSpaceBetween>
+    </Column>
   );
 }
 
-WalletHeaderBlock.propTypes = {
+SelectedCryptoBlock.propTypes = {
   amount: PropTypes.number.isRequired,
   lockedAmount: PropTypes.number.isRequired,
   currency: PropTypes.string.isRequired,
@@ -119,4 +54,4 @@ WalletHeaderBlock.propTypes = {
   currencyIcon: PropTypes.string.isRequired,
 };
 
-export default WalletHeaderBlock;
+export default SelectedCryptoBlock;

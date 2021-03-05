@@ -2,36 +2,63 @@ import {storiesOf} from '@storybook/react-native';
 import CenterView from '../../../../storybook/stories/CenterView';
 import {action} from '@storybook/addon-actions';
 import React from 'react';
-import DashboardCryptoWalletList from './index';
+import TransactionsList from './index';
 
-const wallets = [
+const transactions = [
   {
     id: 1,
-    walletName: 'BTC',
-    additionalInfo: '0.0034 BTC',
-    icon: 'https://pngicon.ru/file/uploads/ikonka-bitkoin.png',
-    onClickWallet: action('onClick'),
+    type: 'transfer-from',
+    createdDate: '25.05.19, 19:46',
+    amount: 0.00034,
+    amountInUSD: 1.98,
+    currency: 'BTC',
   },
   {
     id: 2,
-    walletName: 'TON',
-    additionalInfo: '1.13483343 TON',
-    icon:
-      'http://proxy.ton.services/service-buckets/file/payment/5f7efc9093c208a9a6df985c_2020-12-31T07:07:02Z_a66d95.jpeg',
-    onClickWallet: action('onClick'),
+    type: 'transfer-from',
+    createdDate: '25.05.19, 19:46',
+    amount: 0.00034,
+    amountInUSD: 1.98,
+    currency: 'USDT',
   },
   {
     id: 3,
-    walletName: 'USDT',
-    additionalInfo: '8320.32 USDT',
-    icon:
-      'http://proxy.ton.services/service-buckets/file/payment/5f72545a1a67f552a048c810_2020-12-17T16:33:09Z_0b22ad.png',
-    onClickWallet: action('onClick'),
+    type: 'transfer-to',
+    createdDate: '25.05.19, 19:46',
+    amount: 23.12312,
+    amountInUSD: 1233.98,
+    currency: 'ETH',
+    dealNumber: 23,
+  },
+  {
+    id: 4,
+    type: 'transfer-from',
+    createdDate: '25.05.19, 19:46',
+    amount: 0.00034,
+    amountInUSD: 1.98,
+    currency: 'BTC',
+  },
+  {
+    id: 5,
+    type: 'transfer-from',
+    createdDate: '25.05.19, 19:46',
+    amount: 0.00034,
+    amountInUSD: 1.98,
+    currency: 'USDT',
+    dealNumber: 234,
+  },
+  {
+    id: 6,
+    type: 'transfer-to',
+    createdDate: '25.05.19, 19:46',
+    amount: 23.12312,
+    amountInUSD: 1233.98,
+    currency: 'ETH',
   },
 ];
 
 storiesOf('Списки', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
-  .add('Списко кошельков на дашборде', () => (
-    <DashboardCryptoWalletList wallets={wallets} />
+  .add('Список транзакций на дашборде', () => (
+    <TransactionsList transactions={transactions} />
   ));

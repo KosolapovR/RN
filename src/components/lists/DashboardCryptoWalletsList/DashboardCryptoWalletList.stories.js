@@ -14,23 +14,24 @@ const wallets = [
   },
   {
     id: 2,
-    walletName: 'ETH',
-    additionalInfo: '1.13483343 ETH',
+    walletName: 'TON',
+    additionalInfo: '1.13483343 TON',
     icon:
-      'https://www.google.com/url?sa=i&url=https%3A%2F%2Fru.m.wikipedia.org%2Fwiki%2F%25D0%25A4%25D0%25B0%25D0%25B9%25D0%25BB%3AETHEREUM-YOUTUBE-PROFILE-PIC.png&psig=AOvVaw23NIYhzcXdKJFAo0KlmgMj&ust=1614958657725000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLCB9fr7lu8CFQAAAAAdAAAAABAI',
+      'http://proxy.ton.services/service-buckets/file/payment/5f7efc9093c208a9a6df985c_2020-12-31T07:07:02Z_a66d95.jpeg',
     onClickWallet: action('onClick'),
   },
   {
     id: 3,
     walletName: 'USDT',
     additionalInfo: '8320.32 USDT',
-    icon: 'https://4bitcoin.co.uk/wp-content/uploads/2018/06/Tether-Logo.png',
+    icon:
+      'http://proxy.ton.services/service-buckets/file/payment/5f72545a1a67f552a048c810_2020-12-17T16:33:09Z_0b22ad.png',
     onClickWallet: action('onClick'),
   },
 ];
 
 storiesOf('Списки', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
-  .add('Списко кошельков на дашборде', () => (
+  .add('Список кошельков на дашборде', () => (
     <DashboardCryptoWalletList wallets={wallets} />
   ));

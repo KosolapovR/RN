@@ -27,9 +27,14 @@ const CryptoWalletCard = ({
   onClickWallet,
   onClickSendMoney,
   onClickReceiveMoney,
+  isDashboard,
 }) => {
   return (
-    <CardContainer padding={15} onPress={onClickWallet}>
+    <CardContainer
+      padding={15}
+      marginRight={isDashboard && 20}
+      onPress={onClickWallet}
+      style={isDashboard && {alignSelf: 'flex-start'}}>
       <RowSpaceBetween>
         <Row>
           <StyledIcon
@@ -42,17 +47,21 @@ const CryptoWalletCard = ({
             <PrimaryText>{additionalInfo}</PrimaryText>
           </View>
         </Row>
-        <Row>
-          <IconButton
-            onClick={onClickSendMoney}
-            containerStyles={{marginRight: 10}}
-            icon={<SendIcon width={17} height={17} style={{opacity: 0.6}} />}
-          />
-          <IconButton
-            onClick={onClickReceiveMoney}
-            icon={<ReceiveIcon width={17} height={17} style={{opacity: 0.6}} />}
-          />
-        </Row>
+        {!isDashboard && (
+          <Row>
+            <IconButton
+              onClick={onClickSendMoney}
+              containerStyles={{marginRight: 10}}
+              icon={<SendIcon width={17} height={17} style={{opacity: 0.6}} />}
+            />
+            <IconButton
+              onClick={onClickReceiveMoney}
+              icon={
+                <ReceiveIcon width={17} height={17} style={{opacity: 0.6}} />
+              }
+            />
+          </Row>
+        )}
       </RowSpaceBetween>
     </CardContainer>
   );
@@ -65,6 +74,7 @@ CryptoWalletCard.propTypes = {
   onClickSendMoney: PropTypes.func,
   onClickReceiveMoney: PropTypes.func,
   onClickWallet: PropTypes.func,
+  isDashboard: PropTypes.bool,
 };
 
 CryptoWalletCard.defaultProps = {
@@ -72,6 +82,7 @@ CryptoWalletCard.defaultProps = {
   onClickSendMoney: () => {},
   onClickReceiveMoney: () => {},
   onClickWallet: () => {},
+  isDashboard: false,
 };
 
 export default CryptoWalletCard;

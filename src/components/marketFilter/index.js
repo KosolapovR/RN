@@ -3,27 +3,16 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import styled, {ThemeContext} from 'styled-components/native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import styled from 'styled-components/native';
 
-import {PrimaryBoldText, RowSpaceBetween} from 'components/styled';
 import BasicButton from 'components/buttons/BasicButton';
 import CheckBoxField from 'components/fields/CheckBoxField';
 import RangeField from 'components/fields/RangeField';
-import IconButton from 'components/buttons/IconButton';
-
-const Container = styled.ScrollView``;
-
-const Header = styled(RowSpaceBetween)`
-  padding: 15px 20px;
-  height: 50px;
-  background-color: ${(props) =>
-    props.theme.main.backgroundColors.primaryLighter};
-  border-top-left-radius: ${(props) => props.theme.main.borderRadius};
-  border-top-right-radius: ${(props) => props.theme.main.borderRadius};
-`;
+import ModalHeader from 'components/blocks/ModalHeader';
+import {ModalBody} from 'components/styled';
 
 const Body = styled.View`
   padding: 20px;
@@ -43,8 +32,6 @@ const MarketFilter = ({
   availableMinDealsCount,
   availableMaxDealsCount,
 }) => {
-  const theme = useContext(ThemeContext);
-
   const [lowRate, setLowRate] = useState(availableMinRate);
   const [highRate, setHighRate] = useState(availableMaxRate);
   const [lowResponseTime, setLowResponseTime] = useState(
@@ -80,24 +67,10 @@ const MarketFilter = ({
       behavior="padding"
       keyboardVerticalOffset={100}
       style={{flex: 1}}>
-      <TouchableWithoutFeedback
-        onPress={Keyboard.dismiss}
-        style={{backgroundColor: 'white'}}>
-        <Container>
-          <Header>
-            <PrimaryBoldText>Фильтры</PrimaryBoldText>
-            <IconButton
-              onClick={onClose}
-              icon={
-                <Icon
-                  name="close"
-                  size={16}
-                  color={theme.main.colors.secondary}
-                />
-              }
-            />
-          </Header>
-          <Body>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView>
+          <ModalHeader title="Фильтры" onClose={onClose} />
+          <ModalBody>
             <RangeField
               label={`Курс (${currencyAlias})`}
               min={+availableMinRate}
@@ -144,8 +117,8 @@ const MarketFilter = ({
               title="Применить"
               color={'primary'}
             />
-          </Body>
-        </Container>
+          </ModalBody>
+        </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );

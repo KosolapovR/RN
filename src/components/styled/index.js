@@ -53,8 +53,31 @@ const WhiteText = styled(StyledText)`
 const WhiteBoldText = styled(WhiteText)`
   font-weight: bold;
 `;
+const WhiteExtraLargeText = styled(WhiteText)`
+  font-size: 18px;
+`;
+
+const GreenText = styled(StyledText)`
+  color: ${(props) => props.theme.main.colors.green};
+`;
+
+const BlueText = styled(StyledText)`
+  color: ${(props) => props.theme.main.colors.blue};
+`;
+
+const RedText = styled(StyledText)`
+  color: ${(props) => props.theme.main.colors.error};
+`;
+
+const BlueBoldText = styled(BlueText)`
+  font-weight: bold;
+`;
 
 const CardContainer = styled.TouchableOpacity`
+  margin-right: ${(props) =>
+    typeof props.marginRight !== 'undefined'
+      ? `${props.marginRight}px`
+      : '0px'};
   background-color: ${(props) =>
     props.theme.main.backgroundColors.primaryLighter};
   border-radius: ${(props) => props.theme.main.borderRadius};
@@ -62,9 +85,15 @@ const CardContainer = styled.TouchableOpacity`
     typeof props.padding !== 'undefined' ? `${props.padding}px` : '0px'};
 `;
 
+const Column = styled.View``;
+const ColumnAlignCenter = styled(Column)`
+  align-items: center;
+`;
 const Row = styled.View`
   flex-direction: row;
   align-items: center;
+  padding-bottom: ${(props) =>
+    props.paddingBottom ? `${props.paddingBottom}px` : 0};
 `;
 
 const RowEnd = styled(Row)`
@@ -74,7 +103,17 @@ const RowEnd = styled(Row)`
 const RowSpaceBetween = styled(Row)`
   justify-content: space-between;
   opacity: ${(props) => (props.halfOpacity ? 0.5 : 1)};
-  padding-bottom: ${(props) => (props.paddingBottom ? props.paddingBottom : 0)};
+`;
+
+const RowSpaceAround = styled(Row)`
+  justify-content: space-around;
+`;
+
+const ModalBody = styled.View`
+  padding: 20px;
+  background-color: ${(props) => props.theme.main.backgroundColors.primary};
+  border-bottom-left-radius: ${(props) => props.theme.main.borderRadius};
+  border-bottom-right-radius: ${(props) => props.theme.main.borderRadius};
 `;
 
 export {
@@ -89,8 +128,17 @@ export {
   SecondaryTextSmall,
   WhiteText,
   WhiteBoldText,
+  WhiteExtraLargeText,
+  GreenText,
+  BlueText,
+  BlueBoldText,
+  RedText,
   CardContainer,
+  Column,
+  ColumnAlignCenter,
   Row,
   RowSpaceBetween,
+  RowSpaceAround,
   RowEnd,
+  ModalBody,
 };

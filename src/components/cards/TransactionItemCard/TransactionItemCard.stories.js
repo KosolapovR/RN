@@ -1,17 +1,42 @@
 import {storiesOf} from '@storybook/react-native';
 import CenterView from '../../../../storybook/stories/CenterView';
 import {action} from '@storybook/addon-actions';
-import {text, number} from '@storybook/addon-knobs';
+import {text, number, select} from '@storybook/addon-knobs';
 import React from 'react';
-import SubscriptionCard from './index';
+import TransactionItemCard from './index';
 
 storiesOf('Карточки', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
-  .add('Подписка', () => (
-    <SubscriptionCard
-      description={text('description', 'Покупка BTC/Яндекс Деньги')}
-      count={number('count', 0)}
-      onEdit={action('onEdit')}
-      additionalInfo={'1 BTC > 2 690 000 RUB'}
+  .add('Транзакция с переводом', () => (
+    <TransactionItemCard
+      type={select(
+        'type',
+        {
+          'transfer-from': 'transfer-from',
+          'transfer-to': 'transfer-to',
+        },
+        'transfer-from',
+      )}
+      createdDate={text('createdDate', '25.05.19, 19:46')}
+      amount={number('amount', 0.00034)}
+      amountInUSD={number('amountInUSD', 1.98)}
+      currency={text('currency', 'BTC')}
+    />
+  ))
+  .add('Транзакция по сделке', () => (
+    <TransactionItemCard
+      type={select(
+        'type',
+        {
+          'transfer-from': 'transfer-from',
+          'transfer-to': 'transfer-to',
+        },
+        'transfer-from',
+      )}
+      createdDate={text('createdDate', '25.05.19, 19:46')}
+      amount={number('amount', 0.00034)}
+      amountInUSD={number('amountInUSD', 1.98)}
+      dealNumber={number('dealNumber', 233)}
+      currency={text('currency', 'BTC')}
     />
   ));

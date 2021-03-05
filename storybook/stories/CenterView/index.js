@@ -13,13 +13,15 @@ import {Provider} from 'react-redux';
 import theme from 'theme';
 import store from '../../../src/configureStore';
 
-export default function CenterView({children}) {
+export default function CenterView({children, black}) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <SafeAreaView style={styles.container}>
           <StatusBar backgroundColor="#141416" />
-          <View style={styles.content}>{children}</View>
+          <View style={black ? styles.blackContent : styles.content}>
+            {children}
+          </View>
         </SafeAreaView>
       </ThemeProvider>
     </Provider>
@@ -47,6 +49,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     backgroundColor: '#141416',
+  },
+  blackContent: {
+    padding: 20,
+    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: '#000000',
   },
 });
 

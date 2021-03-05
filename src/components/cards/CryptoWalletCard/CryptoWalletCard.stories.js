@@ -17,4 +17,13 @@ storiesOf('Карточки', module)
       onClickSendMoney={action('onClickSendMoney')}
       onClickWallet={action('onClickWallet')}
     />
+  ))
+  .add('Карточка криптокошелка на дашборде', () => (
+    <CryptoWalletCard
+      walletName={text('walletName', 'Bitcoin')}
+      additionalInfo={text('additionalInfo', '202.73232323 BTC')}
+      icon={text('icon', 'https://pngicon.ru/file/uploads/ikonka-bitkoin.png')}
+      onClickWallet={action('onClickWallet')}
+      isDashboard={true}
+    />
   ));

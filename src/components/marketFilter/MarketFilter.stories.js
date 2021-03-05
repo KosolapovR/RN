@@ -7,7 +7,7 @@ import {number, text} from '@storybook/addon-knobs';
 import {action} from '@storybook/addon-actions';
 
 storiesOf('Фильтр', module)
-  .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
+  .addDecorator((getStory) => <CenterView black>{getStory()}</CenterView>)
 
   .add('Обычный', () => (
     <MarketFilter

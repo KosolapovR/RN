@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import CodeInput from 'react-native-code-input';
 import {ThemeContext} from 'styled-components';
@@ -7,18 +7,28 @@ import {SecondaryText} from '../../styled';
 
 const windowWidth = Dimensions.get('window').width;
 
-const CodeField = ({onFinishCheckingCode, label}) => {
+const CodeField = ({onFinishCheckingCode, label, codeCount}) => {
   const theme = useContext(ThemeContext);
 
   const _onFinishCheckingCode = (v) => {
     onFinishCheckingCode(v);
   };
 
-  const codeCount = 6;
   const paddingRight = 20;
   const paddingLeft = 20;
-  const spaceBetweenCell = 8;
+  const spaceBetweenCell = 15;
+  const size = useMemo(() => {
+    const calculated =
+      (windowWidth -
+        paddingRight -
+        paddingLeft -
+        (codeCount - 1) * spaceBetweenCell) /
+      codeCount;
+    console.log(calculated);
+    const max = 60;
 
+    return Math.min([calculated, max]);
+  }, [windowWidth, codeCount]);
   return (
     <>
       {label && <SecondaryText>{label}</SecondaryText>}
@@ -27,13 +37,7 @@ const CodeField = ({onFinishCheckingCode, label}) => {
         codeLength={codeCount}
         borderType="border-circle"
         autoFocus={false}
-        size={
-          (windowWidth -
-            paddingRight -
-            paddingLeft -
-            (codeCount - 1) * spaceBetweenCell) /
-          codeCount
-        }
+        size={size ? size : 50}
         space={spaceBetweenCell}
         containerStyle={{flex: 0, marginBottom: 30}}
         codeInputStyle={{
@@ -51,10 +55,12 @@ const CodeField = ({onFinishCheckingCode, label}) => {
 CodeField.propTypes = {
   onFinishCheckingCode: PropTypes.func.isRequired,
   label: PropTypes.string,
+  codeCount: PropTypes.number,
 };
 
 CodeField.defaultProps = {
   label: null,
+  codeCount: 6,
 };
 
 export default CodeField;
