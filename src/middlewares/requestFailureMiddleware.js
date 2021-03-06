@@ -1,15 +1,12 @@
 import _ from 'lodash';
-import {
-  actionTypes,
-  updateResults,
-  updateEntities,
-} from '@digitalwing.co/redux-query-immutable';
+
 // import {errorMessages as EM, errorCodes as EC} from 'shared';
 import {Map} from 'immutable';
 import store from '../configureStore';
 import i18n from '../i18next';
+import {Alert} from 'react-native';
 
-const handleErrorMessage = action => {
+const handleErrorMessage = (action) => {
   let message = _.get(action, 'responseBody.data');
   if (typeof message !== 'string') {
     message = _.get(action, 'responseBody.data.message');
@@ -56,18 +53,19 @@ const handleErrorMessage = action => {
  *
  * @return {void}
  */
-export default () => next => action => {
-  if (action.type === actionTypes.REQUEST_FAILURE) {
+export default () => (next) => (action) => {
+  if (action.type === '@@query/REQUEST_FAILURE') {
     if (action.status === 401) {
+      Alert.alert('Ошибка', 'Сессия истекла');
       // if (token.getToken()) {
       //   if (!toastClass.isActive('apiError')) {
       //     toast.warning(i18n.t('API_ERRORS.SESSION'), 'apiError');
       //   }
       //   token.removeToken();
       // }
-      store.dispatch(updateEntities({user: Map()}));
-      store.dispatch(updateResults({user: ''}));
     } else {
+      Alert.alert('Ошибка', 'Какая то ошибка...');
+
       handleErrorMessage(action);
 
       const {errorCallback} = action.meta;

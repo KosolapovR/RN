@@ -14,9 +14,14 @@ storiesOf('Модалки', module)
       amount={0.00321}
       amountInUSD={1.98}
       date="2021-03-02T15:57:21.781Z"
-      minConfirmations={10}
-      countOfConfirmations={1234}
+      minConfirmations={number('minConfirmations', 10)}
+      countOfConfirmations={('countOfConfirmations', 3)}
       currency={'BTC'}
       hash="LVGbddKk3uKhqfGKz7X7n6dTZbEHE832y"
+      address="LVGbddKk3uKhqfGKz7X7n6dTZbEHE832y"
+      partnerAddress="LVGbddKk3uKhqfGKz7X7n6dTZbEHE832y"
+      dealNumber={2}
+      dealId="2"
+      onClose={action('onClose')}
     />
   ));

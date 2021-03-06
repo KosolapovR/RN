@@ -1,5 +1,4 @@
-import { Iterable } from 'immutable';
-import { actionTypes } from '@digitalwing.co/redux-query-immutable';
+import {Iterable} from 'immutable';
 
 /**
  * Добавляем стандартные поля к каждому запросу:
@@ -10,10 +9,9 @@ import { actionTypes } from '@digitalwing.co/redux-query-immutable';
  *
  * @return {void}
  */
-export default () => next => (action) => {
-  if ((action.type === actionTypes.REQUEST_ASYNC)
-    || (action.type === actionTypes.MUTATE_ASYNC)
-  ) {
+export default () => (next) => (action) => {
+  if (action.type || action.type) {
+    console.log('actionType = ', action.type);
     const callAPI = action;
 
     if (!action.force) {

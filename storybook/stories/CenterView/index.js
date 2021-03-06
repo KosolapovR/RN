@@ -9,21 +9,26 @@ import {
 } from 'react-native';
 import {ThemeProvider} from 'styled-components/native';
 import {Provider} from 'react-redux';
+import {Provider as ReduxQueryProvider} from 'redux-query-react';
 
 import theme from 'theme';
 import store from '../../../src/configureStore';
 
+export const getQueries = (state) => state.queries;
+
 export default function CenterView({children, black}) {
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <SafeAreaView style={styles.container}>
-          <StatusBar backgroundColor="#141416" />
-          <View style={black ? styles.blackContent : styles.content}>
-            {children}
-          </View>
-        </SafeAreaView>
-      </ThemeProvider>
+      <ReduxQueryProvider queriesSelector={getQueries}>
+        <ThemeProvider theme={theme}>
+          <SafeAreaView style={styles.container}>
+            <StatusBar backgroundColor="#141416" />
+            <View style={black ? styles.blackContent : styles.content}>
+              {children}
+            </View>
+          </SafeAreaView>
+        </ThemeProvider>
+      </ReduxQueryProvider>
     </Provider>
   );
 }

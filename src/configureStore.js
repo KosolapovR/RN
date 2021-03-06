@@ -1,7 +1,10 @@
-import {createStore, applyMiddleware} from 'redux';
-import {queryMiddleware} from '@digitalwing.co/redux-query-immutable';
-import {createLogger} from 'redux-logger';
-import reducers, {getQueries, getEntities, getResults} from './reducers';
+import {createStore, applyMiddleware, combineReducers} from 'redux';
+import {entitiesReducer, queriesReducer, queryMiddleware} from 'redux-query';
+import superagentInterface from 'redux-query-interface-superagent';
+import {logger} from 'redux-logger';
+
+import {reducer as form} from 'redux-form';
+
 import {
   authTokenMiddleware,
   requestStartMiddleware,
@@ -9,7 +12,15 @@ import {
   requestSuccessMiddleware,
   pinCodeMiddleWare,
 } from './middlewares';
-import {Iterable} from 'immutable';
+
+const getQueries = (state) => state.queries;
+const getEntities = (state) => state.entities;
+
+const reducers = combineReducers({
+  form,
+  entities: entitiesReducer,
+  queries: queriesReducer,
+});
 
 const configureStore = () => {
   let middlewares = [
@@ -18,18 +29,11 @@ const configureStore = () => {
     requestFailureMiddleware,
     requestSuccessMiddleware,
     pinCodeMiddleWare,
-    queryMiddleware(getQueries, getEntities, getResults),
+    queryMiddleware(superagentInterface, getQueries, getEntities),
   ];
 
-  const stateTransformer = (state) => {
-    if (Iterable.isIterable(state)) {
-      return state.toJS();
-    }
-    return state;
-  };
-
-  if (process.env.NODE_ENV !== 'production') {
-    // middlewares = [...middlewares, createLogger({stateTransformer})];
+  if (__DEV__) {
+    // middlewares = [...middlewares, logger];
   }
 
   middlewares = applyMiddleware(...middlewares);

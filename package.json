@@ -16,7 +16,6 @@
     "clear-cache": "watchman watch-del-all && rm -f yarn.lock && rm -rf node_modules && yarn && yarn start --reset-cache"
   },
   "dependencies": {
-    "@digitalwing.co/redux-query-immutable": "2.4.13",
     "@react-native-async-storage/async-storage": "1.13.4",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "5.9.3",
@@ -25,9 +24,9 @@
     "i18next": "19.8.9",
     "i18next-http-backend": "1.1.0",
     "immutable": "4.0.0-rc.12",
-    "jest-static-stubs": "^0.0.1",
     "lodash": "4.17.20",
     "moment": "2.29.1",
+    "normalizr": "3.6.1",
     "react": "16.13.1",
     "react-i18next": "11.8.7",
     "react-native": "0.63.4",
@@ -47,8 +46,11 @@
     "redux-form": "8.3.7",
     "redux-immutable": "4.0.0",
     "redux-logger": "3.0.6",
+    "redux-query": "3.4.2",
+    "redux-query-interface-superagent": "3.4.2",
+    "redux-query-react": "3.4.2",
     "rn-range-slider": "2.0.4",
-    "styled-components": "^5.2.1"
+    "styled-components": "5.2.1"
   },
   "devDependencies": {
     "@babel/core": "7.13.1",

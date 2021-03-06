@@ -3,7 +3,7 @@ export default {
     colors: {
       primary: '#b5b5b5',
       secondary: '#b5b5b588',
-      error: 'red',
+      error: '#ff4258',
       orange: '#f7924e',
       blue: '#006fee',
       green: '#6eab27',

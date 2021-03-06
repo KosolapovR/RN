@@ -3,7 +3,7 @@
  * Shallow equal function for useSelector react-redux hook,
  * which works correct with immutable store
  */
-import { isImmutable } from 'immutable';
+import {isImmutable} from 'immutable';
 
 var hasOwn = Object.prototype.hasOwnProperty;
 
@@ -35,7 +35,12 @@ function is(x, y) {
 export default function shallowEqual(objA, objB) {
   if (isForStore(objA, objB)) return true;
 
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+  if (
+    typeof objA !== 'object' ||
+    objA === null ||
+    typeof objB !== 'object' ||
+    objB === null
+  ) {
     return false;
   }
 

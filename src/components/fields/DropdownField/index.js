@@ -8,10 +8,12 @@ import Animated, {
   withSpring,
   withTiming,
   Easing,
+  withRepeat,
 } from 'react-native-reanimated';
 
 import {SecondaryText} from 'components/styled';
 import Arrow from 'assets/img/arrows/arrow-down-white.svg';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Container = styled.View`
   align-self: stretch;
@@ -81,11 +83,7 @@ const DropdownField = ({
 
   const arrowAnimatedStyles = useAnimatedStyle(() => {
     return {
-      transform: [
-        {
-          rotateZ: `${rotation.value}deg`,
-        },
-      ],
+      transform: [{rotateZ: `${rotation.value}deg`}],
       alignSelf: 'flex-end',
       position: 'absolute',
       top: arrowTop.value,
@@ -97,25 +95,11 @@ const DropdownField = ({
     if (isDropdownOpen) {
       offset.value = withSpring(20);
       opacity.value = withSpring(1);
-      rotation.value = withTiming(180, {
-        duration: 250,
-        easing: Easing.ease,
-      });
-      arrowTop.value = withTiming(15, {
-        duration: 250,
-        easing: Easing.ease,
-      });
+      rotation.value = withTiming(-180);
     } else {
       offset.value = withSpring(0);
       opacity.value = withSpring(0);
-      rotation.value = withTiming(0, {
-        duration: 250,
-        easing: Easing.ease,
-      });
-      arrowTop.value = withTiming(20, {
-        duration: 250,
-        easing: Easing.ease,
-      });
+      rotation.value = withTiming(0);
     }
   }, [isDropdownOpen]);
 
@@ -137,9 +121,20 @@ const DropdownField = ({
           <StyledInput readOnly={readOnly} isDisabled={isDisabled}>
             {selectedItem ? selectedItem : placeholder}
           </StyledInput>
-          <Animated.Text style={[arrowAnimatedStyles]}>
-            <Arrow />
-          </Animated.Text>
+          <Animated.View
+            style={[
+              arrowAnimatedStyles,
+              {
+                position: 'absolute',
+                right: 10,
+                bottom: 0,
+                top: 0,
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+            ]}>
+            <Icon size={12} name="chevron-down" color="#b1b1b1" />
+          </Animated.View>
         </InputWrapper>
         <Animated.View style={[animatedStyles]}>
           {isDropdownOpen && (
