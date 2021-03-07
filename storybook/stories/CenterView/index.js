@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {ThemeProvider} from 'styled-components/native';
 import {Provider} from 'react-redux';
-import {Provider as ReduxQueryProvider} from 'redux-query-react';
+import {Provider as ReduxQueryProvider} from 'redux-query-immutable-react';
 
 import theme from 'theme';
 import store from '../../../src/configureStore';

@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo} from 'react';
 import PropTypes from 'prop-types';
-import {useRequest, useMutation} from 'redux-query-react';
+import {useRequest} from 'redux-query-immutable-react';
 
 import {
   RedText,
@@ -19,6 +19,10 @@ import moment from 'moment/moment';
 import TransactionType from 'components/modals/TransactionModal/TransactionType';
 import {get2faCodesRequest} from 'api/auth/get2faCodes';
 import ConfirmationStatus from 'components/modals/TransactionModal/ConfirmationStatus';
+import * as Alert from 'react-native';
+import {getCryptocurrencies} from 'api/resources';
+import {useDispatch} from 'react-redux';
+import {requestAsync} from 'redux-query-immutable/src/actions';
 
 function TransactionModal({
   onClose,
@@ -39,9 +43,14 @@ function TransactionModal({
   fromUsername,
   minConfirmations,
 }) {
+  const dispatch = useDispatch();
+
+  const handleClose = () => {
+    dispatch(requestAsync(getCryptocurrencies()));
+  };
   return (
     <Column>
-      <ModalHeader title="Детали транзакции" onClose={onClose} />
+      <ModalHeader title="Детали транзакции" onClose={handleClose} />
       <ModalBody>
         <RowSpaceBetween paddingBottom={10}>
           <SecondaryText>Тип:</SecondaryText>

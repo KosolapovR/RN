@@ -5,7 +5,7 @@ import endpoints from 'api/endpoints';
  * @param successCallback {Function}
  */
 
-export const get2faCodesRequest = ({body, errorCallback}) => {
+export const get2faCodesRequest = ({errorCallback}) => {
   console.log('request');
   return {
     url: endpoints.get2faCodesUrl(),

@@ -11992,6 +11992,29 @@ redux-logger@3.0.6:
   dependencies:
     deep-diff "^0.3.5"
 
+redux-query-immutable-interface-superagent@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/redux-query-immutable-interface-superagent/-/redux-query-immutable-interface-superagent-3.0.6.tgz#0880ca65359b6b9b5189465f8d865a64c18245e7"
+  integrity sha512-KwfhAH++xqQur9j17btb1coCm1R1W5NyXkvCd4dkCIQMDYHDfjdcLuAMrhOYRwqNewL7si09fqnUDk72GOkijg==
+  dependencies:
+    superagent "^5.0.6"
+
+redux-query-immutable-react@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/redux-query-immutable-react/-/redux-query-immutable-react-3.0.6.tgz#f1f8b061fc5247d564a5c004fabea3bccb22e16e"
+  integrity sha512-EagcVoIUX2io/ttORha68m252cH3H6PYZ4zQt59gKJxeg27GnoR0WZqxvmHr1Ea5DojZhKBdm6S2bXA5K5C58A==
+  dependencies:
+    hoist-non-react-statics "^3.3.0"
+
+redux-query-immutable@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/redux-query-immutable/-/redux-query-immutable-3.0.6.tgz#5a5cf59b1a1123b041aaa4cc5afa3c93965243fd"
+  integrity sha512-AJ+fJ7mR/ajcnLfdy/cXqB/F1Fd7d4+MrBKzTN6RyT+WmpkX6CwjIViGZDOQjRPeAV8AHZDavGuor2aQ6JHpww==
+  dependencies:
+    backo "^1.1.0"
+    invariant "^2.2.0"
+    json-stable-stringify "^1.0.0"
+
 redux-query-interface-superagent@3.4.2:
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/redux-query-interface-superagent/-/redux-query-interface-superagent-3.4.2.tgz#5daebd37fe903e79324faf30792f019517795e43"

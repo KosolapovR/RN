@@ -1,8 +1,7 @@
-import { requestAsync } from '@digitalwing.co/redux-query-immutable';
-import { normalize } from 'normalizr';
-import { Map } from 'immutable';
+import {normalize} from 'normalizr';
+import {Map} from 'immutable';
 import endpoints from 'api/endpoints';
-import { user } from 'schemas';
+import {user} from 'schemas';
 
 /**
  *
@@ -17,27 +16,30 @@ import { user } from 'schemas';
  * @param {PostSignUp} requestBody
  * @param successCallback {Function}
  */
-export default ({ requestBody, successCallback }) => requestAsync({
-  url: endpoints.getUserUrl(),
-  transform: response => normalize(response.data, user.schema).entities,
-  transformResult: response => ({ user: normalize(response.data, user.schema).result }),
-  queryKey: `getUser${endpoints.getUserUrl()}`,
-  body: requestBody,
-  meta: {
-    errorKey: 'POST_LOGIN',
-    successCallback,
-  },
-  options: {
-    headers: {
-      Accept: 'application/json',
+export default ({requestBody, successCallback}) =>
+  requestAsync({
+    url: endpoints.getUserUrl(),
+    transform: (response) => normalize(response.data, user.schema).entities,
+    transformResult: (response) => ({
+      user: normalize(response.data, user.schema).result,
+    }),
+    queryKey: `getUser${endpoints.getUserUrl()}`,
+    body: requestBody,
+    meta: {
+      errorKey: 'POST_LOGIN',
+      successCallback,
     },
-    method: 'POST',
-  },
-  update: {
-    user: (prevEntities = Map(), nextEntities) =>
-      prevEntities.merge(nextEntities),
-  },
-  updateResult: {
-    user: (_, result) => result,
-  },
-});
+    options: {
+      headers: {
+        Accept: 'application/json',
+      },
+      method: 'POST',
+    },
+    update: {
+      user: (prevEntities = Map(), nextEntities) =>
+        prevEntities.merge(nextEntities),
+    },
+    updateResult: {
+      user: (_, result) => result,
+    },
+  });

@@ -1,7 +1,10 @@
 import {createStore, applyMiddleware, combineReducers} from 'redux';
-import {entitiesReducer, queriesReducer, queryMiddleware} from 'redux-query';
-import superagentInterface from 'redux-query-interface-superagent';
-import {logger} from 'redux-logger';
+import {
+  entitiesReducer,
+  queriesReducer,
+  queryMiddleware,
+} from 'redux-query-immutable';
+import superagentInterface from 'redux-query-immutable-interface-superagent';
 
 import {reducer as form} from 'redux-form';
 
@@ -12,6 +15,8 @@ import {
   requestSuccessMiddleware,
   pinCodeMiddleWare,
 } from './middlewares';
+import {createLogger} from 'redux-logger';
+import Immutable, {Iterable} from 'immutable';
 
 const getQueries = (state) => state.queries;
 const getEntities = (state) => state.entities;
@@ -32,8 +37,24 @@ const configureStore = () => {
     queryMiddleware(superagentInterface, getQueries, getEntities),
   ];
 
+  const logger = createLogger({
+    stateTransformer: (state) => {
+      let newState = {};
+
+      for (let i of Object.keys(state)) {
+        if (Immutable.Iterable.isIterable(state[i])) {
+          newState[i] = state[i].toJS();
+        } else {
+          newState[i] = state[i];
+        }
+      }
+
+      return newState;
+    },
+  });
+
   if (__DEV__) {
-    // middlewares = [...middlewares, logger];
+    middlewares = [...middlewares, logger];
   }
 
   middlewares = applyMiddleware(...middlewares);

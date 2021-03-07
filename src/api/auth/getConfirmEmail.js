@@ -1,8 +1,7 @@
-import { requestAsync } from '@digitalwing.co/redux-query-immutable';
-import { normalize } from 'normalizr';
+import {normalize} from 'normalizr';
 import endpoints from 'api/endpoints';
-import { user } from 'schemas';
-import { Map } from 'immutable';
+import {user} from 'schemas';
+import {Map} from 'immutable';
 
 /**
  *
@@ -12,36 +11,31 @@ import { Map } from 'immutable';
  * @param successCallback {Function}
  * @param errorCallback {Function}
  */
-export default ({
-  token,
-  email,
-  prevEmail,
-  successCallback,
-  errorCallback,
-}) => requestAsync({
-  url: endpoints.getConfirmEmailUrl({ email, prevEmail }),
-  transform: response => normalize(response.data, user.schema).entities,
-  transformResult: response => ({
-    user: normalize(response.data, user.schema).result,
-  }),
-  meta: {
-    errorKey: 'GET_CONFIRM_EMAIL',
-    successCallback,
-    errorCallback,
-  },
-  queryKey: endpoints.getConfirmEmailUrl(),
-  options: {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
+export default ({token, email, prevEmail, successCallback, errorCallback}) =>
+  requestAsync({
+    url: endpoints.getConfirmEmailUrl({email, prevEmail}),
+    transform: (response) => normalize(response.data, user.schema).entities,
+    transformResult: (response) => ({
+      user: normalize(response.data, user.schema).result,
+    }),
+    meta: {
+      errorKey: 'GET_CONFIRM_EMAIL',
+      successCallback,
+      errorCallback,
     },
-    method: 'GET',
-  },
-  update: {
-    user: (prevEntities = Map(), nextEntities) =>
-      prevEntities.merge(nextEntities),
-  },
-  updateResult: {
-    user: (_, result) => result,
-  },
-});
+    queryKey: endpoints.getConfirmEmailUrl(),
+    options: {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      method: 'GET',
+    },
+    update: {
+      user: (prevEntities = Map(), nextEntities) =>
+        prevEntities.merge(nextEntities),
+    },
+    updateResult: {
+      user: (_, result) => result,
+    },
+  });
