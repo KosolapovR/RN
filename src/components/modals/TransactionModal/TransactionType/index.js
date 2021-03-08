@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from '@react-navigation/native';
 
-import {TYPE_TRANSACTION} from 'shared/consts';
+import {TRANSACTION_TYPES} from 'shared/consts';
 
-import {BlueBoldText, Row} from 'components/styled';
+import {BlueBoldText, PrimaryText, Row} from 'components/styled';
 
 function TransactionType({
   type,
@@ -14,32 +14,41 @@ function TransactionType({
   fromUserId,
   fromUsername,
   dealNumber,
-  date,
 }) {
-  return (
-    <Row>
-      {dealId ? (
+  if (dealId) {
+    return (
+      <Row>
         <BlueBoldText>
           <Link to={`/deals/${dealId}`}>Сделка #{dealNumber}</Link>
         </BlueBoldText>
-      ) : toUserId && fromUserId ? (
-        type === TYPE_TRANSACTION.TRANSFER_FROM ? (
-          <>
-            <Row>
-              <Link to={`/user/${toUsername}`}>{toUsername}</Link>
-            </Row>
-          </>
-        ) : (
-          <>
-            <Link to={`/user/${fromUsername}`}>{fromUsername}</Link>
-          </>
-        )
-      ) : type === TYPE_TRANSACTION.TRANSFER_FROM ? (
-        'SENDING'
-      ) : (
-        'RECEIVING'
-      )}
-    </Row>
+      </Row>
+    );
+  }
+  if (fromUserId && fromUsername && type === TRANSACTION_TYPES.TRANSFER_FROM) {
+    return (
+      <Row>
+        <PrimaryText paddingRigh={50}>От</PrimaryText>
+        <BlueBoldText>
+          <Link to={`/user/${fromUserId}`}>{fromUsername}</Link>
+        </BlueBoldText>
+      </Row>
+    );
+  }
+
+  if (toUserId && toUsername && type === TRANSACTION_TYPES.TRANSFER_TO) {
+    return (
+      <Row>
+        <PrimaryText paddingRigh={10}>Отправка к </PrimaryText>
+        <BlueBoldText>
+          <Link to={`/user/${toUserId}`}>{toUsername}</Link>
+        </BlueBoldText>
+      </Row>
+    );
+  }
+  return type === TRANSACTION_TYPES.TRANSFER_FROM ? (
+    <PrimaryText>Получение</PrimaryText>
+  ) : (
+    <PrimaryText>Отправка</PrimaryText>
   );
 }
 

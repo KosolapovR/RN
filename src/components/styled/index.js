@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 
 const StyledText = styled.Text`
+  line-height: 22px;
   padding-right: ${(props) =>
     typeof props.paddingRight !== 'undefined'
       ? `${props.paddingRight}px`

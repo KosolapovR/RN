@@ -1,29 +1,36 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {useRequest} from 'redux-query-immutable-react';
-
+import {Pressable} from 'react-native';
 import {
-  RedText,
   Column,
   GreenText,
   ModalBody,
   PrimaryText,
-  RowSpaceBetween,
-  SecondaryText,
+  RedText,
   RowEnd,
+  RowSpaceBetween,
+  SecondaryBoldText,
+  SecondaryText,
   SecondaryTextSmall,
 } from 'components/styled';
-import ModalHeader from 'components/blocks/ModalHeader';
-import {TRANSACTION_TYPES} from 'shared/consts';
 import moment from 'moment/moment';
-import TransactionType from 'components/modals/TransactionModal/TransactionType';
-import {get2faCodesRequest} from 'api/auth/get2faCodes';
-import ConfirmationStatus from 'components/modals/TransactionModal/ConfirmationStatus';
-import * as Alert from 'react-native';
-import {getCryptocurrencies} from 'api/resources';
-import {useDispatch} from 'react-redux';
-import {requestAsync} from 'redux-query-immutable/src/actions';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  Easing,
+} from 'react-native-reanimated';
 
+import {TRANSACTION_TYPES} from 'shared/consts';
+
+import ModalHeader from 'components/blocks/ModalHeader';
+import TransactionType from 'components/modals/TransactionModal/TransactionType';
+import ConfirmationStatus from 'components/modals/TransactionModal/ConfirmationStatus';
+import BasicButton from 'components/buttons/BasicButton';
+
+/**
+ * Transaction modal component
+ */
 function TransactionModal({
   onClose,
   type,
@@ -42,15 +49,48 @@ function TransactionModal({
   fromUserId,
   fromUsername,
   minConfirmations,
+  goToBlockchainExplorer,
 }) {
-  const dispatch = useDispatch();
+  const btnOpacity = useSharedValue(0);
+  const btnHeight = useSharedValue(0);
+  const textOpacity = useSharedValue(1);
+  const textHeight = useSharedValue(40);
 
-  const handleClose = () => {
-    dispatch(requestAsync(getCryptocurrencies()));
+  const animatedButtonStyles = useAnimatedStyle(() => {
+    return {
+      opacity: btnOpacity.value,
+      height: btnHeight.value,
+    };
+  });
+  const animatedTextStyles = useAnimatedStyle(() => {
+    return {
+      opacity: textOpacity.value,
+      height: textHeight.value,
+    };
+  });
+
+  const handleShowMore = () => {
+    btnOpacity.value = withTiming(1, {
+      duration: 250,
+      easing: Easing.cubic,
+    });
+    btnHeight.value = withTiming(40, {
+      duration: 250,
+      easing: Easing.cubic,
+    });
+    textOpacity.value = withTiming(0, {
+      duration: 250,
+      easing: Easing.cubic,
+    });
+    textHeight.value = withTiming(0, {
+      duration: 250,
+      easing: Easing.cubic,
+    });
   };
+
   return (
     <Column>
-      <ModalHeader title="Детали транзакции" onClose={handleClose} />
+      <ModalHeader title="Детали транзакции" onClose={onClose} />
       <ModalBody>
         <RowSpaceBetween paddingBottom={10}>
           <SecondaryText>Тип:</SecondaryText>
@@ -59,6 +99,10 @@ function TransactionModal({
             dealId={dealId}
             dealNumber={dealNumber}
             date={date}
+            toUserId={toUserId}
+            toUsername={toUsername}
+            fromUserId={fromUserId}
+            fromUsername={fromUsername}
           />
         </RowSpaceBetween>
         <RowSpaceBetween>
@@ -95,16 +139,35 @@ function TransactionModal({
           <SecondaryText>Откуда::</SecondaryText>
           <PrimaryText>{partnerAddress}</PrimaryText>
         </Column>
-        <Column paddingBottom={10}>
+        <Column paddingBottom={20}>
           <SecondaryText>Куда:</SecondaryText>
           <PrimaryText>{address}</PrimaryText>
         </Column>
+        {typeof goToBlockchainExplorer === 'function' && (
+          <>
+            <Animated.View style={animatedTextStyles}>
+              <Pressable onPress={handleShowMore}>
+                <SecondaryBoldText>Показать еще</SecondaryBoldText>
+              </Pressable>
+            </Animated.View>
+            <Animated.View style={animatedButtonStyles}>
+              <BasicButton
+                onClick={goToBlockchainExplorer}
+                title="Посмотреть в blockchain explorer"
+                color="primary"
+              />
+            </Animated.View>
+          </>
+        )}
       </ModalBody>
     </Column>
   );
 }
 
 TransactionModal.propTypes = {
+  /**
+   * callback fire when click close button
+   */
   onClose: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   amount: PropTypes.number.isRequired,
@@ -122,6 +185,7 @@ TransactionModal.propTypes = {
   fromUserId: PropTypes.string,
   fromUsername: PropTypes.string,
   minConfirmations: PropTypes.number.isRequired,
+  goToBlockchainExplorer: PropTypes.oneOfType([PropTypes.func, null]),
 };
 
 TransactionModal.defaultProps = {
@@ -131,6 +195,7 @@ TransactionModal.defaultProps = {
   toUsername: '',
   fromUserId: '',
   fromUsername: '',
+  goToBlockchainExplorer: null,
 };
 
 export default TransactionModal;
