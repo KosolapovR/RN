@@ -10,6 +10,12 @@ const StyledText = styled.Text`
     typeof props.paddingBottom !== 'undefined'
       ? `${props.paddingBottom}px`
       : '0px'};
+  padding-left: ${(props) =>
+    typeof props.paddingLeft !== 'undefined'
+      ? `${props.paddingLeft}px`
+      : '0px'};
+  padding-top: ${(props) =>
+    typeof props.paddingTop !== 'undefined' ? `${props.paddingTop}px` : '0px'};
 `;
 const PrimaryText = styled(StyledText)`
   color: ${(props) => props.theme.main.colors.primary};

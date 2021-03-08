@@ -1,7 +1,7 @@
 export default {
   main: {
     colors: {
-      primary: '#b5b5b5',
+      primary: '#b6b6b6',
       secondary: '#b5b5b588',
       error: '#ff4258',
       orange: '#f7924e',

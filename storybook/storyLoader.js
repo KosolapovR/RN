@@ -4,8 +4,10 @@
 // https://github.com/elderfo/react-native-storybook-loader.git
 
 function loadStories() {
+  require('../src/components/blocks/AboutMeBlock/AboutMeBlock.stories');
   require('../src/components/blocks/EmptyBlock/EmptyBlock.stories');
   require('../src/components/blocks/PopoverContent/PopoverContent.stories');
+  require('../src/components/blocks/ProfileTopBlock/ProfileTopBlock.stories');
   require('../src/components/blocks/SelectedCryptoBlock/SelectedCryptoBlock.stories');
   require('../src/components/blocks/WalletHeaderBlock/WalletHeaderBlock.stories');
   require('../src/components/buttons/BasicButton/BasicButton.stories');
@@ -38,8 +40,10 @@ function loadStories() {
 }
 
 const stories = [
+  '../src/components/blocks/AboutMeBlock/AboutMeBlock.stories',
   '../src/components/blocks/EmptyBlock/EmptyBlock.stories',
   '../src/components/blocks/PopoverContent/PopoverContent.stories',
+  '../src/components/blocks/ProfileTopBlock/ProfileTopBlock.stories',
   '../src/components/blocks/SelectedCryptoBlock/SelectedCryptoBlock.stories',
   '../src/components/blocks/WalletHeaderBlock/WalletHeaderBlock.stories',
   '../src/components/buttons/BasicButton/BasicButton.stories',

@@ -50,7 +50,7 @@ const MarketItemCard = ({
         />
         <RowSpaceBetween>
           <SecondaryTextSmall>{dealsCountInfo}</SecondaryTextSmall>
-          <RatingInfo rating={rating} />
+          <RatingInfo rating={rating} small />
         </RowSpaceBetween>
       </RowSpaceBetween>
 
@@ -76,7 +76,7 @@ MarketItemCard.propTypes = {
   directionsInfo: PropTypes.string,
   limitsInfo: PropTypes.string.isRequired,
   rateInfo: PropTypes.string.isRequired,
-  reaction: PropTypes.bool,
+  reaction: PropTypes.number,
 };
 
 MarketItemCard.defaultProps = {

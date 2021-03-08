@@ -32,7 +32,7 @@ const CryptoWalletCard = ({
   return (
     <CardContainer
       padding={15}
-      marginRight={isDashboard && 20}
+      marginRight={isDashboard ? 20 : 0}
       onPress={onClickWallet}
       style={isDashboard && {alignSelf: 'flex-start'}}>
       <RowSpaceBetween>

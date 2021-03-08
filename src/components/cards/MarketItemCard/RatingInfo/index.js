@@ -4,13 +4,13 @@ import {View} from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {PrimarySmallText, Row} from 'components/styled';
+import {PrimarySmallText, PrimaryText, Row} from 'components/styled';
 
 const IconWrapper = styled.View`
   margin: 0 6px;
 `;
 
-function RatingInfo({rating}) {
+function RatingInfo({rating, small}) {
   const starColor = (() => {
     if (rating >= 4) {
       return '#6eab27';
@@ -26,7 +26,13 @@ function RatingInfo({rating}) {
         <Icon name="star" size={10} color={starColor} />
       </IconWrapper>
       <View>
-        <PrimarySmallText>{rating}</PrimarySmallText>
+        {small ? (
+          <PrimarySmallText>
+            {rating ? rating.toFixed(1) : '0.0'}
+          </PrimarySmallText>
+        ) : (
+          <PrimaryText>{rating ? rating.toFixed(1) : '0.0'}</PrimaryText>
+        )}
       </View>
     </Row>
   );
