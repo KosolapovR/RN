@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Pressable} from 'react-native';
 import {
@@ -19,6 +19,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   Easing,
+  withDelay,
 } from 'react-native-reanimated';
 
 import {TRANSACTION_TYPES} from 'shared/consts';
@@ -28,9 +29,6 @@ import TransactionType from 'components/modals/TransactionModal/TransactionType'
 import ConfirmationStatus from 'components/modals/TransactionModal/ConfirmationStatus';
 import BasicButton from 'components/buttons/BasicButton';
 
-/**
- * Transaction modal component
- */
 function TransactionModal({
   onClose,
   type,
@@ -70,10 +68,13 @@ function TransactionModal({
   });
 
   const handleShowMore = () => {
-    btnOpacity.value = withTiming(1, {
-      duration: 250,
-      easing: Easing.cubic,
-    });
+    btnOpacity.value = withDelay(
+      250,
+      withTiming(1, {
+        duration: 250,
+        easing: Easing.cubic,
+      }),
+    );
     btnHeight.value = withTiming(40, {
       duration: 250,
       easing: Easing.cubic,
