@@ -62,6 +62,7 @@ function SelectedCryptoItem({currency, currencyIcon}) {
               style={{
                 width: 25,
                 height: 25,
+                borderRadius: 5,
               }}
             />
           </IconWrapper>

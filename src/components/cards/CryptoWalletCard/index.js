@@ -41,6 +41,7 @@ const CryptoWalletCard = ({
             source={{
               uri: icon,
             }}
+            style={{borderRadius: 5}}
           />
           <View>
             <WhiteBoldText>{walletName}</WhiteBoldText>

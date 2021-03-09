@@ -16,7 +16,7 @@ storiesOf('Блоки', module)
       onSend={action('onSend')}
       currencyIcon={text(
         'currencyIcon',
-        'https://pngicon.ru/file/uploads/ikonka-bitkoin.png',
+        'https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-01-11T11:46:47Z_6b5879.png',
       )}
     />
   ));

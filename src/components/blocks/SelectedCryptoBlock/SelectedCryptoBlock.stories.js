@@ -8,19 +8,20 @@ const items = [
   {
     id: 1,
     currency: 'BTC',
-    currencyIcon: 'https://pngicon.ru/file/uploads/ikonka-bitkoin.png',
+    currencyIcon:
+      'https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-01-11T11:46:47Z_6b5879.png',
   },
   {
     id: 2,
     currency: 'TON',
     currencyIcon:
-      'http://proxy.ton.services/service-buckets/file/payment/5f7efc9093c208a9a6df985c_2020-12-31T07:07:02Z_a66d95.jpeg',
+      'https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-02-17T15:09:09Z_bde967.jpg',
   },
   {
     id: 3,
     currency: 'USDT',
     currencyIcon:
-      'http://proxy.ton.services/service-buckets/file/payment/5f72545a1a67f552a048c810_2020-12-17T16:33:09Z_0b22ad.png',
+      'https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-01-11T11:50:58Z_4598c9.png',
   },
 ];
 

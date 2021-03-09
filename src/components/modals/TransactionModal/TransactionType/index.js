@@ -27,7 +27,7 @@ function TransactionType({
   if (fromUserId && fromUsername && type === TRANSACTION_TYPES.TRANSFER_FROM) {
     return (
       <Row>
-        <PrimaryText paddingRigh={50}>От</PrimaryText>
+        <PrimaryText paddingRight={5}>От</PrimaryText>
         <BlueBoldText>
           <Link to={`/user/${fromUserId}`}>{fromUsername}</Link>
         </BlueBoldText>
