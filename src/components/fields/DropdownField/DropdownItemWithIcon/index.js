@@ -30,7 +30,7 @@ function DropdownItemWithIcon({icon, isLocalSvgIcon, text}) {
 }
 
 DropdownItemWithIcon.propTypes = {
-  currency: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
   isLocalSvgIcon: PropTypes.bool,
 };

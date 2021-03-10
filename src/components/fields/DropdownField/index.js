@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {Dimensions, TouchableWithoutFeedback} from 'react-native';
+import {
+  Dimensions,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+  Pressable,
+  Platform,
+} from 'react-native';
 import styled from 'styled-components/native';
 import Animated, {
   useAnimatedStyle,
@@ -23,15 +29,14 @@ const Container = styled.View`
   margin-bottom: 10px;
 `;
 
-const Overlay = styled.View`
+const Overlay = styled.TouchableOpacity`
   left: 0;
-  top: ${({offsetTop}) => `${-offsetTop}px`};
-  position: absolute;
-  width: ${({width}) => `${width - 40}px`};
-  height: ${({height}) => `${height - 40}px`};
+  position: ${({isIOS}) => (isIOS ? 'absolute' : 'relative')};
+  top: ${({offsetTop}) => (offsetTop ? `${-offsetTop}px` : '0px')};
+  width: ${({width}) => (width ? `${width - 40}px` : '0px')};
+  height: ${({height}) => (height ? `${height - 40}px` : '0px')};
 `;
 const ItemsList = styled.View`
-  position: absolute;
   top: ${({offsetTop}) => `${offsetTop}px`};
   align-items: stretch;
   left: 0;
@@ -132,7 +137,10 @@ const DropdownField = ({
     }
   }, [isDropdownOpen]);
 
-  const closeDropdown = () => setDropdownOpen(false);
+  const closeDropdown = () => {
+    console.log('close dropdown');
+    setDropdownOpen(false);
+  };
   const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
 
   //устанавливаем смещение оверлэй слоя в зависимости от положения дропдауна
@@ -147,54 +155,57 @@ const DropdownField = ({
   }, [itemListRef]);
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        setDropdownOpen(false);
-      }}>
-      <Container>
-        {label !== '' && <Label>{label}</Label>}
-        <InputWrapper
-          activeOpacity={readOnly || isDisabled ? 1 : 0.6}
-          onPress={() => {
-            readOnly || isDisabled ? null : toggleDropdown();
-          }}>
-          {selectedItem ? (
-            selectedItem
-          ) : (
-            <StyledInput readOnly={readOnly} isDisabled={isDisabled}>
-              {placeholder}
-            </StyledInput>
-          )}
-          <Animated.View
-            style={[
-              arrowAnimatedStyles,
-              {
-                position: 'absolute',
-                right: 10,
-                bottom: 0,
-                top: 0,
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-            ]}>
-            <Icon size={12} name="chevron-down" color="#b1b1b1" />
-          </Animated.View>
-        </InputWrapper>
-        <Animated.View style={[animatedStyles]}>
-          {isDropdownOpen && (
-            <Overlay
-              width={windowWidth}
-              height={windowHeight}
+    <Container>
+      {label !== '' && <Label>{label}</Label>}
+      <InputWrapper
+        activeOpacity={readOnly || isDisabled ? 1 : 0.6}
+        onPress={() => {
+          readOnly || isDisabled ? null : toggleDropdown();
+        }}>
+        {selectedItem ? (
+          selectedItem
+        ) : (
+          <StyledInput readOnly={readOnly} isDisabled={isDisabled}>
+            {placeholder}
+          </StyledInput>
+        )}
+        <Animated.View
+          style={[
+            arrowAnimatedStyles,
+            {
+              position: 'absolute',
+              right: 10,
+              bottom: 0,
+              top: 0,
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+          ]}>
+          <Icon size={12} name="chevron-down" color="#b1b1b1" />
+        </Animated.View>
+      </InputWrapper>
+      <Animated.View style={[animatedStyles]}>
+        {isDropdownOpen && (
+          <Overlay
+            isIOS={Platform.OS === 'ios'}
+            onPress={() => {
+              console.log('overlay press');
+              if (isDropdownOpen) {
+                closeDropdown();
+              }
+            }}
+            width={windowWidth}
+            height={windowHeight}
+            offsetTop={offsetTop}>
+            <ItemsList
+              ref={(component) => setItemListRef(component)}
               offsetTop={offsetTop}>
-              <ItemsList
-                ref={(component) => setItemListRef(component)}
-                offsetTop={offsetTop}>
-                <Animated.View style={animatedItemStyles}>
-                  {dropdownItems.map((item, index) => (
-                    <Item
-                      notFirst={!!index}
-                      key={item.id}
+              <Animated.View style={animatedItemStyles}>
+                {dropdownItems.map((item, index) => (
+                  <Item notFirst={!!index} key={item.id}>
+                    <Pressable
                       onPress={() => {
+                        console.log('Item clicked');
                         if (isDropdownOpen) {
                           closeDropdown();
                           setSelectedItem(item.element);
@@ -202,15 +213,15 @@ const DropdownField = ({
                         }
                       }}>
                       {item.element}
-                    </Item>
-                  ))}
-                </Animated.View>
-              </ItemsList>
-            </Overlay>
-          )}
-        </Animated.View>
-      </Container>
-    </TouchableWithoutFeedback>
+                    </Pressable>
+                  </Item>
+                ))}
+              </Animated.View>
+            </ItemsList>
+          </Overlay>
+        )}
+      </Animated.View>
+    </Container>
   );
 };
 

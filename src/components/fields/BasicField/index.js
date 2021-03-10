@@ -68,7 +68,9 @@ const areEqual = (prevProps, nextProps) =>
   prevProps.input.value === nextProps.input.value &&
   prevProps.meta.error === nextProps.meta.error &&
   prevProps.meta.touched === nextProps.meta.touched &&
-  prevProps.isDisabled === nextProps.isDisabled;
+  prevProps.isDisabled === nextProps.isDisabled &&
+  prevProps.rightSymbol === nextProps.rightSymbol &&
+  prevProps.leftSymbol === nextProps.leftSymbol;
 
 const BasicField = React.memo(
   ({

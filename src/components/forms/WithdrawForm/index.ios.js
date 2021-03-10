@@ -8,7 +8,7 @@ import {
 import {Field, reduxForm} from 'redux-form/immutable';
 import styled from 'styled-components/native';
 
-import {maxLength, minLength, password, required} from 'shared/validators';
+import {maxLength, minLength, required} from 'shared/validators';
 
 import BasicField from 'components/fields/BasicField';
 import BasicButton from 'components/buttons/BasicButton';
@@ -17,7 +17,7 @@ import {action} from '@storybook/addon-actions';
 import {boolean} from '@storybook/addon-knobs';
 import DropdownItemWithIcon from 'components/fields/DropdownField/DropdownItemWithIcon';
 import ImportedWalletIcon from 'assets/img/w-import.svg';
-import {Column, Row, RowSpaceBetween, SecondaryText} from 'components/styled';
+import {Row, RowSpaceBetween, SecondaryText} from 'components/styled';
 import IconButton from 'components/buttons/IconButton';
 import QRScanIcon from 'assets/img/qr-white-scan.svg';
 import Divider from 'components/Divider';
@@ -25,15 +25,19 @@ import Divider from 'components/Divider';
 const minLength6 = minLength(6);
 const maxLength30 = maxLength(30);
 
-const StyledForm = styled.View`
+const StyledForm = styled.ScrollView`
   flex-direction: column-reverse;
   flex: 1;
 `;
-const StyledButtonsWrapper = styled.View`
-  flex: 1;
-`;
 
-const WithdrawFrom = ({handleSubmit, invalid, onCLickQR}) => {
+const WithdrawFrom = ({
+  handleSubmit,
+  invalid,
+  onCLickQR,
+  wallets,
+  currencies,
+  mainerCommission,
+}) => {
   const [selectedCurrency, setSelectedCurrency] = useState('');
   const onSelectCurrency = (value) => {
     if (selectedCurrency !== value) {
@@ -46,16 +50,14 @@ const WithdrawFrom = ({handleSubmit, invalid, onCLickQR}) => {
         onPress={Keyboard.dismiss}
         style={{backgroundColor: 'white'}}>
         <StyledForm>
-          <StyledButtonsWrapper>
-            <BasicButton
-              color="primary"
-              title="Продолжить"
-              onClick={() => {
-                handleSubmit();
-              }}
-              isDisabled={invalid}
-            />
-          </StyledButtonsWrapper>
+          <BasicButton
+            color="primary"
+            title="Продолжить"
+            onClick={() => {
+              handleSubmit();
+            }}
+            isDisabled={invalid}
+          />
           <Row>
             <Field
               name="mainerCommission"
@@ -79,7 +81,7 @@ const WithdrawFrom = ({handleSubmit, invalid, onCLickQR}) => {
                 placeholder: '0',
                 rightSymbol: <SecondaryText>{selectedCurrency}</SecondaryText>,
               }}
-              validate={[required, minLength6, maxLength30]}
+              validate={[required]}
             />
           </Row>
 
@@ -108,25 +110,17 @@ const WithdrawFrom = ({handleSubmit, invalid, onCLickQR}) => {
               placeholder: 'Выберите кошелек',
               isDisabled: boolean('Disabled', false),
               readOnly: boolean('readOnly', false),
-              dropdownItems: [
-                {
-                  id: 1,
-                  element: (
-                    <DropdownItemWithIcon
-                      isLocalSvgIcon
-                      text="tb1qwcx5er3ltqd9juhzk7kw5ualqfqepsufkfmnr3"
-                      icon={
-                        <ImportedWalletIcon
-                          width={20}
-                          height={20}
-                          style={{marginRight: 10}}
-                        />
-                      }
-                    />
-                  ),
-                  value: 'BTC',
-                },
-              ],
+              dropdownItems: wallets.map((w) => ({
+                id: w.id,
+                element: (
+                  <DropdownItemWithIcon
+                    isLocalSvgIcon
+                    text={w.address}
+                    icon={w.icon}
+                  />
+                ),
+                value: 'BTC',
+              })),
             }}
             validate={[required]}
             type="text"
@@ -194,6 +188,27 @@ WithdrawFrom.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
   onResetPassword: PropTypes.func.isRequired,
+  wallets: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      address: PropTypes.string.isRequired,
+      icon: PropTypes.element.isRequired,
+    }),
+  ),
+  currencies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      alias: PropTypes.string.isRequired,
+      icon: PropTypes.string.isRequired,
+    }),
+  ),
+  mainerCommission: PropTypes.number,
+};
+
+WithdrawFrom.defaultProps = {
+  wallets: [],
+  currencies: [],
+  mainerCommission: 0,
 };
 
 export default reduxForm({
