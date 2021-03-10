@@ -11,8 +11,12 @@ storiesOf('Карточки', module)
   .add('Карточка криптокошелка', () => (
     <CryptoWalletCard
       walletName={text('walletName', 'Bitcoin')}
-      additionalInfo={text('additionalInfo', '202.73232323 BTC')}
-      icon={text('icon', 'https://pngicon.ru/file/uploads/ikonka-bitkoin.png')}
+      balanceFree={text('balanceFree', '202.73232323 BTC')}
+      balanceFrozen={text('balanceFrozen', '0.73232323 BTC')}
+      icon={text(
+        'icon',
+        'https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-01-11T11:46:47Z_6b5879.png',
+      )}
       onClickReceiveMoney={action('onClickReceiveMoney')}
       onClickSendMoney={action('onClickSendMoney')}
       onClickWallet={action('onClickWallet')}
@@ -22,7 +26,10 @@ storiesOf('Карточки', module)
     <CryptoWalletCard
       walletName={text('walletName', 'Bitcoin')}
       additionalInfo={text('additionalInfo', '202.73232323 BTC')}
-      icon={text('icon', 'https://pngicon.ru/file/uploads/ikonka-bitkoin.png')}
+      icon={text(
+        'icon',
+        'https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-01-11T11:46:47Z_6b5879.png',
+      )}
       onClickWallet={action('onClickWallet')}
       isDashboard={true}
     />
