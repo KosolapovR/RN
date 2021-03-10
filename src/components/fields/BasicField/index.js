@@ -6,6 +6,7 @@ const StyledInputWrapper = styled.View`
   padding-bottom: 25px;
   padding-top: 25px;
   position: relative;
+  flex: 1;
 `;
 
 const StyledLabel = styled.Text`
@@ -198,6 +199,7 @@ BasicField.propTypes = {
    * Стили контейнера инпута
    */
   containerStyle: PropTypes.object,
+  fieldType: PropTypes.string,
 };
 
 BasicField.defaultProps = {
@@ -217,6 +219,7 @@ BasicField.defaultProps = {
   onClickLeftSymbol: null,
   onClickRightSymbol: null,
   containerStyle: {},
+  fieldType: 'text',
 };
 
 export default BasicField;

@@ -1,45 +1,63 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {TouchableWithoutFeedback} from 'react-native';
+import {Dimensions, TouchableWithoutFeedback} from 'react-native';
 import styled from 'styled-components/native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
+  interpolateColor,
   Easing,
-  withRepeat,
 } from 'react-native-reanimated';
 
 import {SecondaryText} from 'components/styled';
-import Arrow from 'assets/img/arrows/arrow-down-white.svg';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const Container = styled.View`
   align-self: stretch;
   position: relative;
-  height: 100%;
+  margin-bottom: 10px;
 `;
 
+const Overlay = styled.View`
+  left: 0;
+  top: ${({offsetTop}) => `${-offsetTop}px`};
+  position: absolute;
+  width: ${({width}) => `${width - 40}px`};
+  height: ${({height}) => `${height - 40}px`};
+`;
 const ItemsList = styled.View`
   position: absolute;
+  top: ${({offsetTop}) => `${offsetTop}px`};
   align-items: stretch;
   left: 0;
   right: 0;
+  background-color: ${(props) => props.theme.main.backgroundColors.primary};
 `;
 
 const Item = styled.TouchableOpacity`
   height: 40px;
+  border-top-width: ${({notFirst}) => (notFirst ? `1px` : `0px`)};
+  border-style: solid;
+  border-top-color: ${(props) =>
+    props.theme.main.backgroundColors.primaryLighterHover};
   padding-top: 10px;
   padding-left: 15px;
-  background-color: ${(props) =>
-    props.theme.main.backgroundColors.primaryLighter};
+  padding-right: 15px;
 `;
 
 const InputWrapper = styled.TouchableOpacity`
   border-radius: ${(props) => props.theme.main.borderRadius};
   background-color: ${(props) =>
     props.theme.main.backgroundColors.primaryLighter};
+  height: 40px;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 30px;
 `;
 
 const Label = styled(SecondaryText)`
@@ -51,10 +69,9 @@ const StyledInput = styled.Text`
     props.readOnly || props.isDisabled
       ? props.theme.main.colors.secondary
       : props.theme.main.colors.primary};
-  height: 40px;
-  padding-top: 10px;
-  padding-left: 15px;
 `;
+
+const colors = ['rgb(27 27, 27)', 'rgb(35,35,39)'];
 
 const DropdownField = ({
   input: {onChange, value},
@@ -67,17 +84,26 @@ const DropdownField = ({
 }) => {
   const [selectedItem, setSelectedItem] = useState(value);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [itemListRef, setItemListRef] = useState();
+  const [offsetTop, setOffsetTop] = useState(0);
 
   const offset = useSharedValue(0);
   const opacity = useSharedValue(0);
   const rotation = useSharedValue(90);
   const arrowTop = useSharedValue(15);
+  const itemColor = useSharedValue(colors[0]);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [{translateY: offset.value}],
       opacity: opacity.value,
       zIndex: 100,
+    };
+  });
+
+  const animatedItemStyles = useAnimatedStyle(() => {
+    return {
+      backgroundColor: interpolateColor(itemColor.value, [0, 1], colors),
     };
   });
 
@@ -93,10 +119,13 @@ const DropdownField = ({
 
   useEffect(() => {
     if (isDropdownOpen) {
+      itemColor.value = withTiming(1, {duration: 200, easing: Easing.linear});
       offset.value = withSpring(20);
       opacity.value = withSpring(1);
       rotation.value = withTiming(-180);
     } else {
+      itemColor.value = withTiming(0, {duration: 200, easing: Easing.linear});
+
       offset.value = withSpring(0);
       opacity.value = withSpring(0);
       rotation.value = withTiming(0);
@@ -106,21 +135,36 @@ const DropdownField = ({
   const closeDropdown = () => setDropdownOpen(false);
   const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
 
+  //устанавливаем смещение оверлэй слоя в зависимости от положения дропдауна
+  // для того что бы покрывать весь экран оверлэем
+  useEffect(() => {
+    if (itemListRef)
+      setTimeout(() => {
+        itemListRef.measure((fx, fy, width, height, px, py) => {
+          setOffsetTop(py);
+        });
+      }, 0);
+  }, [itemListRef]);
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
         setDropdownOpen(false);
       }}>
       <Container>
-        <Label>{label}</Label>
+        {label !== '' && <Label>{label}</Label>}
         <InputWrapper
           activeOpacity={readOnly || isDisabled ? 1 : 0.6}
           onPress={() => {
             readOnly || isDisabled ? null : toggleDropdown();
           }}>
-          <StyledInput readOnly={readOnly} isDisabled={isDisabled}>
-            {selectedItem ? selectedItem : placeholder}
-          </StyledInput>
+          {selectedItem ? (
+            selectedItem
+          ) : (
+            <StyledInput readOnly={readOnly} isDisabled={isDisabled}>
+              {placeholder}
+            </StyledInput>
+          )}
           <Animated.View
             style={[
               arrowAnimatedStyles,
@@ -138,21 +182,31 @@ const DropdownField = ({
         </InputWrapper>
         <Animated.View style={[animatedStyles]}>
           {isDropdownOpen && (
-            <ItemsList>
-              {dropdownItems.map((item) => (
-                <Item
-                  key={item.id}
-                  onPress={() => {
-                    if (isDropdownOpen) {
-                      closeDropdown();
-                      setSelectedItem(item.value);
-                      onChange(item.value);
-                    }
-                  }}>
-                  {item.element}
-                </Item>
-              ))}
-            </ItemsList>
+            <Overlay
+              width={windowWidth}
+              height={windowHeight}
+              offsetTop={offsetTop}>
+              <ItemsList
+                ref={(component) => setItemListRef(component)}
+                offsetTop={offsetTop}>
+                <Animated.View style={animatedItemStyles}>
+                  {dropdownItems.map((item, index) => (
+                    <Item
+                      notFirst={!!index}
+                      key={item.id}
+                      onPress={() => {
+                        if (isDropdownOpen) {
+                          closeDropdown();
+                          setSelectedItem(item.element);
+                          onChange(item.value);
+                        }
+                      }}>
+                      {item.element}
+                    </Item>
+                  ))}
+                </Animated.View>
+              </ItemsList>
+            </Overlay>
           )}
         </Animated.View>
       </Container>
@@ -171,6 +225,7 @@ DropdownField.propTypes = {
     }),
   ),
   label: PropTypes.string,
+  offsetTop: PropTypes.number,
 };
 
 DropdownField.defaultProps = {
@@ -179,6 +234,7 @@ DropdownField.defaultProps = {
   readOnly: false,
   dropdownItems: [],
   label: '',
+  offsetTop: 0,
 };
 
 export default DropdownField;

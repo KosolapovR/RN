@@ -9,6 +9,8 @@ const Container = styled.View`
     props.theme.main.backgroundColors.primaryLighter};
   width: 34px;
   height: 34px;
+  margin-left: ${(props) =>
+    typeof props.marginLeft !== 'undefined' ? `${props.marginLeft}px` : '0px'};
   justify-content: center;
   align-items: center;
   border-radius: ${(props) => props.theme.main.borderRadius};
@@ -21,6 +23,7 @@ const IconButton = ({
   isDisabled,
   containerStyles,
   dinamicRef,
+  marginLeft,
 }) => {
   return (
     <Pressable
@@ -30,7 +33,11 @@ const IconButton = ({
       onPress={!isDisabled && onClick}
       onLongPress={onLongPress}
       isDisabled={isDisabled}>
-      {({pressed}) => <Container pressed={pressed}>{icon}</Container>}
+      {({pressed}) => (
+        <Container pressed={pressed} marginLeft={marginLeft}>
+          {icon}
+        </Container>
+      )}
     </Pressable>
   );
 };
@@ -40,11 +47,13 @@ IconButton.propTypes = {
   isDisabled: PropTypes.bool,
   containerStyles: PropTypes.object,
   onLongPress: PropTypes.func,
+  marginLeft: PropTypes.number,
 };
 
 IconButton.defaultProps = {
   isDisabled: false,
   containerStyles: {},
+  marginLeft: 0,
   onLongPress: () => {},
 };
 

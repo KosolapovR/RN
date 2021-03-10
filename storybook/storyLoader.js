@@ -32,11 +32,13 @@ function loadStories() {
   require('../src/components/forms/RecoveryForm/RecoveryForm.stories');
   require('../src/components/forms/RegistrationForm/RegistrationForm.stories');
   require('../src/components/forms/ResetPasswordForm/ResetPasswordForm.stories');
+  require('../src/components/forms/WithdrawForm/WithdrawForm.stories');
   require('../src/components/lists/DashboardCryptoWalletsList/DashboardCryptoWalletList.stories');
   require('../src/components/lists/TransactionsList/TransactionsList.stories');
   require('../src/components/marketFilter/MarketFilter.stories');
   require('../src/components/modals/ConfirmPinModal/ConfirmPinModal.stories');
   require('../src/components/modals/TransactionModal/TransactionModal.stories');
+  require('../src/components/modals/WithdrawConfirmModal/WithdrawConfirmModal.stories');
 }
 
 const stories = [
@@ -68,11 +70,13 @@ const stories = [
   '../src/components/forms/RecoveryForm/RecoveryForm.stories',
   '../src/components/forms/RegistrationForm/RegistrationForm.stories',
   '../src/components/forms/ResetPasswordForm/ResetPasswordForm.stories',
+  '../src/components/forms/WithdrawForm/WithdrawForm.stories',
   '../src/components/lists/DashboardCryptoWalletsList/DashboardCryptoWalletList.stories',
   '../src/components/lists/TransactionsList/TransactionsList.stories',
   '../src/components/marketFilter/MarketFilter.stories',
   '../src/components/modals/ConfirmPinModal/ConfirmPinModal.stories',
   '../src/components/modals/TransactionModal/TransactionModal.stories',
+  '../src/components/modals/WithdrawConfirmModal/WithdrawConfirmModal.stories',
 ];
 
 module.exports = {

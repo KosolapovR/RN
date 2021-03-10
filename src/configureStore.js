@@ -16,7 +16,7 @@ import {
   pinCodeMiddleWare,
 } from './middlewares';
 import {createLogger} from 'redux-logger';
-import Immutable, {Iterable} from 'immutable';
+import Immutable from 'immutable';
 
 const getQueries = (state) => state.queries;
 const getEntities = (state) => state.entities;
@@ -54,7 +54,7 @@ const configureStore = () => {
   });
 
   if (__DEV__) {
-    middlewares = [...middlewares, logger];
+    // middlewares = [...middlewares, logger];
   }
 
   middlewares = applyMiddleware(...middlewares);

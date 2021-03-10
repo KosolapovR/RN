@@ -22,7 +22,6 @@ const IconWrapper = styled.View`
 function SelectedCryptoBlock({items}) {
   const handleClickItem = (id) => {
     items[id].selected = !items[id].selected;
-    console.log(id);
   };
   return (
     <Column>

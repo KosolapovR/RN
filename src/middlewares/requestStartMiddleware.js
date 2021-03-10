@@ -11,7 +11,6 @@ import {Iterable} from 'immutable';
  */
 export default () => (next) => (action) => {
   if (action.type || action.type) {
-    console.log('actionType = ', action.type);
     const callAPI = action;
 
     if (!action.force) {

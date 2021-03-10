@@ -24,7 +24,6 @@ const CodeField = ({onFinishCheckingCode, label, codeCount}) => {
         paddingLeft -
         (codeCount - 1) * spaceBetweenCell) /
       codeCount;
-    console.log(calculated);
     const max = 60;
 
     return Math.min([calculated, max]);

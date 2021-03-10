@@ -17,7 +17,6 @@ function FadeIn({children, duration}) {
   });
 
   useEffect(() => {
-    console.log(children);
     opacity.value = withTiming(1, {
       duration,
       easing: Easing.cubic,

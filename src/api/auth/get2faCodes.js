@@ -6,7 +6,6 @@ import endpoints from 'api/endpoints';
  */
 
 export const get2faCodesRequest = ({errorCallback}) => {
-  console.log('request');
   return {
     url: endpoints.get2faCodesUrl(),
     update: {
