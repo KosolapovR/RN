@@ -18,14 +18,16 @@ import {
 
 import BasicField from 'components/fields/BasicField';
 import BasicButton from 'components/buttons/BasicButton';
+import {Column} from 'components/styled';
 
 const minLength6 = minLength(6);
 const maxLength30 = maxLength(30);
 
-const StyledForm = styled.View`
-  flex: 1;
+const StyledForm = styled(Column)`
+  height: 180px;
 `;
 const StyledButtonsWrapper = styled.View`
+  margin-top: 10px;
   justify-content: space-between;
   height: 100px;
 `;
@@ -34,39 +36,40 @@ const AuthForm = ({handleSubmit, invalid, onResetPassword}) => (
   <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
     <TouchableWithoutFeedback
       onPress={Keyboard.dismiss}
-      style={{backgroundColor: 'white'}}>
-      <StyledForm>
-        <Field
-          name="email"
-          component={BasicField}
-          props={{
-            label: 'Ваша почта:',
-          }}
-          validate={[required, minLength6, email]}
-          type="text"
-        />
-        <Field
-          name="password"
-          component={BasicField}
-          props={{
-            label: 'Пароль:',
-            isSecurity: true,
-          }}
-          validate={[required, minLength6, maxLength30, password]}
-          type="text"
-        />
+      style={{backgroundColor: 'white', flex: 1}}>
+      <Column>
+        <StyledForm>
+          <Field
+            name="email"
+            component={BasicField}
+            props={{
+              label: 'Ваша почта:',
+            }}
+            validate={[required, minLength6, email]}
+            type="text"
+          />
+          <Field
+            name="password"
+            component={BasicField}
+            props={{
+              label: 'Пароль:',
+              isSecurity: true,
+            }}
+            validate={[required, minLength6, maxLength30, password]}
+            type="text"
+          />
+        </StyledForm>
+
         <StyledButtonsWrapper>
           <BasicButton
             color="primary"
             title="Войти"
-            onClick={() => {
-              handleSubmit();
-            }}
+            onClick={handleSubmit}
             isDisabled={invalid}
           />
           <BasicButton title="Восстановить пароль" onClick={onResetPassword} />
         </StyledButtonsWrapper>
-      </StyledForm>
+      </Column>
     </TouchableWithoutFeedback>
   </KeyboardAvoidingView>
 );

@@ -5,15 +5,15 @@ import styled from 'styled-components/native';
 
 const Container = styled.View`
   opacity: ${(props) => (props.pressed ? 0.5 : 1)};
-  background-color: ${(props) =>
-    props.theme.main.backgroundColors.primaryLighter};
+  background-color: ${({transparent, theme}) =>
+    transparent ? 'transparent' : theme.main.backgroundColors.primaryLighter};
   width: 34px;
   height: 34px;
   margin-left: ${(props) =>
     typeof props.marginLeft !== 'undefined' ? `${props.marginLeft}px` : '0px'};
   justify-content: center;
   align-items: center;
-  border-radius: ${(props) => props.theme.main.borderRadius};
+  border-radius: ${({theme}) => theme.main.borderRadius};
 `;
 
 const IconButton = ({
@@ -24,6 +24,7 @@ const IconButton = ({
   containerStyles,
   dinamicRef,
   marginLeft,
+  backgroundTransparent,
 }) => {
   return (
     <Pressable
@@ -34,7 +35,10 @@ const IconButton = ({
       onLongPress={onLongPress}
       isDisabled={isDisabled}>
       {({pressed}) => (
-        <Container pressed={pressed} marginLeft={marginLeft}>
+        <Container
+          pressed={pressed}
+          marginLeft={marginLeft}
+          transparent={backgroundTransparent}>
           {icon}
         </Container>
       )}
@@ -48,6 +52,7 @@ IconButton.propTypes = {
   containerStyles: PropTypes.object,
   onLongPress: PropTypes.func,
   marginLeft: PropTypes.number,
+  backgroundTransparent: PropTypes.bool,
 };
 
 IconButton.defaultProps = {
@@ -55,6 +60,7 @@ IconButton.defaultProps = {
   containerStyles: {},
   marginLeft: 0,
   onLongPress: () => {},
+  backgroundTransparent: false,
 };
 
 export default IconButton;

@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Platform,
+  StatusBarIOS,
+  SafeAreaView,
 } from 'react-native';
 import {ThemeProvider} from 'styled-components/native';
 import {Provider} from 'react-redux';
@@ -13,6 +14,7 @@ import {Provider as ReduxQueryProvider} from 'redux-query-immutable-react';
 
 import theme from 'theme';
 import store from '../../../src/configureStore';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export const getQueries = (state) => state.queries;
 
@@ -21,33 +23,37 @@ export default function CenterView({children, black}) {
     <Provider store={store}>
       <ReduxQueryProvider queriesSelector={getQueries}>
         <ThemeProvider theme={theme}>
-          <SafeAreaView style={styles.container}>
-            <StatusBar backgroundColor="#141416" />
-            <View style={black ? styles.blackContent : styles.content}>
-              {children}
-            </View>
-          </SafeAreaView>
+          <SafeAreaProvider>
+            <SafeAreaView style={styles.topSafeArea} />
+            <SafeAreaView mode="padding" style={styles.bottomSafeArea}>
+              <StatusBar
+                animated={true}
+                backgroundColor="#000000"
+                barStyle="light-content"
+                // showHideTransition={statusBarTransition}
+                hidden={false}
+              />
+              <StatusBar backgroundColor="#141416" />
+              <View style={black ? styles.blackContent : styles.content}>
+                {children}
+              </View>
+            </SafeAreaView>
+          </SafeAreaProvider>
         </ThemeProvider>
       </ReduxQueryProvider>
     </Provider>
   );
 }
 
-const STATUSBAR_HEIGHT = StatusBar.currentHeight;
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-
 const styles = StyleSheet.create({
-  container: {
+  topSafeArea: {
+    flex: 0,
+    backgroundColor: '#1b1b1b',
+  },
+  bottomSafeArea: {
     flex: 1,
+    backgroundColor: '#1b1b1b',
     justifyContent: 'center',
-    backgroundColor: 'red',
-  },
-  statusBar: {
-    height: STATUSBAR_HEIGHT,
-  },
-  appBar: {
-    backgroundColor: '#141416',
-    height: APPBAR_HEIGHT,
   },
   content: {
     padding: 20,

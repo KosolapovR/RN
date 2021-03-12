@@ -39,7 +39,7 @@ const SlideText = styled.Text`
 `;
 
 const SlideImage = styled.Text`
-  height: 50%;
+  height: 60%;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
@@ -85,14 +85,16 @@ const data = [
 
 const InitialScreen = ({navigation}) => {
   const goToSignIn = () => {
-    navigation.push('SignIn');
+    navigation.navigate('Auth', {
+      screen: 'SignIn',
+    });
   };
 
   const goToSignUp = () => {
-    navigation.push('SignUp');
+    navigation.navigate({
+      name: 'SignUp',
+    });
   };
-
-  const image = {uri: 'https://reactjs.org/logo-og.png'};
 
   return (
     <Wrapper>
@@ -103,8 +105,12 @@ const InitialScreen = ({navigation}) => {
         data={data}
       />
       <Buttons>
-        <BasicButton onClick={goToSignUp} title="Регистрация" primary />
-        <BasicButton onClick={goToSignIn} title="Войти" />
+        <BasicButton
+          onClick={goToSignUp}
+          title="Регистрация"
+          color={'primary'}
+        />
+        <BasicButton onClick={goToSignIn} title="Войти" color="secondary" />
       </Buttons>
     </Wrapper>
   );

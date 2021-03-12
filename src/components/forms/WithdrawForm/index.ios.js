@@ -25,9 +25,8 @@ import Divider from 'components/Divider';
 const minLength6 = minLength(6);
 const maxLength30 = maxLength(30);
 
-const StyledForm = styled.ScrollView`
+const StyledForm = styled.View`
   flex-direction: column-reverse;
-  flex: 1;
 `;
 
 const WithdrawFrom = ({
@@ -62,7 +61,7 @@ const WithdrawFrom = ({
             <Field
               name="mainerCommission"
               component={BasicField}
-              input={{value: '0.0001'}}
+              input={{value: mainerCommission.toString()}}
               props={{
                 label: 'Комиссия за транзакцию майнерам:',
                 readOnly: true,
@@ -132,48 +131,11 @@ const WithdrawFrom = ({
             props={{
               label: 'Валюта и кошелек отправки:',
               placeholder: 'Выберите валюту',
-              dropdownItems: [
-                {
-                  id: 1,
-                  element: (
-                    <DropdownItemWithIcon
-                      text="BTC"
-                      icon="https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-01-11T11:46:47Z_6b5879.png"
-                    />
-                  ),
-                  value: 'BTC',
-                },
-                {
-                  id: 2,
-                  element: (
-                    <DropdownItemWithIcon
-                      text="ETH"
-                      icon="https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-01-11T11:45:47Z_c7c004.png"
-                    />
-                  ),
-                  value: 'ETH',
-                },
-                {
-                  id: 3,
-                  element: (
-                    <DropdownItemWithIcon
-                      text="TON"
-                      icon="https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-02-17T15:09:09Z_bde967.jpg"
-                    />
-                  ),
-                  value: 'TON',
-                },
-                {
-                  id: 4,
-                  element: (
-                    <DropdownItemWithIcon
-                      text="USDT"
-                      icon="https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-01-11T11:50:58Z_4598c9.png"
-                    />
-                  ),
-                  value: 'USDT',
-                },
-              ],
+              dropdownItems: currencies.map((c) => ({
+                id: c.id,
+                element: <DropdownItemWithIcon text={c.alias} icon={c.icon} />,
+                value: c.alias,
+              })),
             }}
             validate={[required]}
             type="text"

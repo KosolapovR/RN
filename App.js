@@ -1,18 +1,29 @@
-import 'react-native-gesture-handler';
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator, HeaderBackground} from '@react-navigation/stack';
-import {StyleSheet, View, Image, StatusBar} from 'react-native';
-import InitialScreen from './src/screens/InitialScreen';
-import SignInScreen from './src/screens/SignInScreen';
-import SignUpScreen from './src/screens/SignUpScreen';
-
-import Logo from './src/assets/img/logo/empo-logo-white.svg';
-import HelpIcon from './src/assets/img/help/help.svg';
+import {StatusBar, View} from 'react-native';
+import {enableScreens} from 'react-native-screens';
 import styled, {ThemeProvider} from 'styled-components/native';
 import store from './src/configureStore';
 import theme from './src/theme';
 import {Provider} from 'react-redux';
+import {createNativeStackNavigator} from 'react-native-screens/native-stack';
+import AuthStack from './src/stacks/AuthStack';
+import MainStack from './src/stacks/MainStack';
+import InitialScreen from './src/screens/InitialScreen';
+import SignInScreen from './src/screens/SignInScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
+import Logo from 'assets/img/logo/empo-logo-white.svg';
+import HelpIcon from 'assets/img/help/help.svg';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {SafeAreaView} from 'react-native-safe-area-context/src/SafeAreaView.native';
+import {getToken, isSetToken} from './src/helpers/token';
+import {useEffect, useState} from 'react';
+import {AuthContext} from './src/context/AuthContext';
+import RootStack from './src/navigators';
+
+const Stack = createNativeStackNavigator();
+
+enableScreens();
 
 const TitleWrapper = styled.View`
   margin-left: 20px;
@@ -22,86 +33,38 @@ const TitleWrapper = styled.View`
   justify-content: center;
 `;
 
-const HeaderRightWrapper = styled.View`
-  margin-right: 20px;
-  flex: 1;
-  width: 100%;
-  align-items: flex-end;
-  justify-content: center;
-`;
-
-const Stack = createStackNavigator();
-
-const LogoTitle = () => {
-  return (
-    <TitleWrapper>
-      <Logo width={140} />
-    </TitleWrapper>
-  );
-};
-
-const HeaderRight = () => {
-  return (
-    <HeaderRightWrapper>
-      <HelpIcon width={40} />
-    </HeaderRightWrapper>
-  );
-};
-
 const App = () => {
+  const [token, setToken] = useState();
+  useEffect(() => {
+    async function getCredentials() {
+      const t = await getToken();
+      setToken(t);
+    }
+    getCredentials();
+  }, []);
+
+  const removeTokenFromCtx = () => {
+    setToken(null);
+  };
+
+  const setTokenToCtx = (t) => {
+    setToken(t);
+  };
+
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <View style={{flex: 1}}>
-          <StatusBar translucent barStyle="light-content" />
-          <NavigationContainer>
-            <Stack.Navigator initialRouteName="Initial">
-              <Stack.Screen
-                name="Initial"
-                component={InitialScreen}
-                options={{
-                  headerStyle: {
-                    shadowOffset: {height: 0, width: 0},
-                    backgroundColor: '#141416',
-                  },
-                  headerTitle: '',
-                  headerLeft: () => <LogoTitle />,
-                  headerRight: () => <HeaderRight />,
-                }}
-              />
-              <Stack.Screen
-                name="SignIn"
-                component={SignInScreen}
-                options={{
-                  headerStyle: {
-                    shadowOffset: {height: 0, width: 0},
-                    backgroundColor: '#141416',
-                  },
-                  headerTitleStyle: {
-                    color: '#b6b6b6',
-                  },
-                  headerTitle: 'Вход',
-                  headerRight: () => <HeaderRight />,
-                }}
-              />
-              <Stack.Screen
-                name="SignUp"
-                component={SignUpScreen}
-                options={{
-                  headerStyle: {
-                    shadowOffset: {height: 0, width: 0},
-                    backgroundColor: '#141416',
-                  },
-                  headerTitleStyle: {
-                    color: '#b6b6b6',
-                  },
-                  headerTitle: 'Регистрация',
-                  headerRight: () => <HeaderRight />,
-                }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </View>
+        <AuthContext.Provider
+          value={{token, removeTokenFromCtx, setTokenToCtx}}>
+          <View style={{flex: 1, backgroundColor: '#141416'}}>
+            <StatusBar
+              translucent
+              backgroundColor="#141416"
+              barStyle="light-content"
+            />
+            <RootStack />
+          </View>
+        </AuthContext.Provider>
       </ThemeProvider>
     </Provider>
   );
