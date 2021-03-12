@@ -1,5 +1,5 @@
 // import get2faCode from './get2faCode';
-import get2faCodes from './get2faCodes';
+// import get2faCodes from './get2faCodes';
 // import get2faDisable from './get2faDisable';
 // import get2faKey from './get2faKey';
 // import getCheckEmail from './getCheckEmail';
@@ -12,7 +12,7 @@ import get2faCodes from './get2faCodes';
 // import post2faDisable from './post2faDisable';
 // import post2faEnable from './post2faEnable';
 // import postEmail from './postEmail';
-// import postLogin from './postLogin';
+import postLogin from './postLogin';
 // import postLogin2fa from './postLogin2fa';
 // import postPassword from './postPassword';
 // import postPasswordRecovery from './postPasswordRecovery';
@@ -21,7 +21,7 @@ import get2faCodes from './get2faCodes';
 
 export {
   // get2faCode,
-  get2faCodes,
+  // get2faCodes,
   // get2faDisable,
   // get2faKey,
   // getCheckEmail,
@@ -34,7 +34,7 @@ export {
   // post2faDisable,
   // post2faEnable,
   // postEmail,
-  // postLogin,
+  postLogin,
   // postLogin2fa,
   // postPassword,
   // postPasswordRecovery,

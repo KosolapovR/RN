@@ -96,6 +96,12 @@ const Column = styled.View``;
 const ColumnAlignCenter = styled(Column)`
   align-items: center;
 `;
+
+const CenterColumn = styled(ColumnAlignCenter)`
+  justify-content: center;
+  flex: 1;
+`;
+
 const Row = styled.View`
   flex-direction: row;
   align-items: center;
@@ -143,6 +149,7 @@ export {
   CardContainer,
   Column,
   ColumnAlignCenter,
+  CenterColumn,
   Row,
   RowSpaceBetween,
   RowSpaceAround,

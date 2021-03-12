@@ -2,67 +2,106 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {StatusBar, View} from 'react-native';
 import {enableScreens} from 'react-native-screens';
-import styled, {ThemeProvider} from 'styled-components/native';
+import {ThemeProvider} from 'styled-components/native';
 import store from './src/configureStore';
 import theme from './src/theme';
 import {Provider} from 'react-redux';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import AuthStack from './src/stacks/AuthStack';
-import MainStack from './src/stacks/MainStack';
-import InitialScreen from './src/screens/InitialScreen';
-import SignInScreen from './src/screens/SignInScreen';
-import SignUpScreen from './src/screens/SignUpScreen';
-import Logo from 'assets/img/logo/empo-logo-white.svg';
-import HelpIcon from 'assets/img/help/help.svg';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {SafeAreaView} from 'react-native-safe-area-context/src/SafeAreaView.native';
-import {getToken, isSetToken} from './src/helpers/token';
-import {useEffect, useState} from 'react';
 import {AuthContext} from './src/context/AuthContext';
-import RootStack from './src/navigators';
-
-const Stack = createNativeStackNavigator();
+import SplashScreen from './src/screens/SplashScreen';
+import {MainTabs} from './src/navigators/MainTabs';
+import {AuthStack} from './src/navigators/AuthStack';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 enableScreens();
 
-const TitleWrapper = styled.View`
-  margin-left: 20px;
-  flex: 1;
-  width: 100%;
-  align-items: flex-start;
-  justify-content: center;
-`;
+const NativeStack = createNativeStackNavigator();
 
 const App = () => {
-  const [token, setToken] = useState();
-  useEffect(() => {
-    async function getCredentials() {
-      const t = await getToken();
-      setToken(t);
-    }
-    getCredentials();
+  const [state, dispatch] = React.useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case 'RESTORE_TOKEN':
+          return {
+            ...prevState,
+            userToken: action.token,
+            isLoading: false,
+          };
+        case 'SIGN_IN':
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.token,
+          };
+        case 'SIGN_OUT':
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+      }
+    },
+    {
+      isLoading: true,
+      isSignout: false,
+      userToken: null,
+    },
+  );
+
+  React.useEffect(() => {
+    const bootstrapAsync = async () => {
+      const userToken = await EncryptedStorage.getItem('AUTH_TOKEN');
+
+      dispatch({type: 'RESTORE_TOKEN', token: userToken});
+    };
+
+    bootstrapAsync();
   }, []);
 
-  const removeTokenFromCtx = () => {
-    setToken(null);
-  };
-
-  const setTokenToCtx = (t) => {
-    setToken(t);
-  };
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async (data) => {
+        try {
+          await EncryptedStorage.setItem('AUTH_TOKEN', data);
+          dispatch({type: 'SIGN_IN', token: data});
+        } catch (error) {}
+      },
+      signOut: async () => {
+        await EncryptedStorage.removeItem('AUTH_TOKEN');
+        dispatch({type: 'SIGN_OUT'});
+      },
+      signUp: async (data) => {
+        try {
+          await EncryptedStorage.setItem('AUTH_TOKEN', 'someToken');
+          dispatch({type: 'SIGN_IN', token: 'someToken'});
+        } catch (error) {}
+      },
+    }),
+    [],
+  );
+  if (state.isLoading) {
+    return <SplashScreen />;
+  }
 
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <AuthContext.Provider
-          value={{token, removeTokenFromCtx, setTokenToCtx}}>
+        <AuthContext.Provider value={authContext}>
           <View style={{flex: 1, backgroundColor: '#141416'}}>
             <StatusBar
               translucent
               backgroundColor="#141416"
               barStyle="light-content"
             />
-            <RootStack />
+            <NavigationContainer>
+              <NativeStack.Navigator screenOptions={{headerShown: false}}>
+                {state.userToken ? (
+                  <NativeStack.Screen name="Main" component={MainTabs} />
+                ) : (
+                  <NativeStack.Screen name="Auth" component={AuthStack} />
+                )}
+              </NativeStack.Navigator>
+            </NavigationContainer>
           </View>
         </AuthContext.Provider>
       </ThemeProvider>

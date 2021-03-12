@@ -14,7 +14,7 @@ import BackIcon from 'assets/img/arrows/arrow-back-white.svg';
 import {NavigationContainer} from '@react-navigation/native';
 import {AuthContext} from '../../context/AuthContext';
 import MainStack from '../MainStack';
-import AuthStack from '../AuthStack';
+import AuthStack from '../../navigators/AuthStack';
 
 const Stack = createNativeStackNavigator();
 

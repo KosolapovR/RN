@@ -16,10 +16,13 @@ import {SafeAreaView} from 'react-native-safe-area-context/src/SafeAreaView.nati
 import MarketOffersScreen from '../screens/MarketOffersScreen';
 import UserOffersScreen from '../screens/UserOffersScreen';
 import SubscriptionsScreen from '../screens/SubscriptionsScreen';
+import CryptoWalletsScreen from '../screens/CryptoWalletsScreen';
+import BanksWalletsScreen from '../screens/BanksWalletsScreen';
+import PaymentsWalletsScreen from '../screens/PaymentsWalletsScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
-export const MarketTabs = () => {
+export const WalletsTabs = () => {
   const theme = useTheme();
 
   return (
@@ -27,7 +30,7 @@ export const MarketTabs = () => {
       <View
         style={{flex: 1, backgroundColor: theme.main.backgroundColors.primary}}>
         <Tab.Navigator
-          initialRouteName="MarketOffers"
+          initialRouteName="Crypto"
           lazy={true}
           lazyPlaceholder={() => (
             <View
@@ -38,9 +41,9 @@ export const MarketTabs = () => {
             />
           )}
           initialLayout={{width: Dimensions.get('window').width}}>
-          <Tab.Screen name="Market Offers" component={MarketOffersScreen} />
-          <Tab.Screen name="User Offers" component={UserOffersScreen} />
-          <Tab.Screen name="Subscriptions" component={SubscriptionsScreen} />
+          <Tab.Screen name="Crypto" component={CryptoWalletsScreen} />
+          <Tab.Screen name="Banks" component={BanksWalletsScreen} />
+          <Tab.Screen name="Payments" component={PaymentsWalletsScreen} />
         </Tab.Navigator>
       </View>
     </SafeAreaView>

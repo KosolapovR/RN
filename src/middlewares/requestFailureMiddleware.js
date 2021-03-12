@@ -5,6 +5,7 @@ import {Map} from 'immutable';
 import store from '../configureStore';
 import i18n from '../i18next';
 import {Alert} from 'react-native';
+import {useContext} from 'react';
 
 const handleErrorMessage = (action) => {
   let message = _.get(action, 'responseBody.data');
@@ -57,12 +58,6 @@ export default () => (next) => (action) => {
   if (action.type === '@@query/REQUEST_FAILURE') {
     if (action.status === 401) {
       Alert.alert('Ошибка', 'Сессия истекла');
-      // if (token.getToken()) {
-      //   if (!toastClass.isActive('apiError')) {
-      //     toast.warning(i18n.t('API_ERRORS.SESSION'), 'apiError');
-      //   }
-      //   token.removeToken();
-      // }
     } else {
       Alert.alert('Ошибка', 'Какая то ошибка...');
 

@@ -22,6 +22,7 @@ module.exports = {
           components: './src/components',
           theme: './src/theme',
           api: './src/api',
+          schemas: './src/schemas',
         },
       },
     ],

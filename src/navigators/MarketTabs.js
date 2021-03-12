@@ -13,10 +13,13 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import ActiveDealsScreen from '../screens/ActiveDealsScreen';
 import CompletedDealsScreen from '../screens/CompletedDealsScreen';
 import {SafeAreaView} from 'react-native-safe-area-context/src/SafeAreaView.native';
+import MarketOffersScreen from '../screens/MarketOffersScreen';
+import UserOffersScreen from '../screens/UserOffersScreen';
+import SubscriptionsScreen from '../screens/SubscriptionsScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
-export const DealsTabs = () => {
+export const MarketTabs = () => {
   const theme = useTheme();
 
   return (
@@ -24,7 +27,7 @@ export const DealsTabs = () => {
       <View
         style={{flex: 1, backgroundColor: theme.main.backgroundColors.primary}}>
         <Tab.Navigator
-          initialRouteName="ActiveDeals"
+          initialRouteName="MarketOffers"
           lazy={true}
           lazyPlaceholder={() => (
             <View
@@ -35,8 +38,9 @@ export const DealsTabs = () => {
             />
           )}
           initialLayout={{width: Dimensions.get('window').width}}>
-          <Tab.Screen name="ActiveDeals" component={ActiveDealsScreen} />
-          <Tab.Screen name="CompletedDeals" component={CompletedDealsScreen} />
+          <Tab.Screen name="Market Offers" component={MarketOffersScreen} />
+          <Tab.Screen name="User Offers" component={UserOffersScreen} />
+          <Tab.Screen name="Subscriptions" component={SubscriptionsScreen} />
         </Tab.Navigator>
       </View>
     </SafeAreaView>

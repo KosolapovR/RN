@@ -9,12 +9,12 @@ const Container = styled(SafeAreaView)`
   justify-content: center;
   align-items: center;
 `;
-const ActiveDealsScreen = ({navigation}) => {
+const CryptoWalletsScreen = () => {
   return (
     <Container>
-      <PrimaryBoldLargeText>ActiveDeals</PrimaryBoldLargeText>
+      <PrimaryBoldLargeText>CryptoWallet</PrimaryBoldLargeText>
     </Container>
   );
 };
 
-export default ActiveDealsScreen;
+export default CryptoWalletsScreen;

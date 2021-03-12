@@ -9,12 +9,12 @@ const Container = styled(SafeAreaView)`
   justify-content: center;
   align-items: center;
 `;
-const BanksWalletsScreen = () => {
+const PaymentsWalletsScreen = () => {
   return (
     <Container>
-      <PrimaryBoldLargeText>BanksWallet</PrimaryBoldLargeText>
+      <PrimaryBoldLargeText>PaymentsWallets</PrimaryBoldLargeText>
     </Container>
   );
 };
 
-export default BanksWalletsScreen;
+export default PaymentsWalletsScreen;

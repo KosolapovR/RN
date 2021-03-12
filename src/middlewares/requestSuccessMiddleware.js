@@ -6,13 +6,18 @@ import _ from 'lodash';
  * @return {void}
  */
 export default () => (next) => (action) => {
-  // if (action.type === actionTypes.REQUEST_SUCCESS) {
-  //   const { successCallback } = action.meta;
-  //
-  //   if (successCallback && _.isFunction(successCallback)) {
-  //     successCallback(action.responseBody);
-  //   }
-  // }
+  if (
+    action.type === '@@query/REQUEST_SUCCESS' ||
+    action.type === '@@query/MUTATE_SUCCESS'
+  ) {
+    const {successCallback} = action.meta;
+    console.log('Success middleware');
+    if (successCallback && _.isFunction(successCallback)) {
+      console.log('successCallback');
+
+      successCallback(action.responseBody);
+    }
+  }
 
   return next(action);
 };

@@ -1,30 +1,10 @@
-// import {useMemo, useCallback} from 'react';
-// import {bindActionCreators} from 'redux';
-// import {querySelectors} from '@digitalwing.co/redux-query-immutable';
-// import {useDispatch} from 'react-redux';
-// import {
-//   // postSignUp,
-//   // getConfirm,
-//   // getConfirmEmail,
-//   get2faCodes,
-//   // get2faKey,
-//   // post2faEnable,
-//   // get2faCode,
-//   // get2faDisable,
-//   // postLogin2fa,
-//   // getPasswordRecovery,
-//   // postPasswordRecovery,
-//   // postPasswordRecovery2fa,
-//   // postLogin,
-//   // getCheckEmail,
-//   // getCheckUsername,
-//   // post2faDisable,
-//   // postEmail,
-//   // postPassword,
-//   // getResendEmailConfirm,
-// } from 'api/auth';
-// import endpoints from 'api/endpoints';
-// import {listSelector, primitiveSelector, useISESelector} from './selectors';
+import {useMemo, useCallback} from 'react';
+import {bindActionCreators} from 'redux';
+import {querySelectors} from '@digitalwing.co/redux-query-immutable';
+import {useDispatch} from 'react-redux';
+import {postLogin} from 'api/auth';
+import endpoints from 'api/endpoints';
+import {listSelector, primitiveSelector, useISESelector} from './selectors';
 //
 // /**
 //  * @returns {{
@@ -56,71 +36,71 @@
 //  * }}
 //  */
 //
-// export default () => {
-//   const selector = useCallback(
-//     (state) => ({
-//       recoveryCodes: listSelector(state, 'recoveryCodes'),
-//       key2fa: primitiveSelector(state, 'key2fa', ''),
-//       key2faShort: primitiveSelector(state, 'key2faShort', ''),
-//       twoFaCode: primitiveSelector(state, 'twoFaCode', ''),
-//       // get2faKeyIsFetching:
-//       //   querySelectors.isPending(state.get('queries'), {
-//       //     queryKey: endpoints.get2faKeyUrl(),
-//       //   }) || false,
-//       // get2faKeyIsFinish:
-//       //   querySelectors.isFinished(state.get('queries'), {
-//       //     queryKey: endpoints.get2faKeyUrl(),
-//       //   }) || false,
-//       // get2faCodesIsFetching:
-//       //   querySelectors.isPending(state.get('queries'), {
-//       //     queryKey: endpoints.get2faCodesUrl(),
-//       //   }) || false,
-//       // get2faCodesIsFinish:
-//       //   querySelectors.isFinished(state.get('queries'), {
-//       //     queryKey: endpoints.get2faCodesUrl(),
-//       //   }) || false,
-//       // get2faCodeIsFetching: querySelectors.isPending(state.get('queries'), {
-//       //   queryKey: endpoints.get2faCodeUrl(),
-//       // }),
-//     }),
-//     [],
-//   );
-//
-//   const data = useISESelector(selector);
-//
-//   const dispatch = useDispatch();
-//
-//   const actions = useMemo(
-//     () =>
-//       bindActionCreators(
-//         {
-//           // postSignUp,
-//           // getConfirm,
-//           // getConfirmEmail,
-//           get2faCodes,
-//           // get2faKey,
-//           // post2faEnable,
-//           // get2faCode,
-//           // get2faDisable,
-//           // postLogin2fa,
-//           // getPasswordRecovery,
-//           // postPasswordRecovery,
-//           // postPasswordRecovery2fa,
-//           // postLogin,
-//           // getCheckEmail,
-//           // getCheckUsername,
-//           // post2faDisable,
-//           // postEmail,
-//           // postPassword,
-//           // getResendEmailConfirm,
-//         },
-//         dispatch,
-//       ),
-//     [dispatch],
-//   );
-//
-//   return {
-//     ...data,
-//     ...actions,
-//   };
-// };
+export default () => {
+  const selector = useCallback(
+    (state) => ({
+      // recoveryCodes: listSelector(state, 'recoveryCodes'),
+      // key2fa: primitiveSelector(state, 'key2fa', ''),
+      // key2faShort: primitiveSelector(state, 'key2faShort', ''),
+      // twoFaCode: primitiveSelector(state, 'twoFaCode', ''),
+      // get2faKeyIsFetching:
+      //   querySelectors.isPending(state.get('queries'), {
+      //     queryKey: endpoints.get2faKeyUrl(),
+      //   }) || false,
+      // get2faKeyIsFinish:
+      //   querySelectors.isFinished(state.get('queries'), {
+      //     queryKey: endpoints.get2faKeyUrl(),
+      //   }) || false,
+      // get2faCodesIsFetching:
+      //   querySelectors.isPending(state.get('queries'), {
+      //     queryKey: endpoints.get2faCodesUrl(),
+      //   }) || false,
+      // get2faCodesIsFinish:
+      //   querySelectors.isFinished(state.get('queries'), {
+      //     queryKey: endpoints.get2faCodesUrl(),
+      //   }) || false,
+      // get2faCodeIsFetching: querySelectors.isPending(state.get('queries'), {
+      //   queryKey: endpoints.get2faCodeUrl(),
+      // }),
+    }),
+    [],
+  );
+
+  const data = useISESelector(selector);
+
+  const dispatch = useDispatch();
+
+  const actions = useMemo(
+    () =>
+      bindActionCreators(
+        {
+          // postSignUp,
+          // getConfirm,
+          // getConfirmEmail,
+          // get2faCodes,
+          // get2faKey,
+          // post2faEnable,
+          // get2faCode,
+          // get2faDisable,
+          // postLogin2fa,
+          // getPasswordRecovery,
+          // postPasswordRecovery,
+          // postPasswordRecovery2fa,
+          postLogin,
+          // getCheckEmail,
+          // getCheckUsername,
+          // post2faDisable,
+          // postEmail,
+          // postPassword,
+          // getResendEmailConfirm,
+        },
+        dispatch,
+      ),
+    [dispatch],
+  );
+
+  return {
+    ...data,
+    ...actions,
+  };
+};

@@ -9,12 +9,12 @@ const Container = styled(SafeAreaView)`
   justify-content: center;
   align-items: center;
 `;
-const ActiveDealsScreen = ({navigation}) => {
+const CompletedDealsScreen = ({navigation}) => {
   return (
     <Container>
-      <PrimaryBoldLargeText>ActiveDeals</PrimaryBoldLargeText>
+      <PrimaryBoldLargeText>CompletedDeals</PrimaryBoldLargeText>
     </Container>
   );
 };
 
-export default ActiveDealsScreen;
+export default CompletedDealsScreen;

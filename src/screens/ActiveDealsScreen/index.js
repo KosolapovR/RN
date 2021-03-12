@@ -9,12 +9,12 @@ const Container = styled(SafeAreaView)`
   justify-content: center;
   align-items: center;
 `;
-const ProfileScreen = ({navigation}) => {
+const ActiveDealsScreen = ({navigation}) => {
   return (
     <Container>
-      <PrimaryBoldLargeText>Profile</PrimaryBoldLargeText>
+      <PrimaryBoldLargeText>ActiveDeals</PrimaryBoldLargeText>
     </Container>
   );
 };
 
-export default ProfileScreen;
+export default ActiveDealsScreen;

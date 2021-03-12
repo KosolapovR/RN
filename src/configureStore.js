@@ -1,12 +1,8 @@
-import {createStore, applyMiddleware, combineReducers} from 'redux';
-import {
-  entitiesReducer,
-  queriesReducer,
-  queryMiddleware,
-} from 'redux-query-immutable';
-import superagentInterface from 'redux-query-immutable-interface-superagent';
+import {createStore, applyMiddleware} from 'redux';
 
-import {reducer as form} from 'redux-form';
+import {queryMiddleware} from '@digitalwing.co/redux-query-immutable';
+
+import reducers, {getQueries, getEntities, getResults} from './reducers';
 
 import {
   authTokenMiddleware,
@@ -18,15 +14,6 @@ import {
 import {createLogger} from 'redux-logger';
 import Immutable from 'immutable';
 
-const getQueries = (state) => state.queries;
-const getEntities = (state) => state.entities;
-
-const reducers = combineReducers({
-  form,
-  entities: entitiesReducer,
-  queries: queriesReducer,
-});
-
 const configureStore = () => {
   let middlewares = [
     requestStartMiddleware,
@@ -34,7 +21,7 @@ const configureStore = () => {
     requestFailureMiddleware,
     requestSuccessMiddleware,
     pinCodeMiddleWare,
-    queryMiddleware(superagentInterface, getQueries, getEntities),
+    queryMiddleware(getQueries, getEntities, getResults),
   ];
 
   const logger = createLogger({
@@ -54,7 +41,7 @@ const configureStore = () => {
   });
 
   if (__DEV__) {
-    // middlewares = [...middlewares, logger];
+    middlewares = [...middlewares, logger];
   }
 
   middlewares = applyMiddleware(...middlewares);

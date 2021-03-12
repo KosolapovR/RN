@@ -32,7 +32,7 @@ const StyledButtonsWrapper = styled.View`
   height: 100px;
 `;
 
-const AuthForm = ({handleSubmit, invalid, onResetPassword}) => (
+const AuthForm = ({handleSubmit, invalid, onResetPassword, onSubmit}) => (
   <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
     <TouchableWithoutFeedback
       onPress={Keyboard.dismiss}
@@ -64,7 +64,7 @@ const AuthForm = ({handleSubmit, invalid, onResetPassword}) => (
           <BasicButton
             color="primary"
             title="Войти"
-            onClick={handleSubmit}
+            onClick={handleSubmit(onSubmit)}
             isDisabled={invalid}
           />
           <BasicButton title="Восстановить пароль" onClick={onResetPassword} />
@@ -78,6 +78,7 @@ AuthForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
   onResetPassword: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default reduxForm({

@@ -9,12 +9,12 @@ const Container = styled(SafeAreaView)`
   justify-content: center;
   align-items: center;
 `;
-const ActiveDealsScreen = ({navigation}) => {
+const MarketOffersScreen = () => {
   return (
     <Container>
-      <PrimaryBoldLargeText>ActiveDeals</PrimaryBoldLargeText>
+      <PrimaryBoldLargeText>MarketOffers</PrimaryBoldLargeText>
     </Container>
   );
 };
 
-export default ActiveDealsScreen;
+export default MarketOffersScreen;

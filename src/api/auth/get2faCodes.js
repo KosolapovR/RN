@@ -23,26 +23,3 @@ export const get2faCodesRequest = ({errorCallback}) => {
     },
   };
 };
-// export default ({successCallback} = {}) => {
-//   debugger;
-//   return requestAsync({
-//     url: endpoints.get2faCodesUrl(),
-//     transformResult: (response) => ({
-//       recoveryCodes: response.data,
-//     }),
-//     queryKey: endpoints.get2faCodesUrl(),
-//     meta: {
-//       successCallback,
-//       authToken: true,
-//     },
-//     options: {
-//       headers: {
-//         Accept: 'application/json',
-//       },
-//       method: 'GET',
-//     },
-//     updateResult: {
-//       recoveryCodes: (_, result) => result,
-//     },
-//   });
-// };

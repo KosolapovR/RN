@@ -8,7 +8,7 @@ const StyledPopoverContent = styled.View`
     props.theme.main.backgroundColors.primaryLighterHover};
   border-radius: ${(props) => props.theme.main.borderRadius};
 `;
-const StyledPopoverContentItem = styled(Row)`
+const StyledPopoverContentItem = styled.TouchableOpacity`
   padding: 15px;
 `;
 const StyledPopoverContentItemWithoutFeedBack = styled(Row)`

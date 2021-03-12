@@ -16,6 +16,7 @@
     "clear-cache": "watchman watch-del-all && rm -f yarn.lock && rm -rf node_modules && yarn && yarn start --reset-cache"
   },
   "dependencies": {
+    "@digitalwing.co/redux-query-immutable": "2.4.13",
     "@react-native-async-storage/async-storage": "1.13.4",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.8",
@@ -33,6 +34,7 @@
     "react-i18next": "11.8.7",
     "react-native": "0.63.4",
     "react-native-code-input": "1.0.6",
+    "react-native-encrypted-storage": "^4.0.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-linear-gradient": "2.5.6",
     "react-native-pager-view": "^5.0.12",
