@@ -138,7 +138,6 @@ const DropdownField = ({
   }, [isDropdownOpen]);
 
   const closeDropdown = () => {
-    console.log('close dropdown');
     setDropdownOpen(false);
   };
   const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
@@ -189,7 +188,6 @@ const DropdownField = ({
           <Overlay
             isIOS={Platform.OS === 'ios'}
             onPress={() => {
-              console.log('overlay press');
               if (isDropdownOpen) {
                 closeDropdown();
               }
@@ -205,7 +203,6 @@ const DropdownField = ({
                   <Item notFirst={!!index} key={item.id}>
                     <Pressable
                       onPress={() => {
-                        console.log('Item clicked');
                         if (isDropdownOpen) {
                           closeDropdown();
                           setSelectedItem(item.element);

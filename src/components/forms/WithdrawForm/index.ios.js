@@ -45,9 +45,7 @@ const WithdrawFrom = ({
   };
   return (
     <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
-      <TouchableWithoutFeedback
-        onPress={Keyboard.dismiss}
-        style={{backgroundColor: 'white'}}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <StyledForm>
           <BasicButton
             color="primary"

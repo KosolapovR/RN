@@ -1,43 +1,50 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
+import {createNativeStackNavigator} from 'react-native-screens/native-stack';
+import {useTheme} from 'styled-components';
+
 import InitialScreen from '../screens/InitialScreen';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
-import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import styled from 'styled-components/native/dist/styled-components.native.esm';
-import HelpIcon from 'assets/img/help/help.svg';
-import {useTheme} from 'styled-components';
-import BackIcon from 'assets/img/arrows/arrow-back-white.svg';
 import LogoTitle from 'components/Logo';
+import IconButton from 'components/buttons/IconButton';
+import {SecondaryBoldTextLightLarge} from 'components/styled';
+import HelpIcon from 'assets/img/help/help.svg';
+import BackIcon from 'assets/img/arrows/arrow-back-white.svg';
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 
 const Stack = createNativeStackNavigator();
 
-const HeaderRightWrapper = styled.View`
-  width: 100%;
-  height: 100%;
-  align-items: flex-end;
-  justify-content: center;
-`;
-
 const HeaderLeft = ({navigation}) => {
   return (
-    <TouchableOpacity onPress={() => navigation.goBack()}>
-      <BackIcon
-        width={20}
-        height={20}
-        style={{marginTop: 10, marginLeft: 10}}
-      />
-    </TouchableOpacity>
+    <IconButton
+      onClick={() => navigation.goBack()}
+      icon={
+        <BackIcon
+          width={20}
+          height={20}
+          style={{marginTop: 10, marginLeft: 10}}
+        />
+      }
+      backgroundTransparent
+    />
+  );
+};
+const HeaderCenter = ({title}) => {
+  return (
+    <SecondaryBoldTextLightLarge paddingTop={10}>
+      {title}
+    </SecondaryBoldTextLightLarge>
   );
 };
 
-const HeaderRight = () => {
-  return (
-    <HeaderRightWrapper>
-      <HelpIcon width={40} />
-    </HeaderRightWrapper>
-  );
-};
+const HeaderRight = () => (
+  <IconButton
+    onClick={() => {}}
+    backgroundTransparent
+    icon={<HelpIcon width={40} />}
+  />
+);
 
 export const AuthStack = ({navigation}) => {
   const theme = useTheme();
@@ -52,7 +59,7 @@ export const AuthStack = ({navigation}) => {
               shadowOffset: {height: 0, width: 0},
               backgroundColor: theme.main.backgroundColors.primary,
             },
-            headerTitle: '',
+            headerCenter: () => <HeaderCenter title="" />,
             headerLeft: () => <LogoTitle />,
             headerRight: () => <HeaderRight />,
           })}
@@ -60,7 +67,7 @@ export const AuthStack = ({navigation}) => {
         <Stack.Screen
           name="SignIn"
           component={SignInScreen}
-          options={{
+          options={({route}) => ({
             headerStyle: {
               shadowOffset: {height: 0, width: 0},
               backgroundColor: '#141416',
@@ -68,10 +75,10 @@ export const AuthStack = ({navigation}) => {
             headerTitleStyle: {
               color: '#b6b6b6',
             },
-            headerTitle: 'Вход',
             headerLeft: () => <HeaderLeft navigation={navigation} />,
+            headerCenter: () => <HeaderCenter title="Вход" />,
             headerRight: () => <HeaderRight />,
-          }}
+          })}
         />
         <Stack.Screen
           name="SignUp"
@@ -84,10 +91,26 @@ export const AuthStack = ({navigation}) => {
             headerTitleStyle: {
               color: '#b6b6b6',
             },
-            headerTitle: 'Регистрация',
             headerLeft: () => <HeaderLeft navigation={navigation} />,
+            headerCenter: () => <HeaderCenter title="Регистрация" />,
             headerRight: () => <HeaderRight />,
           }}
+        />
+        <Stack.Screen
+          name="ResetPassword"
+          component={ResetPasswordScreen}
+          options={({route}) => ({
+            headerStyle: {
+              shadowOffset: {height: 0, width: 0},
+              backgroundColor: '#141416',
+            },
+            headerTitleStyle: {
+              color: '#b6b6b6',
+            },
+            headerLeft: () => <HeaderLeft navigation={navigation} />,
+            headerCenter: () => <HeaderCenter title="Восстановление" />,
+            headerRight: () => <HeaderRight />,
+          })}
         />
       </Stack.Navigator>
     </View>

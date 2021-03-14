@@ -1,6 +1,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import debounce from 'lodash.debounce';
 
 const StyledInputWrapper = styled.View`
   padding-bottom: 25px;
@@ -15,6 +17,8 @@ const StyledLabel = styled.Text`
   left: 0;
   z-index: 1;
   opacity: ${(props) => (props.isDisabled ? 0.5 : 1)};
+  color: ${({invalid, theme}) =>
+    invalid ? theme.main.colors.error : theme.main.colors.secondary};
 `;
 
 const StyledLeftSymbolWrapper = styled.TouchableOpacity`
@@ -44,10 +48,13 @@ const StyledField = styled.TextInput`
   padding-left: ${(props) => (props.leftSymbol ? '45px' : '10px')};
   padding-right: ${(props) => (props.rightSymbol ? '45px' : '10px')};
   font-size: ${(props) => props.theme.main.fontSize.medium};
+  border-color: ${({theme}) => theme.main.colors.error};
+  border-style: solid;
+  border-width: ${({invalid}) => (invalid ? '1px' : '0px')};
 `;
 
 const StyledErrorText = styled.Text`
-  color: red;
+  color: ${({theme}) => theme.main.colors.error};
   position: absolute;
   left: 0;
   bottom: 5px;
@@ -67,6 +74,7 @@ const areEqual = (prevProps, nextProps) =>
   prevProps.readOnly === nextProps.readOnly &&
   prevProps.input.value === nextProps.input.value &&
   prevProps.meta.error === nextProps.meta.error &&
+  prevProps.meta.active === nextProps.meta.active &&
   prevProps.meta.touched === nextProps.meta.touched &&
   prevProps.isDisabled === nextProps.isDisabled &&
   prevProps.rightSymbol === nextProps.rightSymbol &&
@@ -74,8 +82,8 @@ const areEqual = (prevProps, nextProps) =>
 
 const BasicField = React.memo(
   ({
-    input: {onChange, ...restInput},
-    meta: {error, active, touched, pristine, ...restMeta},
+    input,
+    meta,
     isDisabled,
     placeholder,
     label,
@@ -90,40 +98,95 @@ const BasicField = React.memo(
     onClickRightSymbol,
     containerStyle,
     fieldStyle,
-  }) => (
-    <StyledInputWrapper style={containerStyle}>
-      {Boolean(label) && (
-        <StyledLabel isDisabled={isDisabled}>{label}</StyledLabel>
-      )}
-      <StyledLeftSymbolWrapper
-        onPress={onClickLeftSymbol}
-        activeOpacity={onClickLeftSymbol ? 0.7 : 1}>
-        {leftSymbol}
-      </StyledLeftSymbolWrapper>
-      <StyledField
-        style={fieldStyle}
-        editable={!isDisabled && !readOnly}
-        onChangeText={onChange}
-        {...restInput}
-        placeholder={!isDisabled ? placeholder : null}
-        placeholderTextColor={'rgba(182,182,182,0.47)'}
-        secureTextEntry={isSecurity}
-        leftSymbol={leftSymbol}
-        rightSymbol={rightSymbol}
-      />
-      <StyledRightSymbolWrapper
-        onPress={onClickRightSymbol}
-        activeOpacity={onClickRightSymbol ? 0.7 : 1}>
-        {rightSymbol}
-      </StyledRightSymbolWrapper>
-      {((!active && touched) || (isValidChange && !pristine)) &&
-        withError &&
-        error && <StyledErrorText>{error}</StyledErrorText>}
-      {Boolean(additionalInfo) && (
-        <StyledAdditionalInfoText>{additionalInfo}</StyledAdditionalInfoText>
-      )}
-    </StyledInputWrapper>
-  ),
+  }) => {
+    const [DebounceInputValue, setDebounceInputValue] = useState('');
+    const [debouncing, setDebouncing] = useState(false);
+    const lastInputValue = useRef(input.value);
+
+    useEffect(() => {
+      if (debouncing) {
+        return;
+      }
+      if (input.value === lastInputValue.current) {
+        return;
+      }
+
+      lastInputValue.current = input.value;
+      setDebounceInputValue(input.value);
+    }, [debouncing, input.value]);
+
+    const call = useMemo(
+      () =>
+        debounce((onChange, evt) => {
+          setDebouncing(false);
+          onChange(evt);
+        }, 270),
+      [setDebouncing],
+    );
+
+    const onChange = useCallback(
+      (evt) => {
+        evt.persist();
+        setDebouncing(true);
+        call(input.onChange, evt);
+        setDebounceInputValue(evt.nativeEvent.text);
+      },
+      [setDebouncing, call, setDebounceInputValue],
+    );
+
+    const onEndEditing = useCallback(
+      (evt) => {
+        call.cancel();
+        setDebouncing(false);
+        input.onChange(evt);
+        input.onBlur(evt);
+      },
+      [call, setDebouncing, input.onChange, input.onBlur],
+    );
+
+    const invalid =
+      ((!meta.active && meta.touched) || (isValidChange && !meta.pristine)) &&
+      withError &&
+      meta.error;
+
+    return (
+      <StyledInputWrapper style={containerStyle}>
+        {Boolean(label) && (
+          <StyledLabel isDisabled={isDisabled} invalid={Boolean(invalid)}>
+            {label}
+          </StyledLabel>
+        )}
+        <StyledLeftSymbolWrapper
+          onPress={onClickLeftSymbol}
+          activeOpacity={onClickLeftSymbol ? 0.7 : 1}>
+          {leftSymbol}
+        </StyledLeftSymbolWrapper>
+        <StyledField
+          invalid={Boolean(invalid)}
+          style={fieldStyle}
+          editable={!isDisabled && !readOnly}
+          {...input}
+          onChange={onChange}
+          onEndEditing={onEndEditing}
+          value={DebounceInputValue}
+          placeholder={!isDisabled ? placeholder : null}
+          placeholderTextColor={'rgba(182,182,182,0.47)'}
+          secureTextEntry={isSecurity}
+          leftSymbol={leftSymbol}
+          rightSymbol={rightSymbol}
+        />
+        <StyledRightSymbolWrapper
+          onPress={onClickRightSymbol}
+          activeOpacity={onClickRightSymbol ? 0.7 : 1}>
+          {rightSymbol}
+        </StyledRightSymbolWrapper>
+        {invalid && <StyledErrorText>{meta.error}</StyledErrorText>}
+        {Boolean(additionalInfo) && (
+          <StyledAdditionalInfoText>{additionalInfo}</StyledAdditionalInfoText>
+        )}
+      </StyledInputWrapper>
+    );
+  },
   areEqual,
 );
 

@@ -11,10 +11,7 @@ export default () => (next) => (action) => {
     action.type === '@@query/MUTATE_SUCCESS'
   ) {
     const {successCallback} = action.meta;
-    console.log('Success middleware');
     if (successCallback && _.isFunction(successCallback)) {
-      console.log('successCallback');
-
       successCallback(action.responseBody);
     }
   }

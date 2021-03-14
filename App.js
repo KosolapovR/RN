@@ -1,21 +1,16 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {StatusBar, View} from 'react-native';
 import {enableScreens} from 'react-native-screens';
 import {ThemeProvider} from 'styled-components/native';
 import store from './src/configureStore';
 import theme from './src/theme';
 import {Provider} from 'react-redux';
-import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import {AuthContext} from './src/context/AuthContext';
 import SplashScreen from './src/screens/SplashScreen';
-import {MainTabs} from './src/navigators/MainTabs';
-import {AuthStack} from './src/navigators/AuthStack';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import RootStack from './src/navigators/RootStack';
 
 enableScreens();
-
-const NativeStack = createNativeStackNavigator();
 
 const App = () => {
   const [state, dispatch] = React.useReducer(
@@ -93,15 +88,7 @@ const App = () => {
               backgroundColor="#141416"
               barStyle="light-content"
             />
-            <NavigationContainer>
-              <NativeStack.Navigator screenOptions={{headerShown: false}}>
-                {state.userToken ? (
-                  <NativeStack.Screen name="Main" component={MainTabs} />
-                ) : (
-                  <NativeStack.Screen name="Auth" component={AuthStack} />
-                )}
-              </NativeStack.Navigator>
-            </NavigationContainer>
+            <RootStack userToken={state.userToken} />
           </View>
         </AuthContext.Provider>
       </ThemeProvider>

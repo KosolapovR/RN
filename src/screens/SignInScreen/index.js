@@ -8,6 +8,7 @@ import {useDispatch} from 'react-redux';
 import {mutateAsync, requestAsync} from 'redux-query-immutable/src/actions';
 import useAuthApi from '../../hooks/api/useAuthApi';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import FormWrapper from 'components/forms/FormWrapper';
 
 const Wrapper = styled.View`
   background-color: #141416;
@@ -15,12 +16,14 @@ const Wrapper = styled.View`
   flex: 1;
 `;
 
-const SignInScreen = () => {
+const SignInScreen = ({navigation}) => {
+  const onResetPassword = useCallback(() => {
+    navigation.navigate('ResetPassword');
+  }, []);
   const {signIn} = useContext(AuthContext);
   const {postLogin} = useAuthApi();
-  const dispatch = useDispatch();
   const onSubmit = useCallback(
-    (formValues, dispatch, {change}) => {
+    (formValues) => {
       postLogin({
         requestBody: formValues,
       }).then(({body}) => {
@@ -50,10 +53,12 @@ const SignInScreen = () => {
   //   },
   //
   //   [],
-  // );
+  // )
   return (
     <Wrapper>
-      <AuthForm onSubmit={onSubmit} />
+      <FormWrapper>
+        <AuthForm onSubmit={onSubmit} onResetPassword={onResetPassword} />
+      </FormWrapper>
     </Wrapper>
   );
 };

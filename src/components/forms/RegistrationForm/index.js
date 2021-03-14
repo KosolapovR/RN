@@ -110,7 +110,6 @@ const RegistrationForm = ({handleSubmit, invalid}) => (
 RegistrationForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
-  onResetPassword: PropTypes.func.isRequired,
 };
 
 export default reduxForm({

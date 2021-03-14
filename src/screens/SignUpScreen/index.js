@@ -3,6 +3,7 @@ import {View, Text} from 'react-native';
 import {Column} from 'components/styled';
 import RegistrationForm from 'components/forms/RegistrationForm';
 import styled from 'styled-components/native';
+import FormWrapper from 'components/forms/FormWrapper';
 
 const Container = styled(Column)`
   flex: 1;
@@ -12,7 +13,9 @@ const Container = styled(Column)`
 const SignUpScreen = () => {
   return (
     <Container>
-      <RegistrationForm />
+      <FormWrapper verticalOffset={-150}>
+        <RegistrationForm />
+      </FormWrapper>
     </Container>
   );
 };

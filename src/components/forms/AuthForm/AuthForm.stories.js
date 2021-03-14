@@ -7,5 +7,5 @@ import AuthForm from './index';
 storiesOf('Формы', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
   .add('Форма авторизации', () => (
-    <AuthForm handleSubmit={action('handleSubmit')} />
+    <AuthForm onSubmit={action('handleSubmit')} />
   ));

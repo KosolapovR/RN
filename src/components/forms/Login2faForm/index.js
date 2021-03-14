@@ -23,9 +23,7 @@ const StyledButtonsWrapper = styled.View`
 const Login2faForm = ({handleSubmit, invalid, onEnterWithRecoveryCodes}) => {
   return (
     <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
-      <TouchableWithoutFeedback
-        onPress={Keyboard.dismiss}
-        style={{backgroundColor: 'white'}}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <StyledForm>
           <CodeField
             onFinishCheckingCode={() => {}}

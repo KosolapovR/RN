@@ -48,6 +48,9 @@ const SecondaryText = styled(StyledText)`
 const SecondaryBoldText = styled(SecondaryText)`
   font-weight: bold;
 `;
+const SecondaryBoldTextLightLarge = styled(SecondaryBoldText)`
+  font-size: 16px;
+`;
 
 const SecondaryTextSmall = styled(SecondaryText)`
   font-size: 12px;
@@ -139,6 +142,7 @@ export {
   SecondaryText,
   SecondaryBoldText,
   SecondaryTextSmall,
+  SecondaryBoldTextLightLarge,
   WhiteText,
   WhiteBoldText,
   WhiteExtraLargeText,

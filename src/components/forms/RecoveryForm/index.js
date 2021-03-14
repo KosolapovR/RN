@@ -27,9 +27,7 @@ const StyledButtonsWrapper = styled.View`
 
 const RecoveryForm = ({handleSubmit, invalid}) => (
   <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
-    <TouchableWithoutFeedback
-      onPress={Keyboard.dismiss}
-      style={{backgroundColor: 'white'}}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <StyledForm>
         <AttentionBlock
           text="Если вы указали в настройках контрольные вопросы для восстановления, то

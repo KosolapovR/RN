@@ -9,6 +9,7 @@ import {useContext} from 'react';
 
 const handleErrorMessage = (action) => {
   let message = _.get(action, 'responseBody.data');
+  Alert.alert('message', message);
   if (typeof message !== 'string') {
     message = _.get(action, 'responseBody.data.message');
   }
@@ -59,8 +60,7 @@ export default () => (next) => (action) => {
     if (action.status === 401) {
       Alert.alert('Ошибка', 'Сессия истекла');
     } else {
-      Alert.alert('Ошибка', 'Какая то ошибка...');
-
+      Alert.alert('Ошибка', `Статус ${action.status}`);
       handleErrorMessage(action);
 
       const {errorCallback} = action.meta;
