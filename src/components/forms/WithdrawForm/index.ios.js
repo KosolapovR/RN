@@ -147,7 +147,7 @@ const WithdrawFrom = ({
 WithdrawFrom.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
-  onResetPassword: PropTypes.func.isRequired,
+  onRecoveryPassword: PropTypes.func.isRequired,
   wallets: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,

@@ -65,7 +65,7 @@ const DeletePinCodeForm = ({handleSubmit, invalid}) => (
 DeletePinCodeForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
-  onResetPassword: PropTypes.func.isRequired,
+  onRecoveryPassword: PropTypes.func.isRequired,
 };
 
 export default reduxForm({

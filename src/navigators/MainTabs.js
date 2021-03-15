@@ -15,6 +15,7 @@ import ExchangeIcon from 'assets/img/menu/marketMobileActiveIcon.svg';
 import DashboardIcon from 'assets/img/menu/dashboardMobileActiveIcon.svg';
 import DealsIcon from 'assets/img/menu/dealsMobileActiveIcon.svg';
 import ProfileIcon from 'assets/img/menu/profileMobileActiveIcon.svg';
+import {SafeAreaView} from 'react-native-safe-area-context/src/SafeAreaView.native';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,83 +23,86 @@ export const MainTabs = () => {
   const theme = useTheme();
 
   return (
-    <View
+    <SafeAreaView
       style={{flex: 1, backgroundColor: theme.main.backgroundColors.primary}}>
-      <Tab.Navigator
-        initialRouteName="Dashboard"
-        tabBar={(props) => <CustomBottomTabBar {...props} />}>
-        <Tab.Screen
-          name="Wallets"
-          component={WalletsTabs}
-          options={{
-            tabBarLabel: '',
-            tabBarIcon: ({isFocused}) => (
-              <WalletIcon
-                height={26}
-                width={26}
-                style={{opacity: isFocused ? 1 : 0.5}}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Market"
-          component={MarketTabs}
-          options={{
-            tabBarLabel: '',
-            tabBarIcon: ({isFocused}) => (
-              <ExchangeIcon
-                height={26}
-                width={26}
-                style={{opacity: isFocused ? 1 : 0.5}}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Dashboard"
-          component={DashboardStack}
-          options={{
-            tabBarLabel: '',
-            tabBarIcon: ({isFocused}) => (
-              <DashboardIcon
-                height={26}
-                width={26}
-                style={{opacity: isFocused ? 1 : 0.5}}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Deals"
-          component={DealsTabs}
-          options={{
-            tabBarLabel: '',
-            tabBarIcon: ({isFocused}) => (
-              <DealsIcon
-                height={26}
-                width={26}
-                style={{opacity: isFocused ? 1 : 0.5}}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Settings"
-          component={PersonalizationStack}
-          options={{
-            tabBarLabel: '',
-            tabBarIcon: ({isFocused}) => (
-              <ProfileIcon
-                height={26}
-                width={26}
-                style={{opacity: isFocused ? 1 : 0.5}}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </View>
+      <View
+        style={{flex: 1, backgroundColor: theme.main.backgroundColors.primary}}>
+        <Tab.Navigator
+          initialRouteName="Dashboard"
+          tabBar={(props) => <CustomBottomTabBar {...props} />}>
+          <Tab.Screen
+            name="Wallets"
+            component={WalletsTabs}
+            options={{
+              tabBarLabel: '',
+              tabBarIcon: ({isFocused}) => (
+                <WalletIcon
+                  height={26}
+                  width={26}
+                  style={{opacity: isFocused ? 1 : 0.5}}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Market"
+            component={MarketTabs}
+            options={{
+              tabBarLabel: '',
+              tabBarIcon: ({isFocused}) => (
+                <ExchangeIcon
+                  height={26}
+                  width={26}
+                  style={{opacity: isFocused ? 1 : 0.5}}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Dashboard"
+            component={DashboardStack}
+            options={{
+              tabBarLabel: '',
+              tabBarIcon: ({isFocused}) => (
+                <DashboardIcon
+                  height={26}
+                  width={26}
+                  style={{opacity: isFocused ? 1 : 0.5}}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Deals"
+            component={DealsTabs}
+            options={{
+              tabBarLabel: '',
+              tabBarIcon: ({isFocused}) => (
+                <DealsIcon
+                  height={26}
+                  width={26}
+                  style={{opacity: isFocused ? 1 : 0.5}}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Settings"
+            component={PersonalizationStack}
+            options={{
+              tabBarLabel: '',
+              tabBarIcon: ({isFocused}) => (
+                <ProfileIcon
+                  height={26}
+                  width={26}
+                  style={{opacity: isFocused ? 1 : 0.5}}
+                />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </View>
+    </SafeAreaView>
   );
 };
 

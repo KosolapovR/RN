@@ -41,7 +41,7 @@ const configureStore = () => {
   });
 
   if (__DEV__) {
-    middlewares = [...middlewares, logger];
+    // middlewares = [...middlewares, logger];
   }
 
   middlewares = applyMiddleware(...middlewares);

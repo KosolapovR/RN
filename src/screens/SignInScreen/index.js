@@ -17,13 +17,14 @@ const Wrapper = styled.View`
 `;
 
 const SignInScreen = ({navigation}) => {
-  const onResetPassword = useCallback(() => {
-    navigation.navigate('ResetPassword');
+  const onRecoveryPassword = useCallback(() => {
+    navigation.navigate('RecoveryPassword');
   }, []);
   const {signIn} = useContext(AuthContext);
-  const {postLogin} = useAuthApi();
+  const {postLogin, postLoginIsFetching} = useAuthApi();
   const onSubmit = useCallback(
     (formValues) => {
+      console.log('formValues', formValues);
       postLogin({
         requestBody: formValues,
       }).then(({body}) => {
@@ -35,29 +36,14 @@ const SignInScreen = ({navigation}) => {
 
     [],
   );
-  // const onSubmit = useCallback(
-  //   (formValues) => {
-  //     console.log('formValues', formValues);
-  //
-  //     dispatch(
-  //       mutateAsync(
-  //         postLogin({
-  //           requestBody: formValues,
-  //           successCallback: ({body, ...rest}) => {
-  //             console.log('body', body);
-  //             console.log('rest', rest);
-  //           },
-  //         }),
-  //       ),
-  //     );
-  //   },
-  //
-  //   [],
-  // )
   return (
     <Wrapper>
       <FormWrapper>
-        <AuthForm onSubmit={onSubmit} onResetPassword={onResetPassword} />
+        <AuthForm
+          onSubmit={onSubmit}
+          onRecoveryPassword={onRecoveryPassword}
+          isFetching={postLoginIsFetching}
+        />
       </FormWrapper>
     </Wrapper>
   );

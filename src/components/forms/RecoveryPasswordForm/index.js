@@ -1,56 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {Field, reduxForm} from 'redux-form/immutable';
 import styled from 'styled-components/native';
 
-import {minLength, maxLength, required, password} from 'shared/validators';
+import {email, minLength, required} from 'shared/validators';
 
 import BasicField from 'components/fields/BasicField';
 import BasicButton from 'components/buttons/BasicButton';
+import AttentionBlock from 'components/blocks/AttentionBlock';
 import {Column} from 'components/styled';
 
 const minLength6 = minLength(6);
-const maxLength30 = maxLength(30);
 
 const StyledForm = styled.View`
   height: 180px;
 `;
+
 const StyledButtonsWrapper = styled.View`
-  margin-top: 10px;
-  align-self: flex-start;
-  justify-content: flex-start;
+  margin-top: 20px;
 `;
 
-const ResetPasswordForm = ({handleSubmit, invalid}) => (
+const RecoveryPasswordForm = ({handleSubmit, invalid}) => (
   <Column>
     <StyledForm>
-      <Field
-        name="password"
-        component={BasicField}
-        props={{
-          label: 'Введите пароль:',
-          isSecurity: true,
-        }}
-        validate={[required, minLength6, maxLength30, password]}
-        type="text"
+      <AttentionBlock
+        text="Если вы указали в настройках контрольные вопросы для восстановления, то
+        вы сможете восстановить пароль без доступа к почте."
+        paddingBottom={20}
       />
       <Field
-        name="repeatPassword"
+        name="email"
         component={BasicField}
         props={{
-          label: 'Повторите пароль:',
-          isSecurity: true,
+          label: 'Введите почту указанную при регистрации:',
         }}
-        validate={[required, minLength6, maxLength30, password]}
+        validate={[required, minLength6, email]}
         type="text"
       />
     </StyledForm>
     <StyledButtonsWrapper>
       <BasicButton
-        containerStyles={{flex: 0}}
         color="primary"
-        title="Продолжить"
+        title="Выслать инструкцию"
         onClick={() => {
           handleSubmit();
         }}
@@ -60,11 +56,11 @@ const ResetPasswordForm = ({handleSubmit, invalid}) => (
   </Column>
 );
 
-ResetPasswordForm.propTypes = {
+RecoveryPasswordForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
 };
 
 export default reduxForm({
-  form: 'resetPasswordForm',
-})(ResetPasswordForm);
+  form: 'recoveryPasswordForm',
+})(RecoveryPasswordForm);

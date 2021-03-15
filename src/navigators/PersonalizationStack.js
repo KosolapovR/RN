@@ -2,12 +2,12 @@ import React, {useContext, useRef, useState} from 'react';
 import {View} from 'react-native';
 import {useTheme} from 'styled-components';
 import {createStackNavigator} from '@react-navigation/stack';
+import Popover from 'react-native-popover-view';
 
 import ProfileScreen from '../screens/ProfileScreen';
 import IconButton from 'components/buttons/IconButton';
-import HelpIcon from 'assets/img/help/help.svg';
+import SettingsIcon from 'assets/img/settings-white.svg';
 import {SettingsTabs} from './SettingsTabs';
-import Popover from 'react-native-popover-view';
 import PopoverContent from 'components/blocks/PopoverContent';
 import {WhiteText} from 'components/styled';
 import {AuthContext} from '../context/AuthContext';
@@ -56,7 +56,7 @@ const RightHeader = ({navigation, onSignOutClick}) => {
         onClick={() => {
           setShowPopover(!showPopover);
         }}
-        icon={<HelpIcon width={40} />}
+        icon={<SettingsIcon width={40} />}
         containerStyles={{right: 20}}
       />
       <Popover
@@ -91,6 +91,7 @@ export const PersonalizationStack = ({navigation}) => {
             headerLeft: () => null,
             headerStyle: {
               backgroundColor: theme.main.backgroundColors.primary,
+              shadowOffset: {height: 0, width: 0},
             },
           })}
         />

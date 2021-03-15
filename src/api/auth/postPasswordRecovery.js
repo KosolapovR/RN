@@ -1,3 +1,4 @@
+import {requestAsync} from '@digitalwing.co/redux-query-immutable';
 import {normalize} from 'normalizr';
 import endpoints from 'api/endpoints';
 import {user} from 'schemas';

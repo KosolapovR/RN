@@ -11,7 +11,8 @@ import IconButton from 'components/buttons/IconButton';
 import {SecondaryBoldTextLightLarge} from 'components/styled';
 import HelpIcon from 'assets/img/help/help.svg';
 import BackIcon from 'assets/img/arrows/arrow-back-white.svg';
-import ResetPasswordScreen from '../screens/ResetPasswordScreen';
+import RecoveryPasswordScreen from '../screens/RecoveryPasswordScreen';
+import RecoverySuccessScreen from '../screens/RecoverySuccessScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -97,8 +98,8 @@ export const AuthStack = ({navigation}) => {
           }}
         />
         <Stack.Screen
-          name="ResetPassword"
-          component={ResetPasswordScreen}
+          name="RecoveryPassword"
+          component={RecoveryPasswordScreen}
           options={({route}) => ({
             headerStyle: {
               shadowOffset: {height: 0, width: 0},
@@ -110,6 +111,13 @@ export const AuthStack = ({navigation}) => {
             headerLeft: () => <HeaderLeft navigation={navigation} />,
             headerCenter: () => <HeaderCenter title="Восстановление" />,
             headerRight: () => <HeaderRight />,
+          })}
+        />
+        <Stack.Screen
+          name="RecoverySuccess"
+          component={RecoverySuccessScreen}
+          options={({route}) => ({
+            headerShown: false,
           })}
         />
       </Stack.Navigator>

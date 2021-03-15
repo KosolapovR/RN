@@ -58,12 +58,14 @@ const styles = StyleSheet.create({
   content: {
     padding: 20,
     justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
     backgroundColor: '#141416',
   },
   blackContent: {
     padding: 20,
     justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
     backgroundColor: '#000000',
   },

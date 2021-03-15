@@ -1,3 +1,4 @@
+import { requestAsync } from '@digitalwing.co/redux-query-immutable';
 import endpoints from 'api/endpoints';
 
 /**
@@ -5,19 +6,18 @@ import endpoints from 'api/endpoints';
  * @param email {String}
  * @param successCallback {Function}
  */
-export default ({successCallback, email}) =>
-  requestAsync({
-    url: endpoints.getResendEmailUrl({email}),
-    queryKey: endpoints.getResendEmailUrl(),
-    meta: {
-      authToken: true,
-      errorKey: 'RESEND_EMAIL',
-      successCallback,
+export default ({ successCallback, email }) => requestAsync({
+  url: endpoints.getResendEmailUrl({ email }),
+  queryKey: endpoints.getResendEmailUrl(),
+  meta: {
+    authToken: true,
+    errorKey: 'RESEND_EMAIL',
+    successCallback,
+  },
+  options: {
+    headers: {
+      Accept: 'application/json',
     },
-    options: {
-      headers: {
-        Accept: 'application/json',
-      },
-      method: 'GET',
-    },
-  });
+    method: 'GET',
+  },
+});

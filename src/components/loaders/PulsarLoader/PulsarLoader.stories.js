@@ -2,10 +2,8 @@ import {storiesOf} from '@storybook/react-native';
 import CenterView from '../../../../storybook/stories/CenterView';
 import {action} from '@storybook/addon-actions';
 import React from 'react';
-import ResetPasswordForm from './index';
+import PulsarLoader from './index';
 
-storiesOf('Формы', module)
+storiesOf('Loaders', module)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
-  .add('Форма сброса пароля', () => (
-    <ResetPasswordForm handleSubmit={action('handleSubmit')} />
-  ));
+  .add('Pulsar', () => <PulsarLoader />);

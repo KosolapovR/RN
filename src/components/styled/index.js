@@ -42,8 +42,16 @@ const PrimaryBoldLargeText = styled(PrimaryBoldText)`
   font-size: ${(props) => props.theme.main.fontSize.large};
 `;
 
+const PrimaryBoldLargeCenteredText = styled(PrimaryBoldLargeText)`
+  text-align: center;
+`;
+
 const SecondaryText = styled(StyledText)`
   color: ${(props) => props.theme.main.colors.secondary};
+`;
+
+const SecondaryCenteredText = styled(SecondaryText)`
+  text-align: center;
 `;
 const SecondaryBoldText = styled(SecondaryText)`
   font-weight: bold;
@@ -139,7 +147,9 @@ export {
   PrimaryBoldText,
   PrimaryBoldSmallText,
   PrimaryBoldLargeText,
+  PrimaryBoldLargeCenteredText,
   SecondaryText,
+  SecondaryCenteredText,
   SecondaryBoldText,
   SecondaryTextSmall,
   SecondaryBoldTextLightLarge,

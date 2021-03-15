@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 import {PrimaryText} from 'components/styled';
 
 const PrimaryTextWithPadding = styled(PrimaryText)`
-  padding-bottom: ${(props) => props.paddingBottom};
+  padding-bottom: ${(props) => `${props.paddingBottom}px`};
 `;
 
 const AttentionBlock = ({text, paddingBottom}) => {

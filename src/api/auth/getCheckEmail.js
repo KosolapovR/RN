@@ -1,3 +1,4 @@
+import { requestAsync } from '@digitalwing.co/redux-query-immutable';
 import endpoints from 'api/endpoints';
 
 /**
@@ -8,18 +9,17 @@ import endpoints from 'api/endpoints';
  * @param {GetCheckEmail} queryParams
  * @param successCallback {Function}
  */
-export default ({queryParams, successCallback}) =>
-  requestAsync({
-    url: endpoints.getCheckEmailUrl(queryParams),
-    queryKey: endpoints.getCheckEmailUrl(),
-    meta: {
-      authToken: true,
-      successCallback,
+export default ({ queryParams, successCallback }) => requestAsync({
+  url: endpoints.getCheckEmailUrl(queryParams),
+  queryKey: endpoints.getCheckEmailUrl(),
+  meta: {
+    authToken: true,
+    successCallback,
+  },
+  options: {
+    headers: {
+      Accept: 'application/json',
     },
-    options: {
-      headers: {
-        Accept: 'application/json',
-      },
-      method: 'GET',
-    },
-  });
+    method: 'GET',
+  },
+});

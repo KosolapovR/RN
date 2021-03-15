@@ -42,8 +42,9 @@ const RangeField = React.memo(
     const handleValueChange = useCallback((l, h) => {
       setLow(l);
       setHigh(h);
-      setOuterLow(l);
-      setOuterHigh(h);
+      // setOuterLow(l);
+      // setOuterHigh(h);
+      console.log('handleValueChange', l, h);
     }, []);
 
     useEffect(() => {

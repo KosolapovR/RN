@@ -49,7 +49,7 @@ const SlideImage = styled.Text`
 
 const Buttons = styled.View`
   flex-direction: column;
-  height: 100px;
+  height: 120px;
   justify-content: space-between;
 `;
 

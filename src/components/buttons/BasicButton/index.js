@@ -2,6 +2,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
+import PulsarLoader from 'components/loaders/PulsarLoader';
+import {Row} from 'components/styled';
 
 const StyledButton = styled.TouchableOpacity`
   background-color: ${(props) => {
@@ -24,6 +26,7 @@ const StyledButton = styled.TouchableOpacity`
   }};
   justify-content: center;
   align-items: center;
+  padding: 0 20px;
   width: 100%;
   height: 40px;
   border-radius: 5px;
@@ -60,21 +63,26 @@ const StyledText = styled.Text`
 const areEqual = (prevProps, nextProps) =>
   prevProps.title === nextProps.title &&
   prevProps.isDisabled === nextProps.isDisabled &&
-  prevProps.color === nextProps.color;
+  prevProps.color === nextProps.color &&
+  prevProps.isLoading === nextProps.isLoading;
 
 const BasicButton = React.memo(
-  ({onClick, title, isDisabled, color, containerStyles}) => (
-    <View style={containerStyles}>
+  ({onClick, title, isDisabled, isLoading, color, containerStyles}) => (
+    <Row style={{flex: 1, ...containerStyles}}>
       <StyledButton
         color={color}
         onPress={!isDisabled ? onClick : null}
         activeOpacity={isDisabled ? 1 : 0.7}
-        isDisabled={isDisabled}>
-        <StyledText color={color} isDisabled={isDisabled}>
-          {title}
-        </StyledText>
+        isDisabled={isDisabled || isLoading}>
+        {isLoading ? (
+          <PulsarLoader />
+        ) : (
+          <StyledText color={color} isDisabled={isDisabled}>
+            {title}
+          </StyledText>
+        )}
       </StyledButton>
-    </View>
+    </Row>
   ),
   areEqual,
 );
@@ -83,6 +91,7 @@ BasicButton.propTypes = {
   title: PropTypes.arrayOf([PropTypes.string, PropTypes.element]),
   onClick: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool,
+  isLoading: PropTypes.bool,
   color: PropTypes.oneOf([
     'primary',
     'secondary',
@@ -97,6 +106,7 @@ BasicButton.propTypes = {
 BasicButton.defaultProps = {
   title: '',
   isDisabled: false,
+  isLoading: false,
   color: 'transparent',
   containerStyles: {},
 };

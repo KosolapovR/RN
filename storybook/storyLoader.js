@@ -8,6 +8,7 @@ function loadStories() {
   require('../src/components/blocks/EmptyBlock/EmptyBlock.stories');
   require('../src/components/blocks/PopoverContent/PopoverContent.stories');
   require('../src/components/blocks/ProfileTopBlock/ProfileTopBlock.stories');
+  require('../src/components/blocks/RecoverySuccessBlock/RecoverySuccessBlock.stories');
   require('../src/components/blocks/SelectedCryptoBlock/SelectedCryptoBlock.stories');
   require('../src/components/blocks/WalletHeaderBlock/WalletHeaderBlock.stories');
   require('../src/components/buttons/BasicButton/BasicButton.stories');
@@ -29,12 +30,13 @@ function loadStories() {
   require('../src/components/forms/AuthForm/AuthForm.stories');
   require('../src/components/forms/DeletePinCodeForm/DeletePinCode.stories');
   require('../src/components/forms/Login2faForm/Login2faForm.stories');
-  require('../src/components/forms/RecoveryForm/RecoveryForm.stories');
+  require('../src/components/forms/RecoveryPasswordForm/RecoveryPasswordForm.stories');
   require('../src/components/forms/RegistrationForm/RegistrationForm.stories');
   require('../src/components/forms/ResetPasswordForm/ResetPasswordForm.stories');
   require('../src/components/forms/WithdrawForm/WithdrawForm.stories');
   require('../src/components/lists/DashboardCryptoWalletsList/DashboardCryptoWalletList.stories');
   require('../src/components/lists/TransactionsList/TransactionsList.stories');
+  require('../src/components/loaders/PulsarLoader/PulsarLoader.stories');
   require('../src/components/marketFilter/MarketFilter.stories');
   require('../src/components/modals/ConfirmPinModal/ConfirmPinModal.stories');
   require('../src/components/modals/TransactionModal/TransactionModal.stories');
@@ -46,6 +48,7 @@ const stories = [
   '../src/components/blocks/EmptyBlock/EmptyBlock.stories',
   '../src/components/blocks/PopoverContent/PopoverContent.stories',
   '../src/components/blocks/ProfileTopBlock/ProfileTopBlock.stories',
+  '../src/components/blocks/RecoverySuccessBlock/RecoverySuccessBlock.stories',
   '../src/components/blocks/SelectedCryptoBlock/SelectedCryptoBlock.stories',
   '../src/components/blocks/WalletHeaderBlock/WalletHeaderBlock.stories',
   '../src/components/buttons/BasicButton/BasicButton.stories',
@@ -67,12 +70,13 @@ const stories = [
   '../src/components/forms/AuthForm/AuthForm.stories',
   '../src/components/forms/DeletePinCodeForm/DeletePinCode.stories',
   '../src/components/forms/Login2faForm/Login2faForm.stories',
-  '../src/components/forms/RecoveryForm/RecoveryForm.stories',
+  '../src/components/forms/RecoveryPasswordForm/RecoveryPasswordForm.stories',
   '../src/components/forms/RegistrationForm/RegistrationForm.stories',
   '../src/components/forms/ResetPasswordForm/ResetPasswordForm.stories',
   '../src/components/forms/WithdrawForm/WithdrawForm.stories',
   '../src/components/lists/DashboardCryptoWalletsList/DashboardCryptoWalletList.stories',
   '../src/components/lists/TransactionsList/TransactionsList.stories',
+  '../src/components/loaders/PulsarLoader/PulsarLoader.stories',
   '../src/components/marketFilter/MarketFilter.stories',
   '../src/components/modals/ConfirmPinModal/ConfirmPinModal.stories',
   '../src/components/modals/TransactionModal/TransactionModal.stories',
