@@ -1,4 +1,4 @@
-import * as helpers from 'shared/helpers';
+import * as helpers from '@cashelec/shared/helpers';
 
 module.exports = {
   ...helpers,

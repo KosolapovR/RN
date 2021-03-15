@@ -15,7 +15,8 @@ module.exports = (async () => {
 
   const watchFolders = [
     path.resolve(__dirname + '/../shared'),
-    path.resolve(__dirname + '/../shared/helpers'),
+    // path.resolve(__dirname + '/../shared/helpers'),
+    // path.resolve(__dirname + '/..')
   ];
 
   return {
@@ -23,8 +24,8 @@ module.exports = (async () => {
       babelTransformerPath: require.resolve('react-native-svg-transformer'),
     },
     resolver: {
-      shared: path.resolve(__dirname + '/../shared'),
-      helpers: path.resolve(__dirname + '/../shared/helpers'),
+      // shared: path.resolve(__dirname + '/../shared'),
+      // helpers: path.resolve(__dirname + '/../shared/helpers'),
       assetExts: assetExts.filter(ext => ext !== 'svg'),
       sourceExts: [...sourceExts, 'svg'],
     },

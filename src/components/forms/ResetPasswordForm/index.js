@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {Field, reduxForm} from 'redux-form/immutable';
 import styled from 'styled-components/native';
 
-import {minLength, maxLength, required, password} from 'shared/validators';
+import {minLength, maxLength, required, password} from '@cashelec/shared/validators';
 
 import BasicField from 'components/fields/BasicField';
 import BasicButton from 'components/buttons/BasicButton';

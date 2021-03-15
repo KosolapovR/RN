@@ -1,4 +1,4 @@
-// import {token} from 'shared/helpers';
+// import {token} from '@cashelec/shared/helpers';
 import _ from 'lodash';
 
 /**

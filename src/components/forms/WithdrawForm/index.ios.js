@@ -8,7 +8,7 @@ import {
 import {Field, reduxForm} from 'redux-form/immutable';
 import styled from 'styled-components/native';
 
-import {maxLength, minLength, required} from 'shared/validators';
+import {maxLength, minLength, required} from '@cashelec/shared/validators';
 
 import BasicField from 'components/fields/BasicField';
 import BasicButton from 'components/buttons/BasicButton';

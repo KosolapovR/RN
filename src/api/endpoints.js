@@ -1,4 +1,4 @@
-import {configureEndpoints} from 'shared';
+import {configureEndpoints} from '@cashelec/shared';
 
 export default configureEndpoints({
   hostBuffer: 'http://proxy.ton.services/service-buffer',

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from '@react-navigation/native';
 
-import {TRANSACTION_TYPES} from 'shared/consts';
+import {TRANSACTION_TYPES} from '@cashelec/shared/consts';
 
 import {BlueBoldText, PrimaryText, Row} from 'components/styled';
 

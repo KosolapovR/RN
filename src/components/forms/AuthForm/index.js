@@ -9,7 +9,7 @@ import {
   minLength,
   password,
   required,
-} from 'shared/validators';
+} from '@cashelec/shared/validators';
 
 import BasicField from 'components/fields/BasicField';
 import BasicButton from 'components/buttons/BasicButton';

@@ -3,7 +3,7 @@ import {normalize} from 'normalizr';
 import endpoints from 'api/endpoints';
 import {user} from 'schemas';
 import {Map} from 'immutable';
-import {TWOFA_REQUIRED} from 'shared/consts/errorCodes';
+import {TWOFA_REQUIRED} from '@cashelec/shared/consts/errorCodes';
 
 /**
  *
