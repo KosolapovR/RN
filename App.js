@@ -5,7 +5,7 @@ import {ThemeProvider} from 'styled-components/native';
 import store from './src/configureStore';
 import theme from './src/theme';
 import {Provider} from 'react-redux';
-import {AuthContext} from './src/context/AuthContext';
+import {AuthContext} from 'context/AuthContext';
 import SplashScreen from './src/screens/SplashScreen';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import RootStack from './src/navigators/RootStack';

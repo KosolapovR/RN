@@ -1,12 +1,10 @@
-import {
- useCallback, useEffect, useState, useMemo,
-} from 'react';
-import { useUser, useUserApi } from 'hooks/api';
-import { usePrevious } from 'react-use';
+import {useCallback, useEffect, useState, useMemo} from 'react';
+import {useUser, useUserApi} from '@cashelec/shared/hooks/api';
+import {usePrevious} from 'react-use';
 import {
   useISESelector,
   primitiveSelector,
-} from 'hooks/api/selectors';
+} from '@cashelec/shared/hooks/api/selectors';
 
 /**
  * Хук для работы с условиями использования логики
@@ -18,9 +16,9 @@ import {
  *   setIsTermsOpen: Function, Функция изменяющая стейт
  * }}
  */
-export default ({ location }) => {
-  const { user } = useUser();
-  const { terms } = useUserApi();
+export default ({location}) => {
+  const {user} = useUser();
+  const {terms} = useUserApi();
 
   const [isTermsOpen, setIsTermsOpen] = useState(false);
 
@@ -28,12 +26,20 @@ export default ({ location }) => {
     let accepted = false;
     if (terms.size) {
       const currentAcceptedTermsID = user.get('confirmedTerm');
-      if (!currentAcceptedTermsID) return accepted;
+      if (!currentAcceptedTermsID) {
+        return accepted;
+      }
 
-      const currentAcceptedTermsVersion = parseFloat(terms.find(t => t.get('id') === currentAcceptedTermsID).get('version'));
+      const currentAcceptedTermsVersion = parseFloat(
+        terms
+          .find((t) => t.get('id') === currentAcceptedTermsID)
+          .get('version'),
+      );
       let maxTermsVersion = 0;
       terms.forEach((t) => {
-        maxTermsVersion = parseFloat(t.get('version')) > maxTermsVersion && parseFloat(t.get('version'));
+        maxTermsVersion =
+          parseFloat(t.get('version')) > maxTermsVersion &&
+          parseFloat(t.get('version'));
       });
       accepted = maxTermsVersion <= currentAcceptedTermsVersion;
     } else {
@@ -42,9 +48,12 @@ export default ({ location }) => {
     return accepted;
   }, [terms]);
 
-  const selector = useCallback(state => ({
-    isTermsAccept: primitiveSelector(state, 'isTermsAccept', true),
-  }), []);
+  const selector = useCallback(
+    (state) => ({
+      isTermsAccept: primitiveSelector(state, 'isTermsAccept', true),
+    }),
+    [],
+  );
 
   const store = useISESelector(selector);
 
@@ -53,9 +62,11 @@ export default ({ location }) => {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     if (
-        params.get('terms') !== null
-        || (user && !user.get('confirmedTerm') && user.get('confirmedTerm') !== undefined)
-        || !latestTermsAccepted
+      params.get('terms') !== null ||
+      (user &&
+        !user.get('confirmedTerm') &&
+        user.get('confirmedTerm') !== undefined) ||
+      !latestTermsAccepted
     ) {
       setIsTermsOpen(true);
     }

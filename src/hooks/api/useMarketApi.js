@@ -1,8 +1,11 @@
-import { useMemo, useCallback } from 'react';
-import { bindActionCreators } from 'redux';
-import { querySelectors, updateResults } from '@digitalwing.co/redux-query-immutable';
-import { useDispatch } from 'react-redux';
-import endpoints from 'api/endpoints';
+import {useMemo, useCallback} from 'react';
+import {bindActionCreators} from 'redux';
+import {
+  querySelectors,
+  updateResults,
+} from '@digitalwing.co/redux-query-immutable';
+import {useDispatch} from 'react-redux';
+import endpoints from '@cashelec/shared/api/endpoints';
 import {
   getMostPopularPair,
   getMarketOffers,
@@ -12,7 +15,7 @@ import {
   postCreateSubscription,
   getSubscriptions,
   deleteSubscribe,
-} from 'api/market';
+} from '@cashelec/shared/api/market';
 import {
   mapSelector,
   useISESelector,
@@ -58,73 +61,86 @@ import {
  * }}
  */
 export default () => {
-  const selector = useCallback(state => ({
-    marketOffers: listSelector(state, 'marketOffers'),
-    buyMarketOffers: listSelector(state, 'buyMarketOffers'),
-    marketPeopleCount: primitiveSelector(state, 'marketPeopleCount', 0),
-    marketMeta: mapSelector(state, 'marketOffersMeta'),
-    buyMarketMeta: mapSelector(state, 'buyMarketOffersMeta'),
-    courses: currencyCoursesSelector(state, 'courses'),
-    popularPair: mapSelector(state, 'popularPair'),
-    marketPairs: mapSelector(state, 'marketPairs'),
-    marketSubscriptions: marketSubscriptionsSelector(state, 'marketSubscriptions'),
-    sellRateLimits: mapSelector(state, 'sellRateLimits'),
-    buyRateLimits: mapSelector(state, 'buyRateLimits'),
+  const selector = useCallback(
+    (state) => ({
+      marketOffers: listSelector(state, 'marketOffers'),
+      buyMarketOffers: listSelector(state, 'buyMarketOffers'),
+      marketPeopleCount: primitiveSelector(state, 'marketPeopleCount', 0),
+      marketMeta: mapSelector(state, 'marketOffersMeta'),
+      buyMarketMeta: mapSelector(state, 'buyMarketOffersMeta'),
+      courses: currencyCoursesSelector(state, 'courses'),
+      popularPair: mapSelector(state, 'popularPair'),
+      marketPairs: mapSelector(state, 'marketPairs'),
+      marketSubscriptions: marketSubscriptionsSelector(
+        state,
+        'marketSubscriptions',
+      ),
+      sellRateLimits: mapSelector(state, 'sellRateLimits'),
+      buyRateLimits: mapSelector(state, 'buyRateLimits'),
 
-    popularPairIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getMostPopularPairUrl() },
-    ) || false,
-    popularPairIsInitializing: !!querySelectors.lastUpdated(
-      state.get('queries'),
-      { queryKey: endpoints.getMostPopularPairUrl() },
-    ) || false,
-    sellMarketOffersIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: `marketOffers${endpoints.getMarketUrl()}` },
-    ) || false,
-    buyMarketOffersIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: `buyMarketOffers${endpoints.getMarketUrl()}` },
-    ) || false,
-    marketPairsIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getMarketPairsUrl() },
-    ) || false,
-    sellMarketOffersIsInitializing: !!querySelectors.lastUpdated(
-      state.get('queries'),
-      { queryKey: `marketOffers${endpoints.getMarketUrl()}` },
-    ) || false,
-    buyMarketOffersIsInitializing: !!querySelectors.lastUpdated(
-      state.get('queries'),
-      { queryKey: `buyMarketOffers${endpoints.getMarketUrl()}` },
-    ) || false,
-    subscriptionsIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getSubscribeUrl() },
-    ) || false,
-    postSubIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getSubscribeUrl() },
-    ) || false,
-  }), []);
+      popularPairIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getMostPopularPairUrl(),
+        }) || false,
+      popularPairIsInitializing:
+        !!querySelectors.lastUpdated(state.get('queries'), {
+          queryKey: endpoints.getMostPopularPairUrl(),
+        }) || false,
+      sellMarketOffersIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: `marketOffers${endpoints.getMarketUrl()}`,
+        }) || false,
+      buyMarketOffersIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: `buyMarketOffers${endpoints.getMarketUrl()}`,
+        }) || false,
+      marketPairsIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getMarketPairsUrl(),
+        }) || false,
+      sellMarketOffersIsInitializing:
+        !!querySelectors.lastUpdated(state.get('queries'), {
+          queryKey: `marketOffers${endpoints.getMarketUrl()}`,
+        }) || false,
+      buyMarketOffersIsInitializing:
+        !!querySelectors.lastUpdated(state.get('queries'), {
+          queryKey: `buyMarketOffers${endpoints.getMarketUrl()}`,
+        }) || false,
+      subscriptionsIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getSubscribeUrl(),
+        }) || false,
+      postSubIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getSubscribeUrl(),
+        }) || false,
+    }),
+    [],
+  );
 
   const store = useISESelector(selector);
 
   const dispatch = useDispatch();
 
-  const actions = useMemo(() => bindActionCreators({
-    getMostPopularPair,
-    getMarketOffers,
-    getMarketPeopleCount,
-    getCurrencyCourses,
-    getMarketPairs,
-    postCreateSubscription,
-    getSubscriptions,
-    deleteSubscribe,
-    updatePeopleCount: ({ count }) => updateResults({ marketPeopleCount: count }),
-  }, dispatch),
-  [dispatch]);
+  const actions = useMemo(
+    () =>
+      bindActionCreators(
+        {
+          getMostPopularPair,
+          getMarketOffers,
+          getMarketPeopleCount,
+          getCurrencyCourses,
+          getMarketPairs,
+          postCreateSubscription,
+          getSubscriptions,
+          deleteSubscribe,
+          updatePeopleCount: ({count}) =>
+            updateResults({marketPeopleCount: count}),
+        },
+        dispatch,
+      ),
+    [dispatch],
+  );
 
   return {
     ...store,

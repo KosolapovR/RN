@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { apiConstants } from 'consts';
+import {useState} from 'react';
+import {apiConstants} from '@cashelec/shared/consts';
 
 /**
  * Хук для сортировки по форуму
@@ -17,7 +17,9 @@ export default (callback, initialSortType = apiConstants.topicsSort.byDate) => {
     sortType,
     setSortType: (sort) => {
       setSortType(sort);
-      if (callback) callback(sort);
+      if (callback) {
+        callback(sort);
+      }
     },
   };
 };

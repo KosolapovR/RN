@@ -15,8 +15,6 @@ module.exports = (async () => {
 
   const watchFolders = [
     path.resolve(__dirname + '/../shared'),
-    // path.resolve(__dirname + '/../shared/helpers'),
-    // path.resolve(__dirname + '/..')
   ];
 
   return {

@@ -1,13 +1,13 @@
-import { useMemo, useCallback } from 'react';
-import { bindActionCreators } from 'redux';
-import { querySelectors } from '@digitalwing.co/redux-query-immutable';
-import { useDispatch } from 'react-redux';
+import {useMemo, useCallback} from 'react';
+import {bindActionCreators} from 'redux';
+import {querySelectors} from '@digitalwing.co/redux-query-immutable';
+import {useDispatch} from 'react-redux';
 import {
   getArticle,
   getArticleSearch,
   getTopics,
-} from 'api/faq';
-import endpoints from 'api/endpoints';
+} from '@cashelec/shared/api/faq';
+import endpoints from '@cashelec/shared/api/endpoints';
 import {
   useISESelector,
   listSelector,
@@ -30,35 +30,44 @@ import {
  * }}
  */
 export default () => {
-  const selector = useCallback(state => ({
-    topics: FAQTopicsSelector(state, 'topicsFaq'),
-    article: articleSelector(state, 'article'),
-    faqSearchResults: listSelector(state, 'faqSearchResults'),
+  const selector = useCallback(
+    (state) => ({
+      topics: FAQTopicsSelector(state, 'topicsFaq'),
+      article: articleSelector(state, 'article'),
+      faqSearchResults: listSelector(state, 'faqSearchResults'),
 
-    topicsIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getFaqTopicsUrl() },
-    ) || false,
-    articleIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getArticleUrl() },
-    ) || false,
-    faqSearchIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getFaqSearchUrl() },
-    ) || false,
-  }), []);
+      topicsIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getFaqTopicsUrl(),
+        }) || false,
+      articleIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getArticleUrl(),
+        }) || false,
+      faqSearchIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getFaqSearchUrl(),
+        }) || false,
+    }),
+    [],
+  );
 
   const data = useISESelector(selector);
 
   const dispatch = useDispatch();
 
-  const actions = useMemo(() => bindActionCreators({
-    getArticle,
-    getArticleSearch,
-    getTopics,
-  }, dispatch),
-  [dispatch]);
+  const actions = useMemo(
+    () =>
+      bindActionCreators(
+        {
+          getArticle,
+          getArticleSearch,
+          getTopics,
+        },
+        dispatch,
+      ),
+    [dispatch],
+  );
 
   return {
     ...data,

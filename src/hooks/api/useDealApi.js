@@ -1,11 +1,15 @@
-import { useMemo, useCallback } from 'react';
-import { bindActionCreators } from 'redux';
-import { querySelectors, updateEntities, updateResults } from '@digitalwing.co/redux-query-immutable';
-import { useDispatch } from 'react-redux';
-import { fromJS } from 'immutable';
-import { normalize } from 'normalizr';
-import { deal } from 'schemas';
-import endpoints from 'api/endpoints';
+import {useMemo, useCallback} from 'react';
+import {bindActionCreators} from 'redux';
+import {
+  querySelectors,
+  updateEntities,
+  updateResults,
+} from '@digitalwing.co/redux-query-immutable';
+import {useDispatch} from 'react-redux';
+import {fromJS} from 'immutable';
+import {normalize} from 'normalizr';
+import {deal} from '@cashelec/shared/schemas';
+import endpoints from '@cashelec/shared/api/endpoints';
 import {
   getDeal,
   postCreateDeal,
@@ -16,8 +20,8 @@ import {
   putInviteAdmin,
   putRateDeal,
   putCancelDeal,
-} from 'api/deals';
-import { getPublicUserProfile } from 'api/users';
+} from '@cashelec/shared/api/deals';
+import {getPublicUserProfile} from '@cashelec/shared/api/users';
 import {
   dealSelector,
   entitiesSelector,
@@ -52,72 +56,89 @@ import {
  * }}
  */
 export default () => {
-  const selector = useCallback(state => ({
-    dealsEntities: entitiesSelector(state, 'deal'),
-    deal: dealSelector(state, 'deal'),
-    seller: userSelector(state, 'seller'),
-    buyer: userSelector(state, 'buyer'),
-    postCreateDealIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: `post${endpoints.getDealUrl()}` },
-    ) || false,
-    putInviteAdminIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getInviteAdminUrl() },
-    ) || false,
-    getDealIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getDealByIdUrl() },
-    ) || false,
-    putSubmitIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getSubmitReceivingUrl() },
-    ) || querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getSubmitSendingUrl() },
-    ) || false,
-    putConfirmDealIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getConfirmDealUrl() },
-    ) || false,
-    putSubmitSignTransactionIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getSubmitSignTransactionUrl() },
-    ) || false,
-    putCancelDealIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getCancelDealUrl() },
-    ) || false,
-  }), []);
+  const selector = useCallback(
+    (state) => ({
+      dealsEntities: entitiesSelector(state, 'deal'),
+      deal: dealSelector(state, 'deal'),
+      seller: userSelector(state, 'seller'),
+      buyer: userSelector(state, 'buyer'),
+      postCreateDealIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: `post${endpoints.getDealUrl()}`,
+        }) || false,
+      putInviteAdminIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getInviteAdminUrl(),
+        }) || false,
+      getDealIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getDealByIdUrl(),
+        }) || false,
+      putSubmitIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getSubmitReceivingUrl(),
+        }) ||
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getSubmitSendingUrl(),
+        }) ||
+        false,
+      putConfirmDealIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getConfirmDealUrl(),
+        }) || false,
+      putSubmitSignTransactionIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getSubmitSignTransactionUrl(),
+        }) || false,
+      putCancelDealIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getCancelDealUrl(),
+        }) || false,
+    }),
+    [],
+  );
 
   const store = useISESelector(selector);
 
   const dispatch = useDispatch();
 
-  const actions = useMemo(() => bindActionCreators({
-    getDeal,
-    postCreateDeal,
-    putConfirmDeal,
-    putSubmitSending,
-    putSubmitReceiving,
-    putSubmitSignTransaction,
-    putInviteAdmin,
-    putRateDeal,
-    getPublicUserProfile,
-    putCancelDeal,
-    updateDealsEntities: dealsEntities => updateEntities({ deal: dealsEntities }),
-    updateDealsResults: (dealsResults, metaResults, type) => updateResults({
-      [`${type}Deals`]: dealsResults,
-      [`${type}DealsMeta`]: metaResults,
-    }),
-    clearDeal: () => updateResults({ deal: undefined }),
-  }, dispatch),
-  [dispatch]);
+  const actions = useMemo(
+    () =>
+      bindActionCreators(
+        {
+          getDeal,
+          postCreateDeal,
+          putConfirmDeal,
+          putSubmitSending,
+          putSubmitReceiving,
+          putSubmitSignTransaction,
+          putInviteAdmin,
+          putRateDeal,
+          getPublicUserProfile,
+          putCancelDeal,
+          updateDealsEntities: (dealsEntities) =>
+            updateEntities({deal: dealsEntities}),
+          updateDealsResults: (dealsResults, metaResults, type) =>
+            updateResults({
+              [`${type}Deals`]: dealsResults,
+              [`${type}DealsMeta`]: metaResults,
+            }),
+          clearDeal: () => updateResults({deal: undefined}),
+        },
+        dispatch,
+      ),
+    [dispatch],
+  );
 
-  const updateDeals = useCallback((data) => {
-    const { entities } = normalize(data, deal.schema);
-    actions.updateDealsEntities(store.dealsEntities.mergeDeep(fromJS(entities.deal)));
-  }, [store.dealsEntities]);
+  const updateDeals = useCallback(
+    (data) => {
+      const {entities} = normalize(data, deal.schema);
+      actions.updateDealsEntities(
+        store.dealsEntities.mergeDeep(fromJS(entities.deal)),
+      );
+    },
+    [store.dealsEntities],
+  );
 
   return {
     ...store,

@@ -22,8 +22,8 @@ import {
   postEmail,
   postPassword,
   getResendEmailConfirm,
-} from 'api/auth';
-import endpoints from 'api/endpoints';
+} from '@cashelec/shared/api/auth';
+import endpoints from '@cashelec/shared/api/endpoints';
 import {listSelector, primitiveSelector, useISESelector} from './selectors';
 
 /**

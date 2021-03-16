@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
-import { token } from 'helpers';
-import endpoints from 'api/endpoints';
+import {token} from '@cashelec/shared/helpers';
+import endpoints from '@cashelec/shared/api/endpoints';
 import useOnMessageSocket from './useOnMessageSocket';
 
 let ws;
@@ -13,11 +13,11 @@ let ws;
  */
 export default (location) => {
   // api hooks
-  const { onMessage } = useOnMessageSocket(location);
+  const {onMessage} = useOnMessageSocket(location);
 
   useEffect(() => {
     ws = new ReconnectingWebSocket(
-      endpoints.getSocketsUrl({ token: token.getToken() }),
+      endpoints.getSocketsUrl({token: token.getToken()}),
       [],
       {
         debug: process.env.NODE_ENV !== 'production',

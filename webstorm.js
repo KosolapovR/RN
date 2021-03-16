@@ -5,5 +5,7 @@ System.config({
     'assets/*': './src/assets/*',
     'components/*': './src/components/*',
     'theme/*': './src/theme/*',
+    'hooks/*': './src/hooks/*',
+    'context/*': './src/context/*',
   },
 });

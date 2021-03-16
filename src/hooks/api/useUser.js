@@ -1,9 +1,6 @@
-import { useMemo, useCallback } from 'react';
+import {useMemo, useCallback} from 'react';
 
-import {
-  useISESelector,
-  userSelector,
-} from './selectors';
+import {useISESelector, userSelector} from './selectors';
 
 // Простой хук для получения юзера, который не стоит усложнять без повода
 /**
@@ -13,16 +10,18 @@ import {
  * }}
  */
 export default () => {
-  const selector = useCallback(state => ({
-    user: userSelector(state, 'user'),
-  }), []);
+  const selector = useCallback(
+    (state) => ({
+      user: userSelector(state, 'user'),
+    }),
+    [],
+  );
 
   const data = useISESelector(selector);
 
-  const isUserAuthorized = useMemo(
-    () => data.user && !!data.user.size,
-    [data.user],
-  );
+  const isUserAuthorized = useMemo(() => data.user && !!data.user.size, [
+    data.user,
+  ]);
 
   return {
     ...data,

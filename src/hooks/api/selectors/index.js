@@ -1,4 +1,4 @@
-import {getEntities, getResults} from '../../../reducers';
+import {getEntities, getResults} from 'reducers';
 import {Map, List} from 'immutable';
 import {denormalize} from 'normalizr';
 import {
@@ -32,7 +32,7 @@ import {
   board,
   message,
   session,
-} from 'schemas';
+} from '@cashelec/shared/schemas';
 
 import useISESelector from './useISESelector';
 

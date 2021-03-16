@@ -9,7 +9,7 @@ import {
   getThousandthNormalize,
   getThousandthFormat,
   getRateForBuyer,
-} from 'helpers';
+} from '@cashelec/shared/helpers';
 import _ from 'lodash';
 import { usePrevious } from 'react-use';
 import Immutable from 'immutable';

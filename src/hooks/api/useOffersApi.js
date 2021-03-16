@@ -1,7 +1,10 @@
-import { useMemo, useCallback } from 'react';
-import { bindActionCreators } from 'redux';
-import { querySelectors, updateResults } from '@digitalwing.co/redux-query-immutable';
-import { useDispatch } from 'react-redux';
+import {useMemo, useCallback} from 'react';
+import {bindActionCreators} from 'redux';
+import {
+  querySelectors,
+  updateResults,
+} from '@digitalwing.co/redux-query-immutable';
+import {useDispatch} from 'react-redux';
 import {
   getOffers,
   putStopOffer,
@@ -14,8 +17,8 @@ import {
   getCurrencyCommission,
   getEmpoExchangeRate,
   getProfitLimits,
-} from 'api/offers';
-import endpoints from 'api/endpoints';
+} from '@cashelec/shared/api/offers';
+import endpoints from '@cashelec/shared/api/endpoints';
 import {
   useISESelector,
   mapSelector,
@@ -53,81 +56,93 @@ import {
  * }}
  */
 export default () => {
-  const selector = useCallback(state => ({
-    offers: offersSelector(state, 'offers'),
-    offer: offerSelector(state, 'offer'),
-    tickers: tickersSelector(state, 'tickers'),
-    currencyCommission: mapSelector(state, 'currencyCommission'),
-    empoExchangeRate: mapSelector(state, 'empoExchangeRate'),
-    profitLimits: mapSelector(state, 'profitLimits'),
+  const selector = useCallback(
+    (state) => ({
+      offers: offersSelector(state, 'offers'),
+      offer: offerSelector(state, 'offer'),
+      tickers: tickersSelector(state, 'tickers'),
+      currencyCommission: mapSelector(state, 'currencyCommission'),
+      empoExchangeRate: mapSelector(state, 'empoExchangeRate'),
+      profitLimits: mapSelector(state, 'profitLimits'),
 
-    offersIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getOffersUrl() },
-    ) || querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getCreateOfferUrl() },
-    ) || querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: `put${endpoints.getCreateOfferUrl()}` },
-    ) || querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: `delete${endpoints.getCreateOfferUrl()}` },
-    ) || false,
-    offersIsInitialized: !!querySelectors.lastUpdated(
-      state.get('queries'),
-      { queryKey: endpoints.getOffersUrl() },
-    ) || false,
-    offerIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getOfferByIdUrl() },
-    ) || !querySelectors.lastUpdated(
-      state.get('queries'),
-      { queryKey: endpoints.getOfferByIdUrl() },
-    ) || false,
-    putRunOfferIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getToggleOfferUrl() },
-    ) || false,
-    tickersIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getTickersUrl() },
-    ) || false,
-    currencyCommissionIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getCurrencyCommissionUrl() },
-    ) || false,
-    empoExchangeIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getEmpoExchangeRateUrl() },
-    ) || false,
-    profitLimitsIsFetching: querySelectors.isPending(
-      state.get('queries'),
-      { queryKey: endpoints.getProfitLimitsUrl() },
-    ) || false,
-  }), []);
+      offersIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getOffersUrl(),
+        }) ||
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getCreateOfferUrl(),
+        }) ||
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: `put${endpoints.getCreateOfferUrl()}`,
+        }) ||
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: `delete${endpoints.getCreateOfferUrl()}`,
+        }) ||
+        false,
+      offersIsInitialized:
+        !!querySelectors.lastUpdated(state.get('queries'), {
+          queryKey: endpoints.getOffersUrl(),
+        }) || false,
+      offerIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getOfferByIdUrl(),
+        }) ||
+        !querySelectors.lastUpdated(state.get('queries'), {
+          queryKey: endpoints.getOfferByIdUrl(),
+        }) ||
+        false,
+      putRunOfferIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getToggleOfferUrl(),
+        }) || false,
+      tickersIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getTickersUrl(),
+        }) || false,
+      currencyCommissionIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getCurrencyCommissionUrl(),
+        }) || false,
+      empoExchangeIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getEmpoExchangeRateUrl(),
+        }) || false,
+      profitLimitsIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getProfitLimitsUrl(),
+        }) || false,
+    }),
+    [],
+  );
 
   const data = useISESelector(selector);
 
   const dispatch = useDispatch();
 
-  const actions = useMemo(() => bindActionCreators({
-    getOffers,
-    putStopOffer,
-    putRunOffer,
-    getTickers,
-    getProfitLimits,
-    postCreateOffer,
-    putEditOffer,
-    deleteOffer,
-    getOffer,
-    getCurrencyCommission,
-    getEmpoExchangeRate,
-    clearOffer: () => updateResults({
-      offer: undefined,
-    }),
-  }, dispatch),
-  [dispatch]);
+  const actions = useMemo(
+    () =>
+      bindActionCreators(
+        {
+          getOffers,
+          putStopOffer,
+          putRunOffer,
+          getTickers,
+          getProfitLimits,
+          postCreateOffer,
+          putEditOffer,
+          deleteOffer,
+          getOffer,
+          getCurrencyCommission,
+          getEmpoExchangeRate,
+          clearOffer: () =>
+            updateResults({
+              offer: undefined,
+            }),
+        },
+        dispatch,
+      ),
+    [dispatch],
+  );
 
   return {
     ...data,

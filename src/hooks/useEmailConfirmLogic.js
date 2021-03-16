@@ -1,8 +1,8 @@
-import { useMemo } from 'react';
-import { useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { getResendEmailConfirm } from 'api/auth';
-import { useUser } from 'hooks/api';
+import {useMemo} from 'react';
+import {useDispatch} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {getResendEmailConfirm} from '@cashelec/shared/api/auth';
+import {useUser} from '@cashelec/shared/hooks/api';
 
 /**
  * Хук для работы с логикой потдверждения почты
@@ -19,20 +19,27 @@ import { useUser } from 'hooks/api';
  * и отправяет подтверждение на почту юзера
  */
 export default () => {
-  const { user } = useUser();
+  const {user} = useUser();
   const needToConfirmEmail = !user.get('isConfirm');
 
   const dispatch = useDispatch();
 
-  const actions = useMemo(() => bindActionCreators({
-    getResendEmailConfirm,
-  }, dispatch),
-  [dispatch]);
+  const actions = useMemo(
+    () =>
+      bindActionCreators(
+        {
+          getResendEmailConfirm,
+        },
+        dispatch,
+      ),
+    [dispatch],
+  );
 
   return {
     needToConfirmEmail,
-    onConfirmEmail: () => actions.getResendEmailConfirm({
-      email: encodeURIComponent(user.get('email')),
-    }),
+    onConfirmEmail: () =>
+      actions.getResendEmailConfirm({
+        email: encodeURIComponent(user.get('email')),
+      }),
   };
 };

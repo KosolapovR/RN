@@ -1,11 +1,7 @@
 import _ from 'lodash';
 
 // import {errorMessages as EM, errorCodes as EC} from '@cashelec/shared';
-import {Map} from 'immutable';
-import store from '../configureStore';
-import i18n from '../i18next';
 import {Alert} from 'react-native';
-import {useContext} from 'react';
 
 const handleErrorMessage = (action) => {
   let message = _.get(action, 'responseBody.data');

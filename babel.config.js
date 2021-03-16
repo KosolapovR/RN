@@ -23,6 +23,8 @@ module.exports = {
           theme: './src/theme',
           api: './src/api',
           schemas: './src/schemas',
+          hooks: './src/hooks',
+          context: './src/context',
         },
       },
     ],
