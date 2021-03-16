@@ -1,6 +1,5 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {View} from 'react-native';
 import styled from 'styled-components/native';
 import PulsarLoader from 'components/loaders/PulsarLoader';
 import {Row} from 'components/styled';
@@ -54,7 +53,7 @@ const StyledText = styled.Text`
       case 'transparent-with-border':
         return `#ffffff${props.isDisabled ? '99' : ''}`;
       case 'transparent':
-        return `#ffffff${props.isDisabled ? '99' : ''}`;
+        return `#b6b6b6${props.isDisabled ? '99' : ''}`;
       default:
         return '#444444';
     }
@@ -68,7 +67,7 @@ const areEqual = (prevProps, nextProps) =>
 
 const BasicButton = React.memo(
   ({onClick, title, isDisabled, isLoading, color, containerStyles}) => (
-    <Row style={{flex: 1, ...containerStyles}}>
+    <Row style={{flex: 0, ...containerStyles}}>
       <StyledButton
         color={color}
         onPress={!isDisabled ? onClick : null}

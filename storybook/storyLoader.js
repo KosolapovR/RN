@@ -9,6 +9,7 @@ function loadStories() {
   require('../src/components/blocks/PopoverContent/PopoverContent.stories');
   require('../src/components/blocks/ProfileTopBlock/ProfileTopBlock.stories');
   require('../src/components/blocks/RecoverySuccessBlock/RecoverySuccessBlock.stories');
+  require('../src/components/blocks/Selected2faBlock/Selected2faBlock.stories');
   require('../src/components/blocks/SelectedCryptoBlock/SelectedCryptoBlock.stories');
   require('../src/components/blocks/WalletHeaderBlock/WalletHeaderBlock.stories');
   require('../src/components/buttons/BasicButton/BasicButton.stories');
@@ -29,6 +30,7 @@ function loadStories() {
   require('../src/components/forms/AddPinCodeForm/AddPinCode.stories');
   require('../src/components/forms/AuthForm/AuthForm.stories');
   require('../src/components/forms/Connect2faForm/Connect2faForm.stories');
+  require('../src/components/forms/Connection2faForm/Connection2faForm.stories');
   require('../src/components/forms/DeletePinCodeForm/DeletePinCode.stories');
   require('../src/components/forms/Login2faForm/Login2faForm.stories');
   require('../src/components/forms/RecoveryPasswordForm/RecoveryPasswordForm.stories');
@@ -50,6 +52,7 @@ const stories = [
   '../src/components/blocks/PopoverContent/PopoverContent.stories',
   '../src/components/blocks/ProfileTopBlock/ProfileTopBlock.stories',
   '../src/components/blocks/RecoverySuccessBlock/RecoverySuccessBlock.stories',
+  '../src/components/blocks/Selected2faBlock/Selected2faBlock.stories',
   '../src/components/blocks/SelectedCryptoBlock/SelectedCryptoBlock.stories',
   '../src/components/blocks/WalletHeaderBlock/WalletHeaderBlock.stories',
   '../src/components/buttons/BasicButton/BasicButton.stories',
@@ -70,6 +73,7 @@ const stories = [
   '../src/components/forms/AddPinCodeForm/AddPinCode.stories',
   '../src/components/forms/AuthForm/AuthForm.stories',
   '../src/components/forms/Connect2faForm/Connect2faForm.stories',
+  '../src/components/forms/Connection2faForm/Connection2faForm.stories',
   '../src/components/forms/DeletePinCodeForm/DeletePinCode.stories',
   '../src/components/forms/Login2faForm/Login2faForm.stories',
   '../src/components/forms/RecoveryPasswordForm/RecoveryPasswordForm.stories',
