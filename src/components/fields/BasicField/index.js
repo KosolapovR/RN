@@ -39,7 +39,6 @@ const StyledField = styled.TextInput`
     props.theme.main.backgroundColors.primaryLighter};
   justify-content: center;
   align-items: center;
-  min-width: 100%;
   height: 40px;
   border-radius: ${(props) => props.theme.main.borderRadius};
   color: ${(props) => props.theme.main.colors.primary};
@@ -99,7 +98,7 @@ const BasicField = React.memo(
     containerStyle,
     fieldStyle,
   }) => {
-    const [DebounceInputValue, setDebounceInputValue] = useState('');
+    const [DebounceInputValue, setDebounceInputValue] = useState(input.value);
     const [debouncing, setDebouncing] = useState(false);
     const lastInputValue = useRef(input.value);
 
@@ -139,7 +138,9 @@ const BasicField = React.memo(
         call.cancel();
         setDebouncing(false);
         input.onChange(evt);
-        input.onBlur(evt);
+        if (input.onBlur) {
+          input.onBlur(evt);
+        }
       },
       [call, setDebouncing, input.onChange, input.onBlur],
     );

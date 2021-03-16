@@ -93,7 +93,6 @@ const MarketFilter = ({
                 [setLowResponseTime],
               )}
               setHigh={useCallback((v) => setHighResponseTime(v), [])}
-              inputFieldWidth={50}
             />
             <RangeField
               label="Сделок покупателя"
@@ -103,7 +102,6 @@ const MarketFilter = ({
               high={+highDealsCount}
               setLow={useCallback((v) => setLowDealsCount(v), [])}
               setHigh={useCallback((v) => setHighDealsCount(v), [])}
-              inputFieldWidth={50}
             />
             <CheckBoxField input={{}} label="Только онлайн" />
             <BasicButton

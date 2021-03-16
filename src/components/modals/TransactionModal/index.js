@@ -22,7 +22,7 @@ import Animated, {
   withDelay,
 } from 'react-native-reanimated';
 
-import {TRANSACTION_TYPES} from 'shared/consts';
+import {TRANSACTION_TYPES} from '@cashelec/shared/consts';
 
 import ModalHeader from 'components/blocks/ModalHeader';
 import TransactionType from 'components/modals/TransactionModal/TransactionType';

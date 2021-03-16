@@ -33,7 +33,6 @@ const AuthForm = ({
   onRecoveryPassword,
   onSubmit,
 }) => {
-  console.log('submitting', isFetching);
   return (
     <Column>
       <StyledForm>

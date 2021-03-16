@@ -44,20 +44,27 @@ const RangeField = React.memo(
       setHigh(h);
       // setOuterLow(l);
       // setOuterHigh(h);
-      console.log('handleValueChange', l, h);
     }, []);
 
     useEffect(() => {
-      if (low !== outerLow) setLow(outerLow);
+      if (low !== outerLow) {
+        setLow(outerLow);
+      }
     }, [outerLow]);
     useEffect(() => {
-      if (high !== outerHigh) setHigh(outerHigh);
+      if (high !== outerHigh) {
+        setHigh(outerHigh);
+      }
     }, [outerHigh]);
 
     const onChangeLowField = (v) => {
       if (v <= high) {
-        if (outerLow !== v) setOuterLow(v);
-        if (low !== v) setLow(v);
+        if (outerLow !== v) {
+          setOuterLow(v);
+        }
+        if (low !== v) {
+          setLow(v);
+        }
       } else {
         setLow(high);
         setOuterLow(high);
@@ -66,8 +73,12 @@ const RangeField = React.memo(
 
     const onChangeHighField = (v) => {
       if (v >= low) {
-        if (outerHigh !== v) setOuterHigh(v);
-        if (high !== v) setHigh(v);
+        if (outerHigh !== v) {
+          setOuterHigh(v);
+        }
+        if (high !== v) {
+          setHigh(v);
+        }
       } else {
         setOuterHigh(low);
         setHigh(low);
@@ -94,16 +105,19 @@ const RangeField = React.memo(
         />
         <RowSpaceBetween>
           <BasicField
-            containerStyle={{
+            fieldStyle={{
               width: inputFieldWidth,
-              paddingTop: 10,
+              height: 30,
             }}
-            fieldStyle={{height: 25}}
             input={{value: low.toString(), onChange: onChangeLowField}}
           />
           <BasicField
-            containerStyle={{width: inputFieldWidth, paddingTop: 10}}
-            fieldStyle={{textAlign: 'right', height: 25}}
+            fieldStyle={{
+              textAlign: 'right',
+              width: inputFieldWidth,
+              alignSelf: 'flex-end',
+              height: 30,
+            }}
             input={{value: high.toString(), onChange: onChangeHighField}}
           />
         </RowSpaceBetween>
