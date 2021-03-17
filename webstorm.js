@@ -7,5 +7,6 @@ System.config({
     'theme/*': './src/theme/*',
     'hooks/*': './src/hooks/*',
     'context/*': './src/context/*',
+    'screens/*': './src/screens/*',
   },
 });

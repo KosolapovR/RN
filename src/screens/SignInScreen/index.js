@@ -24,7 +24,14 @@ const SignInScreen = ({navigation}) => {
         requestBody: formValues,
       }).then(({body}) => {
         if (body && !body.error) {
-          signIn(body.data.token);
+          const {is2faActive} = body.data.twofa;
+          const {token} = body.data;
+          if (!is2faActive) {
+            navigation.navigate('Connect2fa', {token});
+          } else {
+            //TODO redirect to 2fa screen
+            signIn(token);
+          }
         }
       });
     },

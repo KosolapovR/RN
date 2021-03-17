@@ -63,6 +63,7 @@ const areEqual = (prevProps, nextProps) =>
   prevProps.title === nextProps.title &&
   prevProps.isDisabled === nextProps.isDisabled &&
   prevProps.color === nextProps.color &&
+  prevProps.onClick === nextProps.onClick &&
   prevProps.isLoading === nextProps.isLoading;
 
 const BasicButton = React.memo(

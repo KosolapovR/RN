@@ -1,18 +1,20 @@
 import React from 'react';
 import {View} from 'react-native';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import {useTheme} from 'styled-components';
 
-import InitialScreen from '../screens/InitialScreen';
-import SignInScreen from '../screens/SignInScreen';
-import SignUpScreen from '../screens/SignUpScreen';
+import InitialScreen from 'screens/InitialScreen';
+import SignInScreen from 'screens/SignInScreen';
+import SignUpScreen from 'screens/SignUpScreen';
+import RecoveryPasswordScreen from 'screens/RecoveryPasswordScreen';
+import RecoverySuccessScreen from 'screens/RecoverySuccessScreen';
+import Connect2faScreen from 'screens/Connect2faScreen';
+import Connection2faScreen from 'screens/Connection2faScreen';
+
 import LogoTitle from 'components/Logo';
 import IconButton from 'components/buttons/IconButton';
 import {SecondaryBoldTextLightLarge} from 'components/styled';
 import HelpIcon from 'assets/img/help/help.svg';
 import BackIcon from 'assets/img/arrows/arrow-back-white.svg';
-import RecoveryPasswordScreen from '../screens/RecoveryPasswordScreen';
-import RecoverySuccessScreen from '../screens/RecoverySuccessScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,8 +49,37 @@ const HeaderRight = () => (
   />
 );
 
+const basicHeaderOptions = {
+  headerStyle: {
+    shadowOffset: {height: 0, width: 0},
+    backgroundColor: '#141416',
+  },
+  headerTitleStyle: {
+    color: '#b6b6b6',
+  },
+};
+const headerWithLogo = {
+  ...basicHeaderOptions,
+  headerCenter: () => <HeaderCenter title="" />,
+  headerLeft: () => <LogoTitle />,
+  headerRight: () => <HeaderRight />,
+};
+
+const getHeaderWithHelpIconOptions = ({navigation, title}) => ({
+  ...basicHeaderOptions,
+  headerLeft: () => <HeaderLeft navigation={navigation} />,
+  headerCenter: () => <HeaderCenter title={title} />,
+  headerRight: () => <HeaderRight />,
+});
+
+const getHeader = ({navigation, title}) => ({
+  ...basicHeaderOptions,
+  headerLeft: () => <HeaderLeft navigation={navigation} />,
+  headerCenter: () => <HeaderCenter title={title} />,
+  headerRight: () => null,
+});
+
 export const AuthStack = ({navigation}) => {
-  const theme = useTheme();
   return (
     <View style={{flex: 1, backgroundColor: '#141416'}}>
       <Stack.Navigator initialRouteName="Initial">
@@ -56,61 +87,45 @@ export const AuthStack = ({navigation}) => {
           name="Initial"
           component={InitialScreen}
           options={() => ({
-            headerStyle: {
-              shadowOffset: {height: 0, width: 0},
-              backgroundColor: theme.main.backgroundColors.primary,
-            },
-            headerCenter: () => <HeaderCenter title="" />,
-            headerLeft: () => <LogoTitle />,
-            headerRight: () => <HeaderRight />,
+            ...headerWithLogo,
           })}
         />
         <Stack.Screen
           name="SignIn"
           component={SignInScreen}
           options={({route}) => ({
-            headerStyle: {
-              shadowOffset: {height: 0, width: 0},
-              backgroundColor: '#141416',
-            },
-            headerTitleStyle: {
-              color: '#b6b6b6',
-            },
-            headerLeft: () => <HeaderLeft navigation={navigation} />,
-            headerCenter: () => <HeaderCenter title="Вход" />,
-            headerRight: () => <HeaderRight />,
+            ...getHeaderWithHelpIconOptions({navigation, title: 'Вход'}),
+          })}
+        />
+        <Stack.Screen
+          name="Connect2fa"
+          component={Connect2faScreen}
+          options={({route}) => ({
+            ...headerWithLogo,
+          })}
+        />
+        <Stack.Screen
+          name="Connection2fa"
+          component={Connection2faScreen}
+          options={({route}) => ({
+            ...getHeader({navigation, title: 'Подключить 2FA'}),
           })}
         />
         <Stack.Screen
           name="SignUp"
           component={SignUpScreen}
           options={{
-            headerStyle: {
-              shadowOffset: {height: 0, width: 0},
-              backgroundColor: '#141416',
-            },
-            headerTitleStyle: {
-              color: '#b6b6b6',
-            },
-            headerLeft: () => <HeaderLeft navigation={navigation} />,
-            headerCenter: () => <HeaderCenter title="Регистрация" />,
-            headerRight: () => <HeaderRight />,
+            ...getHeaderWithHelpIconOptions({navigation, title: 'Регистрация'}),
           }}
         />
         <Stack.Screen
           name="RecoveryPassword"
           component={RecoveryPasswordScreen}
           options={({route}) => ({
-            headerStyle: {
-              shadowOffset: {height: 0, width: 0},
-              backgroundColor: '#141416',
-            },
-            headerTitleStyle: {
-              color: '#b6b6b6',
-            },
-            headerLeft: () => <HeaderLeft navigation={navigation} />,
-            headerCenter: () => <HeaderCenter title="Восстановление" />,
-            headerRight: () => <HeaderRight />,
+            ...getHeaderWithHelpIconOptions({
+              navigation,
+              title: 'Восстановление',
+            }),
           })}
         />
         <Stack.Screen

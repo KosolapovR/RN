@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {Text, View, ImageBackground, Image, StyleSheet} from 'react-native';
 import styled from 'styled-components/native';
 import Carousel from 'react-native-snap-carousel';
 import {Dimensions} from 'react-native';
@@ -49,7 +48,7 @@ const SlideImage = styled.Text`
 
 const Buttons = styled.View`
   flex-direction: column;
-  height: 120px;
+  height: 100px;
   justify-content: space-between;
 `;
 
@@ -66,7 +65,7 @@ const _renderItem = ({item, index}) => {
 const data = [
   {
     title: 'Покупайте и продавайте криптовалюту',
-    text: `9 криптовалют, 300 банков и 50 платежных систем для обмена`,
+    text: '9 криптовалют, 300 банков и 50 платежных систем для обмена',
     img: <BenefitLogo1 />,
   },
   {

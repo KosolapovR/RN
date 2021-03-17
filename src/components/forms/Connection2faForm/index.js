@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 
@@ -48,6 +48,9 @@ const Connection2faForm = ({onSubmit, onSkip}) => {
       item.isSelected = item.id === id;
     });
   };
+
+  const onContinue = useCallback(() => onSubmit(selected2FA), [selected2FA]);
+
   return (
     <StyledForm>
       <PrimaryText paddingBottom={20}>
@@ -55,13 +58,7 @@ const Connection2faForm = ({onSubmit, onSkip}) => {
       </PrimaryText>
       <Selected2faBlock onSelect2FA={onSelect} items={items} />
       <StyledButtonsWrapper>
-        <BasicButton
-          color="primary"
-          title="Продолжить"
-          onClick={() => {
-            onSubmit(selected2FA);
-          }}
-        />
+        <BasicButton color="primary" title="Продолжить" onClick={onContinue} />
         <BasicButton title="Не подключать 2FA" onClick={onSkip} />
       </StyledButtonsWrapper>
     </StyledForm>

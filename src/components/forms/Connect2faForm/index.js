@@ -1,19 +1,8 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import {
-  TouchableWithoutFeedback,
-  Keyboard,
-  KeyboardAvoidingView,
-} from 'react-native';
+import React, {useCallback, useState} from 'react';
 import styled from 'styled-components/native';
-import {reduxForm} from 'redux-form/immutable';
 
 import BasicButton from 'components/buttons/BasicButton';
-import CodeField from 'components/fields/CodeField';
-import {
-  PrimaryBoldLargeText,
-  SecondaryBoldTextLightLarge,
-} from 'components/styled';
+import {PrimaryBoldLargeText} from 'components/styled';
 import RadioButtonRN from 'radio-buttons-react-native';
 import {useTheme} from 'styled-components';
 
@@ -26,14 +15,21 @@ const StyledButtonsWrapper = styled.View`
 `;
 
 const Connect2faForm = ({onSubmit}) => {
-  const [setup2FA, setSetup2FA] = useState(true);
   const theme = useTheme();
+
+  const [is2fa, set2FA] = useState(true);
+
+  const onContinue = useCallback(() => {
+    onSubmit(is2fa);
+  }, [is2fa]);
+
   return (
     <StyledForm>
       <PrimaryBoldLargeText paddingBottom={15}>
-        Подключение 2FA{' '}
+        Подключение 2FA
       </PrimaryBoldLargeText>
       <RadioButtonRN
+        initial={1}
         boxStyle={{
           height: 45,
           padding: 0,
@@ -54,16 +50,12 @@ const Connect2faForm = ({onSubmit}) => {
             value: false,
           },
         ]}
-        selectedBtn={(e) => setSetup2FA(e.value)}
+        selectedBtn={(e) => {
+          set2FA(e.value);
+        }}
       />
       <StyledButtonsWrapper>
-        <BasicButton
-          color="primary"
-          title="Продолжить"
-          onClick={() => {
-            onSubmit(setup2FA);
-          }}
-        />
+        <BasicButton color="primary" title="Продолжить" onClick={onContinue} />
       </StyledButtonsWrapper>
     </StyledForm>
   );
