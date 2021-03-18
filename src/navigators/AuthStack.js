@@ -1,6 +1,5 @@
 import React from 'react';
 import {View} from 'react-native';
-import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 
 import InitialScreen from 'screens/InitialScreen';
 import SignInScreen from 'screens/SignInScreen';
@@ -8,15 +7,18 @@ import SignUpScreen from 'screens/SignUpScreen';
 import RecoveryPasswordScreen from 'screens/RecoveryPasswordScreen';
 import RecoverySuccessScreen from 'screens/RecoverySuccessScreen';
 import Connect2faScreen from 'screens/Connect2faScreen';
-import Connection2faScreen from 'screens/Connection2faScreen';
+import Select2faScreen from 'screens/Select2faScreen';
 
 import LogoTitle from 'components/Logo';
 import IconButton from 'components/buttons/IconButton';
 import {SecondaryBoldTextLightLarge} from 'components/styled';
 import HelpIcon from 'assets/img/help/help.svg';
 import BackIcon from 'assets/img/arrows/arrow-back-white.svg';
+import Connection2faScreen from 'screens/Connection2faScreen';
+import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 
-const Stack = createNativeStackNavigator();
+const Stack = createSharedElementStackNavigator();
+// const Stack = createNativeStackNavigator();
 
 const HeaderLeft = ({navigation}) => {
   return (
@@ -105,8 +107,35 @@ export const AuthStack = ({navigation}) => {
           })}
         />
         <Stack.Screen
+          name="Select2fa"
+          component={Select2faScreen}
+          options={({route}) => ({
+            ...getHeader({navigation, title: 'Подключить 2FA'}),
+          })}
+          sharedElementsConfig={(route, otherRoute, showing) => {
+            const {SelectItem} = route.params;
+            return SelectItem
+              ? [
+                  {
+                    id: `item.${SelectItem.id}`,
+                    animation: 'fade',
+                  },
+                ]
+              : [];
+          }}
+        />
+        <Stack.Screen
           name="Connection2fa"
           component={Connection2faScreen}
+          sharedElementsConfig={(route, otherRoute, showing) => {
+            const {item} = route.params;
+            return [
+              {
+                id: `item.${item.id}`,
+                animation: 'fade',
+              },
+            ];
+          }}
           options={({route}) => ({
             ...getHeader({navigation, title: 'Подключить 2FA'}),
           })}

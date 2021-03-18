@@ -30,7 +30,6 @@ function loadStories() {
   require('../src/components/forms/AddPinCodeForm/AddPinCode.stories');
   require('../src/components/forms/AuthForm/AuthForm.stories');
   require('../src/components/forms/Connect2faForm/Connect2faForm.stories');
-  require('../src/components/forms/Connection2faForm/Connection2faForm.stories');
   require('../src/components/forms/DeletePinCodeForm/DeletePinCode.stories');
   require('../src/components/forms/Login2faForm/Login2faForm.stories');
   require('../src/components/forms/RecoveryPasswordForm/RecoveryPasswordForm.stories');
@@ -73,7 +72,6 @@ const stories = [
   '../src/components/forms/AddPinCodeForm/AddPinCode.stories',
   '../src/components/forms/AuthForm/AuthForm.stories',
   '../src/components/forms/Connect2faForm/Connect2faForm.stories',
-  '../src/components/forms/Connection2faForm/Connection2faForm.stories',
   '../src/components/forms/DeletePinCodeForm/DeletePinCode.stories',
   '../src/components/forms/Login2faForm/Login2faForm.stories',
   '../src/components/forms/RecoveryPasswordForm/RecoveryPasswordForm.stories',

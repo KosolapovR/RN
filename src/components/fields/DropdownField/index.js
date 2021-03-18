@@ -1,18 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {
-  Dimensions,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  Pressable,
-  Platform,
-} from 'react-native';
+import {Dimensions, Platform} from 'react-native';
 import styled from 'styled-components/native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
+  withDelay,
   interpolateColor,
   Easing,
 } from 'react-native-reanimated';
@@ -25,13 +20,12 @@ const windowHeight = Dimensions.get('window').height;
 
 const Container = styled.View`
   align-self: stretch;
-  position: relative;
   margin-bottom: 10px;
 `;
 
 const Overlay = styled.TouchableOpacity`
   left: 0;
-  position: ${({isIOS}) => (isIOS ? 'absolute' : 'relative')};
+  position: absolute;
   top: ${({offsetTop}) => (offsetTop ? `${-offsetTop}px` : '0px')};
   width: ${({width}) => (width ? `${width - 40}px` : '0px')};
   height: ${({height}) => (height ? `${height - 40}px` : '0px')};
@@ -46,7 +40,7 @@ const ItemsList = styled.View`
 
 const Item = styled.TouchableOpacity`
   height: 40px;
-  border-top-width: ${({notFirst}) => (notFirst ? `1px` : `0px`)};
+  border-top-width: ${({notFirst}) => (notFirst ? '1px' : '0px')};
   border-style: solid;
   border-top-color: ${(props) =>
     props.theme.main.backgroundColors.primaryLighterHover};
@@ -91,19 +85,28 @@ const DropdownField = ({
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [itemListRef, setItemListRef] = useState();
   const [offsetTop, setOffsetTop] = useState(0);
+  const [itemListHeight, setItemListHeight] = useState(0);
 
   const offset = useSharedValue(0);
+  const dropdownItemsHeight = useSharedValue(0);
   const opacity = useSharedValue(0);
   const rotation = useSharedValue(90);
   const arrowTop = useSharedValue(15);
   const itemColor = useSharedValue(colors[0]);
 
   const animatedStyles = useAnimatedStyle(() => {
-    return {
-      transform: [{translateY: offset.value}],
-      opacity: opacity.value,
-      zIndex: 100,
-    };
+    if (Platform.OS === 'android') {
+      return {
+        transform: [{translateY: offset.value}],
+        opacity: opacity.value,
+        height: dropdownItemsHeight.value,
+      };
+    } else {
+      return {
+        transform: [{translateY: offset.value}],
+        opacity: opacity.value,
+      };
+    }
   });
 
   const animatedItemStyles = useAnimatedStyle(() => {
@@ -124,16 +127,40 @@ const DropdownField = ({
 
   useEffect(() => {
     if (isDropdownOpen) {
-      itemColor.value = withTiming(1, {duration: 200, easing: Easing.linear});
-      offset.value = withSpring(20);
-      opacity.value = withSpring(1);
+      itemColor.value = withTiming(1, {
+        duration: 250,
+        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+      });
+      offset.value = withSpring(12, {
+        duration: 250,
+        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+      });
+      if (Platform.OS === 'android') {
+        opacity.value = withDelay(
+          250,
+          withSpring(1, {duration: 250, easing: Easing.cubic}),
+        );
+      } else {
+        opacity.value = withSpring(1, {
+          duration: 250,
+          easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+        });
+      }
       rotation.value = withTiming(-180);
+      if (Platform.OS === 'android') {
+        dropdownItemsHeight.value = withTiming(itemListHeight + 15, {
+          duration: 370,
+          easing: Easing.cubic,
+        });
+      }
     } else {
-      itemColor.value = withTiming(0, {duration: 200, easing: Easing.linear});
-
+      itemColor.value = withTiming(0, {duration: 250, easing: Easing.linear});
       offset.value = withSpring(0);
       opacity.value = withSpring(0);
       rotation.value = withTiming(0);
+      if (Platform.OS === 'android') {
+        dropdownItemsHeight.value = withTiming(0);
+      }
     }
   }, [isDropdownOpen]);
 
@@ -145,13 +172,20 @@ const DropdownField = ({
   //устанавливаем смещение оверлэй слоя в зависимости от положения дропдауна
   // для того что бы покрывать весь экран оверлэем
   useEffect(() => {
-    if (itemListRef)
+    if (itemListRef) {
       setTimeout(() => {
         itemListRef.measure((fx, fy, width, height, px, py) => {
           setOffsetTop(py);
         });
       }, 0);
+    }
   }, [itemListRef]);
+
+  useEffect(() => {
+    if (dropdownItems) {
+      setItemListHeight(dropdownItems.length * 40);
+    }
+  }, []);
 
   return (
     <Container>
@@ -159,6 +193,7 @@ const DropdownField = ({
       <InputWrapper
         activeOpacity={readOnly || isDisabled ? 1 : 0.6}
         onPress={() => {
+          console.log('itemListHeight', itemListHeight);
           readOnly || isDisabled ? null : toggleDropdown();
         }}>
         {selectedItem ? (
@@ -200,17 +235,17 @@ const DropdownField = ({
               offsetTop={offsetTop}>
               <Animated.View style={animatedItemStyles}>
                 {dropdownItems.map((item, index) => (
-                  <Item notFirst={!!index} key={item.id}>
-                    <Pressable
-                      onPress={() => {
-                        if (isDropdownOpen) {
-                          closeDropdown();
-                          setSelectedItem(item.element);
-                          onChange(item.value);
-                        }
-                      }}>
-                      {item.element}
-                    </Pressable>
+                  <Item
+                    notFirst={!!index}
+                    key={item.id}
+                    onPress={() => {
+                      if (isDropdownOpen) {
+                        closeDropdown();
+                        setSelectedItem(item.element);
+                        onChange(item.value);
+                      }
+                    }}>
+                    {item.element}
                   </Item>
                 ))}
               </Animated.View>

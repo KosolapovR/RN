@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 import {boolean, text} from '@storybook/addon-knobs';
 import {storiesOf} from '@storybook/react-native';
 import {action} from '@storybook/addon-actions';
@@ -10,8 +10,8 @@ import WithReduxForm from '../../../../storybook/stories/WithReduxForm';
 import DropdownField from './index';
 
 storiesOf('Инпуты', module)
-  .addDecorator(getStory => <WithReduxForm>{getStory()}</WithReduxForm>)
-  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+  .addDecorator((getStory) => <WithReduxForm>{getStory()}</WithReduxForm>)
+  .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
 
   .add('Дропдаун', () => (
     <Field
@@ -19,9 +19,10 @@ storiesOf('Инпуты', module)
       component={DropdownField}
       input={{onChange: action('onChange')}}
       props={{
+        zIndex: 1,
         placeholder: text('Placeholder', 'Выберите кошелек'),
         isDisabled: boolean('Disabled', false),
-        label: text('Label', 'Выбор валюты:'),
+        label: text('Label', 'Выбор валюты1:'),
         readOnly: boolean('readOnly', false),
         dropdownItems: [
           {

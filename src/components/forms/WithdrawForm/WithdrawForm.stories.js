@@ -7,25 +7,25 @@ import ImportedWalletIcon from 'assets/img/w-import.svg';
 
 const currencies = [
   {
-    id: '1',
+    id: 1,
     alias: 'BTC',
     icon:
       'https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-01-11T11:46:47Z_6b5879.png',
   },
   {
-    id: '2',
+    id: 2,
     alias: 'ETH',
     icon:
       'https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-01-11T11:45:47Z_c7c004.png',
   },
   {
-    id: '3',
+    id: 3,
     alias: 'TON',
     icon:
       'https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-02-17T15:09:09Z_bde967.jpg',
   },
   {
-    id: '4',
+    id: 4,
     alias: 'USDT',
     icon:
       'https://proxy.onplat.ru/service-buckets/file/payment/5fedcd3307567bf6600aec43_2021-01-11T11:50:58Z_4598c9.png',
@@ -33,7 +33,7 @@ const currencies = [
 ];
 const wallets = [
   {
-    id: '1',
+    id: 1,
     address: '1tb1qwcx5er3ltqd9juhzk7kw5ualqfqepsufkfmnr3',
     icon: (
       <ImportedWalletIcon width={20} height={20} style={{marginRight: 10}} />

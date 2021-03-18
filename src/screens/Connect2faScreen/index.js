@@ -16,7 +16,7 @@ const Connect2faScreen = ({navigation, route}) => {
     const {token} = route.params;
 
     if (needSetup2FA) {
-      navigation.navigate('Connection2fa', {token});
+      navigation.navigate('Select2fa', {token});
     } else {
       signIn(token);
     }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useContext} from 'react';
 import styled from 'styled-components/native';
 import {AuthContext} from 'context/AuthContext';
-import Connection2faForm from 'components/forms/Connection2faForm';
+import Select2faForm from 'components/forms/Select2faForm';
 
 const Wrapper = styled.View`
   background-color: #141416;
@@ -10,10 +10,12 @@ const Wrapper = styled.View`
   flex: 1;
 `;
 
-const Connection2faScreen = ({route}) => {
+const Select2faScreen = ({navigation, route}) => {
   const {signIn} = useContext(AuthContext);
 
-  const handleSubmitForm = () => {};
+  const handleSubmitForm = (id2FA) => {
+    navigation.navigate('Connection2fa', {id2FA});
+  };
 
   const onSkip = () => {
     const {token} = route.params;
@@ -22,9 +24,14 @@ const Connection2faScreen = ({route}) => {
 
   return (
     <Wrapper>
-      <Connection2faForm onSubmit={handleSubmitForm} onSkip={onSkip} />
+      <Select2faForm
+        onSubmit={handleSubmitForm}
+        onSkip={onSkip}
+        navigation={navigation}
+        route={route}
+      />
     </Wrapper>
   );
 };
 
-export default Connection2faScreen;
+export default Select2faScreen;

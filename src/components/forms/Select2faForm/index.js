@@ -1,6 +1,7 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
+import {TouchableOpacity} from 'react-native';
 
 import BasicButton from 'components/buttons/BasicButton';
 import {PrimaryText} from 'components/styled';
@@ -8,7 +9,8 @@ import AppIcon from 'assets/img/2fa-mobile.svg';
 import AppSelectedIcon from 'assets/img/2fa-active.svg';
 import TelegramIcon from 'assets/img/new-settings/telegram-grey.svg';
 import TelegramSelectedIcon from 'assets/img/new-settings/telegram-active.svg';
-import Selected2faBlock from 'components/blocks/Selected2faBlock';
+import {SharedElement} from 'react-navigation-shared-element';
+import Selected2faItem from 'components/blocks/Selected2faBlock/Selected2faItem';
 
 const StyledForm = styled.View`
   flex: 1;
@@ -39,35 +41,48 @@ const items = [
   },
 ];
 
-const Connection2faForm = ({onSubmit, onSkip}) => {
-  const [selected2FA, setSelected2FA] = useState();
+const Select2faForm = ({onSkip, navigation, route}) => {
+  function renderItem(item) {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.push('Connection2fa', {item, token});
+        }}>
+        <SharedElement id={`item.${item.id}`}>
+          <Selected2faItem
+            icon={item.icon}
+            onSelect2FA={() => {}}
+            title={item.title}
+            id={item.id}
+            selectedIcon={item.selectedIcon}
+            subtitle={item.subtitle}
+          />
+        </SharedElement>
+      </TouchableOpacity>
+    );
+  }
+  const {SelectItem, token} = route.params;
 
-  const onSelect = (id) => {
-    setSelected2FA(id);
-    items.forEach((item) => {
-      item.isSelected = item.id === id;
-    });
-  };
-
-  const onContinue = useCallback(() => onSubmit(selected2FA), [selected2FA]);
+  if (SelectItem) {
+    items[SelectItem.id - 1] = SelectItem;
+  }
 
   return (
     <StyledForm>
       <PrimaryText paddingBottom={20}>
         Выберите способ подключения двухфакторной аутентификации:
       </PrimaryText>
-      <Selected2faBlock onSelect2FA={onSelect} items={items} />
+      {items.map((item) => renderItem(item))}
       <StyledButtonsWrapper>
-        <BasicButton color="primary" title="Продолжить" onClick={onContinue} />
         <BasicButton title="Не подключать 2FA" onClick={onSkip} />
       </StyledButtonsWrapper>
     </StyledForm>
   );
 };
 
-Connection2faForm.propTypes = {
+Select2faForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onSkip: PropTypes.func.isRequired,
 };
 
-export default Connection2faForm;
+export default Select2faForm;

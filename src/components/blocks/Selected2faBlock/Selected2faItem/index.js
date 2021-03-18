@@ -9,8 +9,9 @@ import {
   SecondaryTextSmall,
 } from 'components/styled';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import EditIcon from 'assets/img/edit-mobile.svg';
 
-const Container = styled.TouchableOpacity`
+const Container = styled.View`
   height: 68px;
   justify-content: center;
   align-items: flex-start;
@@ -44,6 +45,17 @@ const SelectedIconWrapper = styled.View`
   background-color: ${(props) => props.theme.main.backgroundColors.blue};
 `;
 
+const EditIconWrapper = styled.View`
+  position: absolute;
+  top: 24px;
+  right: 15px;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  width: 18px;
+  border-radius: 18px;
+`;
+
 function Selected2faItem({
   id,
   title,
@@ -52,8 +64,8 @@ function Selected2faItem({
   isSelected,
   selectedIcon,
   onSelect2FA,
+  editable,
 }) {
-
   return (
     <Container
       selected={isSelected}
@@ -69,10 +81,15 @@ function Selected2faItem({
           </Column>
         </Row>
       </RowSpaceBetween>
-      {isSelected && (
+      {isSelected && !editable && (
         <SelectedIconWrapper>
           <FontAwesome5 name="check" size={10} color={'#ffffff'} />
         </SelectedIconWrapper>
+      )}
+      {editable && (
+        <EditIconWrapper>
+          <EditIcon width={20} height={20} />
+        </EditIconWrapper>
       )}
     </Container>
   );
@@ -85,6 +102,11 @@ Selected2faItem.propTypes = {
   icon: PropTypes.string.isRequired,
   selectedIcon: PropTypes.string.isRequired,
   onSelect2FA: PropTypes.func.isRequired,
+  editable: PropTypes.bool,
+};
+
+Selected2faItem.defaultProps = {
+  editable: false,
 };
 
 export default Selected2faItem;

@@ -1,10 +1,17 @@
 import React, {useCallback, useState} from 'react';
 import styled from 'styled-components/native';
+import PropTypes from 'prop-types';
 
 import BasicButton from 'components/buttons/BasicButton';
-import {PrimaryBoldLargeText} from 'components/styled';
-import RadioButtonRN from 'radio-buttons-react-native';
 import {useTheme} from 'styled-components';
+import Selected2faItem from 'components/blocks/Selected2faBlock/Selected2faItem';
+import EditIcon from 'assets/img/edit-mobile.svg';
+import {SharedElement} from 'react-navigation-shared-element';
+import {TouchableOpacity} from 'react-native';
+import AppIcon from 'assets/img/2fa-mobile.svg';
+import AppSelectedIcon from 'assets/img/2fa-active.svg';
+import TelegramIcon from 'assets/img/new-settings/telegram-grey.svg';
+import TelegramSelectedIcon from 'assets/img/new-settings/telegram-active.svg';
 
 const StyledForm = styled.View`
   flex: 1;
@@ -14,53 +21,42 @@ const StyledButtonsWrapper = styled.View`
   margin-top: 25px;
 `;
 
-const Connect2faForm = ({onSubmit}) => {
-  const theme = useTheme();
-
+const Connection2faForm = ({onSubmit, selected2faItem, route, navigation}) => {
   const [is2fa, set2FA] = useState(true);
 
   const onContinue = useCallback(() => {
     onSubmit(is2fa);
   }, [is2fa]);
 
+  const {item, token} = route.params;
+
   return (
     <StyledForm>
-      <PrimaryBoldLargeText paddingBottom={15}>
-        Подключение 2FA
-      </PrimaryBoldLargeText>
-      <RadioButtonRN
-        initial={1}
-        boxStyle={{
-          height: 45,
-          padding: 0,
-          backgroundColor: theme.main.backgroundColors.primary,
-          borderWidth: 0,
-        }}
-        activeColor={theme.main.colors.blue}
-        deactiveColor={theme.main.colors.primary}
-        animationTypes={['shake']}
-        textColor={theme.main.colors.primary}
-        data={[
-          {
-            label: 'Я хочу подключить 2FA сейчас',
-            value: true,
-          },
-          {
-            label: 'Пропустить и подключить позже',
-            value: false,
-          },
-        ]}
-        selectedBtn={(e) => {
-          set2FA(e.value);
-        }}
-      />
+      <TouchableOpacity
+        onPress={() => navigation.push('Select2fa', {SelectItem: item, token})}>
+        <SharedElement id={`item.${item.id}`}>
+          <Selected2faItem
+            subtitle={item.subtitle}
+            onSelect2FA={() => {}}
+            icon={item.icon}
+            id={item.id}
+            title={item.title}
+            selectedIcon={item.selectedIcon}
+            isSelected
+            editable
+          />
+        </SharedElement>
+      </TouchableOpacity>
+
       <StyledButtonsWrapper>
-        <BasicButton color="primary" title="Продолжить" onClick={onContinue} />
+        <BasicButton color="primary" title="Подключить" onClick={onContinue} />
       </StyledButtonsWrapper>
     </StyledForm>
   );
 };
 
-Connect2faForm.propTypes = {};
+Connection2faForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
-export default Connect2faForm;
+export default Connection2faForm;

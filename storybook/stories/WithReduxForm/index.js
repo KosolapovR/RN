@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import {reduxForm} from 'redux-form/immutable';
 
 const WithReduxForm = ({children}) => {
-  return <View>{children}</View>;
+  return <View style={{flex: 1}}>{children}</View>;
 };
 
 WithReduxForm.defaultProps = {
