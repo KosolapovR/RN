@@ -111,4 +111,5 @@ RegistrationForm.propTypes = {
 
 export default reduxForm({
   form: 'registrationForm',
+  asyncChangeFields: ['username', 'email', 'password', 'repeatPassword'],
 })(RegistrationForm);

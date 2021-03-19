@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
+import {Row} from 'components/styled';
 
 const Container = styled.TouchableOpacity`
   flex-direction: row;
@@ -27,6 +28,7 @@ const CheckIcon = styled.View`
   transform: rotate(-40deg);
 `;
 const Label = styled.Text`
+  flex-wrap: wrap;
   color: ${(props) => props.theme.main.colors.secondary};
 `;
 
@@ -65,7 +67,11 @@ const CheckBoxField = ({input: {value, onChange}, label, isDisabled}) => {
           </CheckIconWrapper>
         </CheckIcon>
       </CustomCheckBox>
-      {label && <Label>{label}</Label>}
+      {label && (
+        <Row style={{flex: 1}}>
+          <Label>{label}</Label>
+        </Row>
+      )}
     </Container>
   );
 };
