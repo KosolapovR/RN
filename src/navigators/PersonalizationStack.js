@@ -90,6 +90,7 @@ export const PersonalizationStack = ({navigation}) => {
             headerTitle: '',
             headerLeft: () => null,
             headerStyle: {
+              elevation: 0,
               backgroundColor: theme.main.backgroundColors.primary,
               shadowOffset: {height: 0, width: 0},
             },

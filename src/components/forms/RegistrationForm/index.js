@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  Text,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
@@ -33,7 +32,7 @@ const StyledButtonsWrapper = styled.View`
   flex: 1;
 `;
 
-const RegistrationForm = ({handleSubmit, invalid}) => (
+const RegistrationForm = ({handleSubmit, invalid, onSubmit}) => (
   <KeyboardAvoidingView
     behavior="padding"
     keyboardVerticalOffset={-150}
@@ -90,14 +89,11 @@ const RegistrationForm = ({handleSubmit, invalid}) => (
             }}
             validate={agreeRequired}
           />
-
           <StyledButtonsWrapper>
             <BasicButton
               color="primary"
               title="Продолжить"
-              onClick={() => {
-                handleSubmit();
-              }}
+              onClick={handleSubmit(onSubmit)}
               isDisabled={invalid}
             />
           </StyledButtonsWrapper>
@@ -109,6 +105,7 @@ const RegistrationForm = ({handleSubmit, invalid}) => (
 
 RegistrationForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
 };
 

@@ -17,7 +17,7 @@ const CodeField = ({onFinishCheckingCode, label, codeCount}) => {
   const paddingRight = 20;
   const paddingLeft = 20;
   const spaceBetweenCell = 15;
-  const size = useMemo(() => {
+  const inputSize = useMemo(() => {
     const calculated =
       (windowWidth -
         paddingRight -
@@ -26,8 +26,9 @@ const CodeField = ({onFinishCheckingCode, label, codeCount}) => {
       codeCount;
     const max = 60;
 
-    return Math.min([calculated, max]);
+    return Math.min(calculated, max);
   }, [windowWidth, codeCount]);
+
   return (
     <>
       {label && <SecondaryText>{label}</SecondaryText>}
@@ -36,7 +37,7 @@ const CodeField = ({onFinishCheckingCode, label, codeCount}) => {
         codeLength={codeCount}
         borderType="border-circle"
         autoFocus={false}
-        size={size ? size : 50}
+        size={inputSize ? inputSize : 50}
         space={spaceBetweenCell}
         containerStyle={{flex: 0, marginBottom: 30}}
         codeInputStyle={{

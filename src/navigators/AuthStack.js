@@ -1,5 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
+import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 
 import InitialScreen from 'screens/InitialScreen';
 import SignInScreen from 'screens/SignInScreen';
@@ -8,14 +9,14 @@ import RecoveryPasswordScreen from 'screens/RecoveryPasswordScreen';
 import RecoverySuccessScreen from 'screens/RecoverySuccessScreen';
 import Connect2faScreen from 'screens/Connect2faScreen';
 import Select2faScreen from 'screens/Select2faScreen';
+import Connection2faScreen from 'screens/Connection2faScreen';
+import SignIn2faScreen from 'screens/SignIn2faScreen';
 
 import LogoTitle from 'components/Logo';
 import IconButton from 'components/buttons/IconButton';
 import {SecondaryBoldTextLightLarge} from 'components/styled';
 import HelpIcon from 'assets/img/help/help.svg';
 import BackIcon from 'assets/img/arrows/arrow-back-white.svg';
-import Connection2faScreen from 'screens/Connection2faScreen';
-import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 
 const Stack = createSharedElementStackNavigator();
 
@@ -144,6 +145,14 @@ export const AuthStack = ({navigation}) => {
           options={() => ({
             ...getHeader({navigation, title: 'Подключить 2FA'}),
             headerLeft: null,
+          })}
+        />
+        <Stack.Screen
+          name="SignIn2fa"
+          component={SignIn2faScreen}
+          options={() => ({
+            headerTitleAlign: 'center',
+            ...getHeaderWithHelpIconOptions({navigation, title: 'Вход'}),
           })}
         />
         <Stack.Screen

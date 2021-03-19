@@ -20,6 +20,7 @@
     "@cashelec/shared": "^0.0.1",
     "@digitalwing.co/redux-query-immutable": "2.4.13",
     "@react-native-async-storage/async-storage": "1.13.4",
+    "@react-native-clipboard/clipboard": "^1.7.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "5.11.8",
     "@react-navigation/material-bottom-tabs": "5.3.14",

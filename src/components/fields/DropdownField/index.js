@@ -193,7 +193,6 @@ const DropdownField = ({
       <InputWrapper
         activeOpacity={readOnly || isDisabled ? 1 : 0.6}
         onPress={() => {
-          console.log('itemListHeight', itemListHeight);
           readOnly || isDisabled ? null : toggleDropdown();
         }}>
         {selectedItem ? (

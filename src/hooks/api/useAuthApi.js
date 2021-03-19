@@ -67,6 +67,10 @@ export default () => {
         querySelectors.isPending(state.get('queries'), {
           queryKey: endpoints.getLoginUrl(),
         }) || false,
+      postLogin2faIsFetching:
+        querySelectors.isPending(state.get('queries'), {
+          queryKey: endpoints.getLogin2faUrl(),
+        }) || false,
       get2faKeyIsFetching:
         querySelectors.isPending(state.get('queries'), {
           queryKey: endpoints.get2faKeyUrl(),

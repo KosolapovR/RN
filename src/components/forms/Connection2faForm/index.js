@@ -13,6 +13,7 @@ import BasicField from 'components/fields/BasicField';
 import CodeField from 'components/fields/CodeField';
 import CopyIcon from 'assets/img/copy-grey.svg';
 import PulsarLoader from 'components/loaders/PulsarLoader';
+import IconButton from 'components/buttons/IconButton';
 
 const StyledForm = styled.ScrollView`
   flex: 1;
@@ -25,8 +26,8 @@ const Connection2faForm = ({
   navigation,
   onSkip,
   get2faKeyIsFinish,
+  onCopyKey,
 }) => {
-  console.log('RenderForm');
   const dispatch = useDispatch();
 
   const {item, token} = route.params;
@@ -65,7 +66,7 @@ const Connection2faForm = ({
         Добавьте аккаунт вручную в вашем 2FA приложении. Мы рекомендуем
         приложение{' '}
         <Pressable onPress={goToAuthySite}>
-          <BlueText>Authy</BlueText>
+          <BlueText style={{top: 3}}>Authy</BlueText>
         </Pressable>
         .
       </PrimaryText>
@@ -77,7 +78,7 @@ const Connection2faForm = ({
             label: 'Ключ',
             readOnly: true,
             withError: false,
-            rightSymbol: <CopyIcon />,
+            rightSymbol: <IconButton onClick={onCopyKey} icon={<CopyIcon />} />,
           }}
           type="text"
         />

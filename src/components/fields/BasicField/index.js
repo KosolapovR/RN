@@ -29,7 +29,7 @@ const StyledLeftSymbolWrapper = styled.TouchableOpacity`
 const StyledRightSymbolWrapper = styled.TouchableOpacity`
   position: absolute;
   right: 15px;
-  top: 36px;
+  top: 27px;
   z-index: 1;
 `;
 

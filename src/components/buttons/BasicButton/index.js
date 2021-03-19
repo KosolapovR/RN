@@ -88,7 +88,7 @@ const BasicButton = React.memo(
 );
 
 BasicButton.propTypes = {
-  title: PropTypes.arrayOf([PropTypes.string, PropTypes.element]),
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   onClick: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool,
   isLoading: PropTypes.bool,

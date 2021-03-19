@@ -6,6 +6,8 @@ import {AuthContext} from 'context/AuthContext';
 import FormWrapper from 'components/forms/FormWrapper';
 import useAuthApi from 'hooks/api/useAuthApi';
 import {useToast} from 'react-native-styled-toast';
+import errorCodes, {TWOFA_REQUIRED} from '@cashelec/shared/consts/errorCodes';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 const Wrapper = styled.View`
   background-color: #141416;
@@ -26,23 +28,42 @@ const SignInScreen = ({navigation}) => {
     (formValues) => {
       postLogin({
         requestBody: formValues,
+        successCallback: async ({data, errorCode}) => {
+          if (errorCode === TWOFA_REQUIRED) {
+            await EncryptedStorage.setItem(
+              'AUTH_EMAIL',
+              formValues.get('email'),
+            );
+            await EncryptedStorage.setItem(
+              'AUTH_PASSWORD',
+              formValues.get('password'),
+            );
+            navigation.navigate('SignIn2fa');
+            //TODO redirect to 2fa screen
+          } else {
+            if (data && !errorCode) {
+              const {
+                twofa: {is2faActive},
+                token,
+              } = data;
+              if (!is2faActive) {
+                navigation.navigate('Connect2fa', {token});
+              } else {
+                toast({
+                  message: ' Ошибка',
+                  subMessage: data,
+                  intent: 'ERROR',
+                });
+              }
+            }
+          }
+        },
         errorCallback: ({data}) =>
           toast({
             message: ' Ошибка',
             subMessage: data,
             intent: 'ERROR',
           }),
-      }).then(({body}) => {
-        if (body && !body.error) {
-          const {is2faActive} = body.data.twofa;
-          const {token} = body.data;
-          if (!is2faActive) {
-            navigation.navigate('Connect2fa', {token});
-          } else {
-            //TODO redirect to 2fa screen
-            signIn(token);
-          }
-        }
       });
     },
 

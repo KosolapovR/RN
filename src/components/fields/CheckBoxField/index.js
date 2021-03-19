@@ -54,6 +54,7 @@ const CheckBoxField = ({input: {value, onChange}, label, isDisabled}) => {
   return (
     <Container
       onPress={() => {
+        onChange(!checked);
         setChecked(!checked);
       }}>
       <CustomCheckBox checkBoxActive={checked}>

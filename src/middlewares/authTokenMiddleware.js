@@ -22,7 +22,6 @@ export default () => (next) => async (action) => {
       userToken = await EncryptedStorage.getItem('AUTH_TOKEN_BEFORE_2FA');
     }
 
-    console.log('userToken', userToken);
     if (userToken) {
       callAPI.options.headers = {
         ...callAPI.options.headers,

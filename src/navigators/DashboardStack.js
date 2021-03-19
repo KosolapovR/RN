@@ -34,6 +34,7 @@ export const DashboardStack = () => {
             headerLeft: () => <LogoTitle />,
 
             headerStyle: {
+              elevation: 0,
               backgroundColor: theme.main.backgroundColors.primary,
               shadowOffset: {height: 0, width: 0},
             },
