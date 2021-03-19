@@ -18,7 +18,7 @@ const colors = ['rgba(255,255,255, 0.01)', 'rgba(255,255,255, 0.15)'];
 
 const Container = styled.View`
   position: absolute;
-  top: -50px;
+  top: -100px;
 `;
 function SuccessIconBlock() {
   const borderColorOuterRing = useSharedValue(0);
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
   ring: {
     borderStyle: 'solid',
     borderWidth: 1,
-    borderRadius: 300,
-    padding: 72,
+    borderRadius: 500,
+    padding: 68,
   },
 });
 

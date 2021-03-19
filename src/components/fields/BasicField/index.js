@@ -8,7 +8,6 @@ const StyledInputWrapper = styled.View`
   padding-bottom: 25px;
   padding-top: 25px;
   position: relative;
-  flex: 1;
 `;
 
 const StyledLabel = styled.Text`

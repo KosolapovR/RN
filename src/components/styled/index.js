@@ -81,6 +81,7 @@ const GreenText = styled(StyledText)`
 
 const BlueText = styled(StyledText)`
   color: ${(props) => props.theme.main.colors.blue};
+  font-size: ${(props) => props.theme.main.fontSize.medium};
 `;
 
 const RedText = styled(StyledText)`

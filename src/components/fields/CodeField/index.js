@@ -45,7 +45,6 @@ const CodeField = ({onFinishCheckingCode, label, codeCount}) => {
           backgroundColor: theme.main.backgroundColors.primaryLighter,
         }}
         onFulfill={(code) => _onFinishCheckingCode(code)}
-        input
       />
     </>
   );

@@ -18,19 +18,12 @@ import Connection2faScreen from 'screens/Connection2faScreen';
 import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 
 const Stack = createSharedElementStackNavigator();
-// const Stack = createNativeStackNavigator();
 
 const HeaderLeft = ({navigation}) => {
   return (
     <IconButton
       onClick={() => navigation.goBack()}
-      icon={
-        <BackIcon
-          width={20}
-          height={20}
-          style={{marginTop: 10, marginLeft: 10}}
-        />
-      }
+      icon={<BackIcon width={20} height={20} style={{marginLeft: 20}} />}
       backgroundTransparent
     />
   );
@@ -47,24 +40,27 @@ const HeaderRight = () => (
   <IconButton
     onClick={() => {}}
     backgroundTransparent
-    icon={<HelpIcon width={40} />}
+    icon={<HelpIcon width={40} style={{marginRight: 30}} />}
   />
 );
 
 const basicHeaderOptions = {
   headerStyle: {
+    elevation: 0,
     shadowOffset: {height: 0, width: 0},
     backgroundColor: '#141416',
   },
   headerTitleStyle: {
     color: '#b6b6b6',
   },
+  cardStyle: {backgroundColor: 'transparent'},
 };
 const headerWithLogo = {
   ...basicHeaderOptions,
   headerCenter: () => <HeaderCenter title="" />,
   headerLeft: () => <LogoTitle />,
   headerRight: () => <HeaderRight />,
+  headerTitle: null,
 };
 
 const getHeaderWithHelpIconOptions = ({navigation, title}) => ({
@@ -72,6 +68,7 @@ const getHeaderWithHelpIconOptions = ({navigation, title}) => ({
   headerLeft: () => <HeaderLeft navigation={navigation} />,
   headerCenter: () => <HeaderCenter title={title} />,
   headerRight: () => <HeaderRight />,
+  headerTitle: title,
 });
 
 const getHeader = ({navigation, title}) => ({
@@ -79,12 +76,20 @@ const getHeader = ({navigation, title}) => ({
   headerLeft: () => <HeaderLeft navigation={navigation} />,
   headerCenter: () => <HeaderCenter title={title} />,
   headerRight: () => null,
+  headerTitle: title,
 });
 
 export const AuthStack = ({navigation}) => {
   return (
     <View style={{flex: 1, backgroundColor: '#141416'}}>
-      <Stack.Navigator initialRouteName="Initial">
+      <Stack.Navigator
+        initialRouteName="Initial"
+        screenOptions={{
+          headerTitleContainerStyle: {
+            borderBottomWidth: 0,
+            shadowColor: 'transparent',
+          },
+        }}>
         <Stack.Screen
           name="Initial"
           component={InitialScreen}
@@ -95,14 +100,15 @@ export const AuthStack = ({navigation}) => {
         <Stack.Screen
           name="SignIn"
           component={SignInScreen}
-          options={({route}) => ({
+          options={() => ({
+            headerTitleAlign: 'center',
             ...getHeaderWithHelpIconOptions({navigation, title: 'Вход'}),
           })}
         />
         <Stack.Screen
           name="Connect2fa"
           component={Connect2faScreen}
-          options={({route}) => ({
+          options={() => ({
             ...headerWithLogo,
           })}
         />
@@ -111,14 +117,14 @@ export const AuthStack = ({navigation}) => {
           component={Select2faScreen}
           options={({route}) => ({
             ...getHeader({navigation, title: 'Подключить 2FA'}),
+            headerLeft: null,
           })}
-          sharedElementsConfig={(route, otherRoute, showing) => {
+          sharedElementsConfig={(route) => {
             const {SelectItem} = route.params;
             return SelectItem
               ? [
                   {
                     id: `item.${SelectItem.id}`,
-                    animation: 'fade',
                   },
                 ]
               : [];
@@ -127,17 +133,17 @@ export const AuthStack = ({navigation}) => {
         <Stack.Screen
           name="Connection2fa"
           component={Connection2faScreen}
-          sharedElementsConfig={(route, otherRoute, showing) => {
+          sharedElementsConfig={(route) => {
             const {item} = route.params;
             return [
               {
                 id: `item.${item.id}`,
-                animation: 'fade',
               },
             ];
           }}
-          options={({route}) => ({
+          options={() => ({
             ...getHeader({navigation, title: 'Подключить 2FA'}),
+            headerLeft: null,
           })}
         />
         <Stack.Screen
@@ -150,7 +156,7 @@ export const AuthStack = ({navigation}) => {
         <Stack.Screen
           name="RecoveryPassword"
           component={RecoveryPasswordScreen}
-          options={({route}) => ({
+          options={() => ({
             ...getHeaderWithHelpIconOptions({
               navigation,
               title: 'Восстановление',
@@ -160,7 +166,7 @@ export const AuthStack = ({navigation}) => {
         <Stack.Screen
           name="RecoverySuccess"
           component={RecoverySuccessScreen}
-          options={({route}) => ({
+          options={() => ({
             headerShown: false,
           })}
         />

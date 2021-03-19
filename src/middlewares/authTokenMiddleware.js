@@ -1,28 +1,35 @@
-// import {token} from '@cashelec/shared/helpers';
 import _ from 'lodash';
+import {actionTypes} from '@digitalwing.co/redux-query-immutable';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 /**
  * Add Authorization header to api action
  *
  * @return {void}
  */
-export default () => (next) => (action) => {
-  // if (
-  //   (_.isEqual(action.type, actionTypes.REQUEST_ASYNC) ||
-  //     _.isEqual(action.type, actionTypes.MUTATE_ASYNC)) &&
-  //   action.meta.authToken
-  // ) {
-  //   const callAPI = action;
-  //   delete callAPI.meta.authToken;
-  //   // const userToken = token.getToken();
-  //
-  //   // if (userToken) {
-  //   //   callAPI.options.headers = {
-  //   //     ...callAPI.options.headers,
-  //   //     Authorization: `Bearer ${userToken}`,
-  //   //   };
-  //   // }
-  //   return next(action);
-  // }
+export default () => (next) => async (action) => {
+  if (
+    (_.isEqual(action.type, actionTypes.REQUEST_ASYNC) ||
+      _.isEqual(action.type, actionTypes.MUTATE_ASYNC)) &&
+    action.meta.authToken
+  ) {
+    const callAPI = action;
+    delete callAPI.meta.authToken;
+
+    let userToken;
+    userToken = await EncryptedStorage.getItem('AUTH_TOKEN');
+    if (!userToken) {
+      userToken = await EncryptedStorage.getItem('AUTH_TOKEN_BEFORE_2FA');
+    }
+
+    console.log('userToken', userToken);
+    if (userToken) {
+      callAPI.options.headers = {
+        ...callAPI.options.headers,
+        Authorization: `Bearer ${userToken}`,
+      };
+    }
+    return next(action);
+  }
   return next(action);
 };

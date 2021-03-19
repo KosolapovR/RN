@@ -10,7 +10,7 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 
-const PulsarLoader = ({size}) => {
+const PulsarLoader = ({size, containerStyles}) => {
   const outerSize = useSharedValue(0.1);
   const outerOpacity = useSharedValue(1);
   const innerSize = useSharedValue(0.1);
@@ -76,7 +76,7 @@ const PulsarLoader = ({size}) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyles]}>
       <Animated.View
         style={[outerAnimatedStyles, styles.outer, {width: size, height: size}]}
       />
@@ -89,10 +89,8 @@ const PulsarLoader = ({size}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative',
   },
   outer: {
     borderRadius: 30,

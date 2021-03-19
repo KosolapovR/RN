@@ -16,12 +16,16 @@ const Wrapper = styled.View`
 
 const CarouselWrapper = styled.View`
   flex: 1;
-  margin-bottom: 20px;
+  margin-bottom: 20%;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin-top: 20%;
 `;
 
+const SlideInfo = styled.View`
+  align-self: flex-end;
+`;
 const SlideTitle = styled.Text`
   font-weight: bold;
   color: #b6b6b6;
@@ -38,7 +42,6 @@ const SlideText = styled.Text`
 `;
 
 const SlideImage = styled.Text`
-  height: 60%;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
@@ -56,8 +59,10 @@ const _renderItem = ({item, index}) => {
   return (
     <CarouselWrapper>
       <SlideImage>{item.img}</SlideImage>
-      <SlideTitle>{item.title}</SlideTitle>
-      <SlideText>{item.text}</SlideText>
+      <SlideInfo>
+        <SlideTitle>{item.title}</SlideTitle>
+        <SlideText>{item.text}</SlideText>
+      </SlideInfo>
     </CarouselWrapper>
   );
 };
@@ -66,19 +71,34 @@ const data = [
   {
     title: 'Покупайте и продавайте криптовалюту',
     text: '9 криптовалют, 300 банков и 50 платежных систем для обмена',
-    img: <BenefitLogo1 />,
+    img: (
+      <BenefitLogo1
+        height={Dimensions.get('window').width * 0.5}
+        width={Dimensions.get('window').width * 0.5}
+      />
+    ),
   },
   {
     title: 'Безопасность и поддержка 24/7',
     text:
       'Абсолютная анонимность. Защита на всех уровнях. Открыто для Tor Browser',
-    img: <BenefitLogo2 />,
+    img: (
+      <BenefitLogo2
+        height={Dimensions.get('window').width * 0.55}
+        width={Dimensions.get('window').width * 0.55}
+      />
+    ),
   },
   {
     title: 'Выгодные и быстрые обмены',
     text:
       'Низкая комиссия. Более 20 бирж. Автоматические сделки для платежных систем',
-    img: <BenefitLogo3 />,
+    img: (
+      <BenefitLogo3
+        height={Dimensions.get('window').width * 0.55}
+        width={Dimensions.get('window').width * 0.55}
+      />
+    ),
   },
 ];
 

@@ -10,7 +10,7 @@ import useDealApi from './useDealApi';
 import useDealsApi from './useDealsApi';
 import useAuthApi from './useAuthApi';
 import useFAQApi from './useFAQApi';
-import useChatApi from './useChatApi';
+// import useChatApi from './useChatApi';
 import useStatsApi from './useStatsApi';
 import useDashboardApi from './useDashboardApi';
 import useMarketApi from './useMarketApi';
@@ -31,7 +31,7 @@ export {
   useDealsApi,
   useAuthApi,
   useFAQApi,
-  useChatApi,
+  // useChatApi,
   useStatsApi,
   useDashboardApi,
   useMarketApi,
