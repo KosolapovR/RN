@@ -1,7 +1,8 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import Carousel from 'react-native-snap-carousel';
 import {Dimensions} from 'react-native';
+
 import BasicButton from '../../components/buttons/BasicButton';
 
 import BenefitLogo1 from '../../assets/img/benefits/benefits-6.1.svg';

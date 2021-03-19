@@ -1,13 +1,15 @@
 import * as React from 'react';
 import {StatusBar, View} from 'react-native';
-import {enableScreens} from 'react-native-screens';
+import {Provider} from 'react-redux';
 import {ThemeProvider} from 'styled-components/native';
+import {ToastProvider} from 'react-native-styled-toast';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import {enableScreens} from 'react-native-screens';
+
 import store from './src/configureStore';
 import theme from './src/theme';
-import {Provider} from 'react-redux';
 import {AuthContext} from 'context/AuthContext';
 import SplashScreen from './src/screens/SplashScreen';
-import EncryptedStorage from 'react-native-encrypted-storage';
 import RootStack from './src/navigators/RootStack';
 
 enableScreens();
@@ -81,16 +83,18 @@ const App = () => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <AuthContext.Provider value={authContext}>
-          <View style={{flex: 1, backgroundColor: '#141416'}}>
-            <StatusBar
-              translucent
-              backgroundColor="#141416"
-              barStyle="light-content"
-            />
-            <RootStack userToken={state.userToken} />
-          </View>
-        </AuthContext.Provider>
+        <ToastProvider>
+          <AuthContext.Provider value={authContext}>
+            <View style={{flex: 1, backgroundColor: '#141416'}}>
+              <StatusBar
+                translucent
+                backgroundColor="#141416"
+                barStyle="light-content"
+              />
+              <RootStack userToken={state.userToken} />
+            </View>
+          </AuthContext.Provider>
+        </ToastProvider>
       </ThemeProvider>
     </Provider>
   );

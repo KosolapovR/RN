@@ -13,7 +13,6 @@ import BasicField from 'components/fields/BasicField';
 import CodeField from 'components/fields/CodeField';
 import CopyIcon from 'assets/img/copy-grey.svg';
 import PulsarLoader from 'components/loaders/PulsarLoader';
-import {Text} from 'react-native-paper';
 
 const StyledForm = styled.ScrollView`
   flex: 1;
@@ -40,8 +39,8 @@ const Connection2faForm = ({
     );
   };
 
-  const onFinishCheckingCode = (code) => {
-    dispatch(change('connection2faForm', 'code', code));
+  const onFinishCheckingCode = (passcode) => {
+    dispatch(change('connection2faForm', 'passcode', passcode));
   };
 
   return (

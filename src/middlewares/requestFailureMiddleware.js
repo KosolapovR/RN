@@ -5,7 +5,6 @@ import {Alert} from 'react-native';
 
 const handleErrorMessage = (action) => {
   let message = _.get(action, 'responseBody.data');
-  Alert.alert('message', message);
   if (typeof message !== 'string') {
     message = _.get(action, 'responseBody.data.message');
   }
@@ -54,9 +53,8 @@ const handleErrorMessage = (action) => {
 export default () => (next) => (action) => {
   if (action.type === '@@query/REQUEST_FAILURE') {
     if (action.status === 401) {
-      Alert.alert('Ошибка', 'Сессия истекла');
+      // Alert.alert('Ошибка', 'Сессия истекла');
     } else {
-      Alert.alert('Ошибка', `Статус ${action.status}`);
       handleErrorMessage(action);
 
       const {errorCallback} = action.meta;
