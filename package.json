@@ -36,6 +36,7 @@
     "radio-buttons-react-native": "1.0.4",
     "react": "16.13.1",
     "react-native": "0.63.4",
+    "react-native-bootsplash": "^3.2.0",
     "react-native-code-input": "1.0.6",
     "react-native-dotenv": "^2.5.3",
     "react-native-encrypted-storage": "4.0.2",

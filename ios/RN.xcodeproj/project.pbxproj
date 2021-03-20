@@ -19,6 +19,7 @@
 		3791B06DEB0652AD7011B674 /* libPods-RN.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62B4D9E8DEC4FA419408406A /* libPods-RN.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C5B2F4ED96F2807FD654AF23 /* libPods-RN-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61EC53AD41831DC76CC8B270 /* libPods-RN-tvOS.a */; };
+		CE2A5A61260622AF00D656CC /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2A5A60260622AF00D656CC /* BootSplash.storyboard */; };
 		E058011E69789064A766EDCD /* libPods-RN-RNTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CBD2402328BCCCDB2A10CC6 /* libPods-RN-RNTests.a */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		9CBD2402328BCCCDB2A10CC6 /* libPods-RN-RNTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RN-RNTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B664E32860559F6D2D3CCF7D /* Pods-RN-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RN-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RN-tvOS/Pods-RN-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BC48AB9A24FBCD2F49696365 /* Pods-RN-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RN-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-RN-tvOSTests/Pods-RN-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CE2A5A60260622AF00D656CC /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = RN/BootSplash.storyboard; sourceTree = "<group>"; };
 		CE3293DE25E90C1E00C04F1A /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Regular.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		D41CADA2120F70DE4771F48E /* Pods-RN-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RN-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-RN-tvOSTests/Pods-RN-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		EBB6107982FA3D1A86BEA655 /* Pods-RN-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RN-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RN-tvOS/Pods-RN-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				CE3293DD25E90BAE00C04F1A /* Fonts */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				CE2A5A60260622AF00D656CC /* BootSplash.storyboard */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -349,6 +352,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2A5A61260622AF00D656CC /* BootSplash.storyboard in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {StatusBar, View} from 'react-native';
 import {Provider} from 'react-redux';
+import RNBootSplash from 'react-native-bootsplash';
 import {ThemeProvider} from 'styled-components/native';
 import {ToastProvider} from 'react-native-styled-toast';
 import EncryptedStorage from 'react-native-encrypted-storage';
@@ -52,7 +53,10 @@ const App = () => {
       dispatch({type: 'RESTORE_TOKEN', token: userToken});
     };
 
-    bootstrapAsync();
+    bootstrapAsync().finally(async () => {
+      await RNBootSplash.hide({fade: true});
+      console.log('Bootsplash has been hidden successfully');
+    });
   }, []);
 
   const authContext = React.useMemo(
@@ -77,7 +81,7 @@ const App = () => {
     [],
   );
   if (state.isLoading) {
-    return <SplashScreen />;
+    return <View style={{flex: 1, backgroundColor: '#141416'}} />;
   }
 
   return (
