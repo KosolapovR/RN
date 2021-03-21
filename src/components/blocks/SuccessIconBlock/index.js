@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
-
-import {Column, PrimaryText} from 'components/styled';
-import SuccessIcon from 'assets/completed.svg';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -14,13 +12,16 @@ import Animated, {
 } from 'react-native-reanimated';
 import styled from 'styled-components/native';
 
+import SuccessIcon from 'assets/img/completed.svg';
+import SuccessRegistrationIcon from 'assets/img/group-3.svg';
+
 const colors = ['rgba(255,255,255, 0.01)', 'rgba(255,255,255, 0.15)'];
 
 const Container = styled.View`
   position: absolute;
   top: -100px;
 `;
-function SuccessIconBlock() {
+function SuccessIconBlock({type}) {
   const borderColorOuterRing = useSharedValue(0);
   const borderColorMiddleRing = useSharedValue(0);
   const borderColorInnerRing = useSharedValue(0);
@@ -66,7 +67,11 @@ function SuccessIconBlock() {
       <Animated.View style={[outerRingAnimatedStyles, styles.ring]}>
         <Animated.View style={[middleRingAnimatedStyles, styles.ring]}>
           <Animated.View style={[innerRingAnimatedStyles, styles.ring]}>
-            <SuccessIcon width={72} height={72} />
+            {type === 'check' ? (
+              <SuccessIcon width={72} height={72} />
+            ) : (
+              <SuccessRegistrationIcon width={72} height={72} />
+            )}
           </Animated.View>
         </Animated.View>
       </Animated.View>
@@ -82,5 +87,13 @@ const styles = StyleSheet.create({
     padding: 68,
   },
 });
+
+SuccessIconBlock.propTypes = {
+  type: PropTypes.oneOf(['check', 'mail']),
+};
+
+SuccessIconBlock.defaultProps = {
+  type: 'check',
+};
 
 export default SuccessIconBlock;

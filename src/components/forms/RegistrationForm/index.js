@@ -47,6 +47,7 @@ const RegistrationForm = ({handleSubmit, invalid, onSubmit}) => (
               label: 'Ваша почта:',
             }}
             validate={[required, minLength6, email]}
+            isCheck
             type="text"
             maxLength={100}
           />
@@ -54,6 +55,7 @@ const RegistrationForm = ({handleSubmit, invalid, onSubmit}) => (
             name="username"
             component={BasicField}
             validate={[required, minLength6]}
+            isCheck
             props={{
               label: 'Никнейм:',
             }}
@@ -68,6 +70,7 @@ const RegistrationForm = ({handleSubmit, invalid, onSubmit}) => (
               isSecurity: true,
             }}
             validate={[required, minLength6, maxLength30, password]}
+            isCheck
             type="text"
           />
           <Field
@@ -78,6 +81,7 @@ const RegistrationForm = ({handleSubmit, invalid, onSubmit}) => (
               isSecurity: true,
             }}
             validate={[required, minLength6, maxLength30, password]}
+            isCheck
             type="text"
           />
           <Field
@@ -111,5 +115,5 @@ RegistrationForm.propTypes = {
 
 export default reduxForm({
   form: 'registrationForm',
-  asyncChangeFields: ['username', 'email', 'password', 'repeatPassword'],
+  asyncChangeFields: ['email', 'username', 'password', 'repeatPassword'],
 })(RegistrationForm);

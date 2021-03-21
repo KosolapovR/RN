@@ -55,7 +55,6 @@ const App = () => {
 
     bootstrapAsync().finally(async () => {
       await RNBootSplash.hide({fade: true});
-      console.log('Bootsplash has been hidden successfully');
     });
   }, []);
 

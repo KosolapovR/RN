@@ -6,7 +6,6 @@ import FormWrapper from 'components/forms/FormWrapper';
 import {useAuthApi} from 'hooks/api';
 import {useToast} from 'react-native-styled-toast';
 import errorCodes from '@cashelec/shared/consts/errorCodes';
-import debounce from 'debounce-promise';
 import isEmpty from 'lodash/isEmpty';
 import {
   email,
@@ -14,7 +13,6 @@ import {
   required,
   minLength,
 } from '@cashelec/shared/validators';
-import {useDispatch} from 'react-redux';
 
 const Container = styled(Column)`
   flex: 1;
@@ -24,9 +22,8 @@ const Container = styled(Column)`
 
 const minLength6 = minLength(6);
 
-const SignUpScreen = () => {
+const SignUpScreen = ({navigation}) => {
   const {toast} = useToast();
-  const dispatch = useDispatch();
 
   const {getCheckUsername, getCheckEmail, postSignUp} = useAuthApi();
 
@@ -36,93 +33,91 @@ const SignUpScreen = () => {
   const emailValidation = (value) =>
     required(value, null, {t: () => {}}) || email(value, null, {t: () => {}});
 
-  const asyncValidate = debounce(
-    async (values, formDispatch, formProps, field) => {
-      const asyncErrors = formProps.asyncErrors
-        ? formProps.asyncErrors.toJS()
-        : {};
+  const asyncValidate = async (values, formDispatch, formProps, field) => {
+    const asyncErrors = formProps.asyncErrors
+      ? formProps.asyncErrors.toJS()
+      : {};
 
-      switch (field) {
-        case 'username': {
-          if (usernameValidation(values.get('username'))) {
-            asyncErrors.username = usernameValidation(values.get('username'));
-          } else {
-            const {body} = await getCheckUsername({
-              queryParams: {data: values.get('username')},
-            });
+    switch (field) {
+      case 'username': {
+        if (usernameValidation(values.get('username'))) {
+          asyncErrors.username = usernameValidation(values.get('username'));
+        } else {
+          const {body} = await getCheckUsername({
+            queryParams: {data: values.get('username')},
+          });
 
-            if (body.data) {
-              asyncErrors.username = 'Такой никнейм уже существует';
-            } else {
-              delete asyncErrors.username;
-            }
-          }
-          break;
-        }
-        case 'email': {
-          if (emailValidation(values.get('email'))) {
-            asyncErrors.email = emailValidation(values.get('email'));
+          if (body.data) {
+            asyncErrors.username = 'Такой никнейм уже существует';
           } else {
-            const {body} = await getCheckEmail({
-              queryParams: {data: encodeURIComponent(values.get('email'))},
-            });
-            console.log('body.data', body.data);
-            if (body.data) {
-              asyncErrors.email = 'Такой email уже существует';
-            } else {
-              delete asyncErrors.email;
-            }
+            delete asyncErrors.username;
           }
-          break;
         }
-        case 'password': {
-          if (minLength6(values.get('password'), null, {t: () => {}})) {
-            throw {
-              ...asyncErrors,
-              password: 'Не менее 6 символов',
-            };
-          } else {
-            delete asyncErrors.password;
-          }
-
-          if (
-            values.get('repeatPassword') &&
-            values.get('password') !== values.get('repeatPassword')
-          ) {
-            asyncErrors.repeatPassword = 'Пароли не совпадают';
-          } else if (asyncErrors.repeatPassword === 'Пароли не совпадают') {
-            delete asyncErrors.repeatPassword;
-          }
-
-          break;
-        }
-        case 'repeatPassword': {
-          if (minLength6(values.get('repeatPassword'), null, {t: () => {}})) {
-            asyncErrors.repeatPassword = 'Не менее 6 символов';
-          } else if (
-            values.get('password') &&
-            values.get('password') !== values.get('repeatPassword')
-          ) {
-            asyncErrors.repeatPassword = 'Пароли не совпадают';
-          } else {
-            delete asyncErrors.repeatPassword;
-          }
-          break;
-        }
-        default:
-          break;
+        break;
       }
-
-      if (!isEmpty(asyncErrors)) {
-        throw asyncErrors;
-      } else {
-        return null;
+      case 'email': {
+        if (emailValidation(values.get('email'))) {
+          asyncErrors.email = emailValidation(values.get('email'));
+        } else {
+          const {body} = await getCheckEmail({
+            queryParams: {data: encodeURIComponent(values.get('email'))},
+          });
+          if (body.data) {
+            asyncErrors.email = 'Такой email уже существует';
+          } else {
+            delete asyncErrors.email;
+          }
+        }
+        break;
       }
-    },
-    300,
-  );
+      case 'password': {
+        if (minLength6(values.get('password'), null, {t: () => {}})) {
+          throw {
+            ...asyncErrors,
+            password: 'Не менее 6 символов',
+          };
+        } else {
+          delete asyncErrors.password;
+        }
 
-  const onSubmit = async (formValues) =>
+        if (
+          values.get('repeatPassword') &&
+          values.get('password') !== values.get('repeatPassword')
+        ) {
+          asyncErrors.repeatPassword = 'Пароли не совпадают';
+        } else if (asyncErrors.repeatPassword === 'Пароли не совпадают') {
+          delete asyncErrors.repeatPassword;
+        }
+
+        break;
+      }
+      case 'repeatPassword': {
+        if (minLength6(values.get('repeatPassword'), null, {t: () => {}})) {
+          asyncErrors.repeatPassword = 'Не менее 6 символов';
+        } else if (
+          values.get('password') &&
+          values.get('password') !== values.get('repeatPassword')
+        ) {
+          asyncErrors.repeatPassword = 'Пароли не совпадают';
+        } else {
+          delete asyncErrors.repeatPassword;
+        }
+        break;
+      }
+      default:
+        break;
+    }
+
+    if (!isEmpty(asyncErrors)) {
+      throw asyncErrors;
+    } else {
+      return null;
+    }
+  };
+
+  const onSubmit = (formValues) => {
+    const userEmail = formValues.toJS().email;
+
     postSignUp({
       requestBody: {
         email: formValues.get('email'),
@@ -134,9 +129,12 @@ const SignUpScreen = () => {
         captcha: formValues.get('captcha'),
       },
       successCallback: ({data: {token}}) => {
-        console.log('success, token =', token);
+        navigation.navigate('RegistrationSuccess', {
+          token,
+          mailService: userEmail.split('@')[1],
+        });
       },
-      errorCallback: ({errorCode, data}) => {
+      errorCallback: ({errorCode}) => {
         toast({
           message: 'Ошибка',
           subMessage: errorCodes[errorCode],
@@ -144,6 +142,7 @@ const SignUpScreen = () => {
         });
       },
     });
+  };
 
   return (
     <Container>

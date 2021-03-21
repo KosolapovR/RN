@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import debounce from 'lodash.debounce';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {useTheme} from 'styled-components';
 
 const StyledInputWrapper = styled.View`
   padding-bottom: 25px;
@@ -29,8 +31,10 @@ const StyledLeftSymbolWrapper = styled.TouchableOpacity`
 const StyledRightSymbolWrapper = styled.TouchableOpacity`
   position: absolute;
   right: 15px;
-  top: 27px;
+  top: 25px;
   z-index: 1;
+  height: 40px;
+  justify-content: center;
 `;
 
 const StyledField = styled.TextInput`
@@ -74,6 +78,8 @@ const areEqual = (prevProps, nextProps) =>
   prevProps.meta.error === nextProps.meta.error &&
   prevProps.meta.active === nextProps.meta.active &&
   prevProps.meta.touched === nextProps.meta.touched &&
+  prevProps.meta.pristine === nextProps.meta.pristine &&
+  prevProps.meta.asyncValidating === nextProps.meta.asyncValidating &&
   prevProps.isDisabled === nextProps.isDisabled &&
   prevProps.rightSymbol === nextProps.rightSymbol &&
   prevProps.leftSymbol === nextProps.leftSymbol;
@@ -96,7 +102,9 @@ const BasicField = React.memo(
     onClickRightSymbol,
     containerStyle,
     fieldStyle,
+    isCheck,
   }) => {
+    const theme = useTheme();
     const [DebounceInputValue, setDebounceInputValue] = useState(input.value);
     const [debouncing, setDebouncing] = useState(false);
     const lastInputValue = useRef(input.value);
@@ -118,7 +126,7 @@ const BasicField = React.memo(
         debounce((onChange, evt) => {
           setDebouncing(false);
           onChange(evt);
-        }, 270),
+        }, 200),
       [setDebouncing],
     );
 
@@ -180,6 +188,15 @@ const BasicField = React.memo(
           activeOpacity={onClickRightSymbol ? 0.7 : 1}>
           {rightSymbol}
         </StyledRightSymbolWrapper>
+        {isCheck && meta.valid && !meta.asyncValidating && (
+          <StyledRightSymbolWrapper>
+            <Icon
+              name="check-circle"
+              size={16}
+              color={theme.main.backgroundColors.green}
+            />
+          </StyledRightSymbolWrapper>
+        )}
         {invalid && <StyledErrorText>{meta.error}</StyledErrorText>}
         {Boolean(additionalInfo) && (
           <StyledAdditionalInfoText>{additionalInfo}</StyledAdditionalInfoText>
@@ -265,10 +282,12 @@ BasicField.propTypes = {
    */
   containerStyle: PropTypes.object,
   fieldType: PropTypes.string,
+  isCheck: PropTypes.bool,
 };
 
 BasicField.defaultProps = {
   isDisabled: false,
+  isCheck: false,
   meta: {
     error: '',
   },

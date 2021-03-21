@@ -17,6 +17,7 @@ import IconButton from 'components/buttons/IconButton';
 import {SecondaryBoldTextLightLarge} from 'components/styled';
 import HelpIcon from 'assets/img/help/help.svg';
 import BackIcon from 'assets/img/arrows/arrow-back-white.svg';
+import RegistrationSuccessScreen from 'screens/RegistrationSuccessScreen';
 
 const Stack = createSharedElementStackNavigator();
 
@@ -161,6 +162,13 @@ export const AuthStack = ({navigation}) => {
           options={{
             ...getHeaderWithHelpIconOptions({navigation, title: 'Регистрация'}),
           }}
+        />
+        <Stack.Screen
+          name="RegistrationSuccess"
+          component={RegistrationSuccessScreen}
+          options={() => ({
+            headerShown: false,
+          })}
         />
         <Stack.Screen
           name="RecoveryPassword"

@@ -17,27 +17,27 @@ const Container = styled.View`
   flex: 1;
 `;
 
-function RecoverySuccessBlock({goToSignIn, openMailURL, mailService}) {
+function RegistrationSuccessBlock({onSignIn, openMailURL, mailService}) {
   return (
     <Container>
-      <SuccessIconBlock />
+      <SuccessIconBlock type="mail" />
       <Column>
         <PrimaryBoldLargeCenteredText>
-          Инструкция по восстановлению выслана на вашу почту
+          Вы успешно зарегестрированы!
         </PrimaryBoldLargeCenteredText>
         <SecondaryCenteredText paddingTop={15}>
           На указанный Вами e-mail отправлено письмо с запросом подтверждения
-          смены пароля.
+          регистрации.
         </SecondaryCenteredText>
         <BasicButton
-          onClick={openMailURL}
-          title={`Открыть почту @${mailService}`}
+          onClick={onSignIn}
+          title="Войти"
           containerStyles={{flex: 0, marginTop: 15}}
           color="primary"
         />
         <BasicButton
-          onClick={goToSignIn}
-          title="Войти"
+          onClick={openMailURL}
+          title={`Открыть почту @${mailService}`}
           containerStyles={{flex: 0, marginTop: 15}}
           color="secondary"
         />
@@ -46,10 +46,10 @@ function RecoverySuccessBlock({goToSignIn, openMailURL, mailService}) {
   );
 }
 
-RecoverySuccessBlock.propTypes = {
-  goToSignIn: PropTypes.func.isRequired,
+RegistrationSuccessBlock.propTypes = {
+  onSignIn: PropTypes.func.isRequired,
   openMailURL: PropTypes.func.isRequired,
   mailService: PropTypes.string.isRequired,
 };
 
-export default RecoverySuccessBlock;
+export default RegistrationSuccessBlock;

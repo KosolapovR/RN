@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -15,10 +15,18 @@ import {Provider as ReduxQueryProvider} from 'redux-query-immutable-react';
 import theme from 'theme';
 import store from '../../../src/configureStore';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import RNBootSplash from 'react-native-bootsplash';
 
 export const getQueries = (state) => state.queries;
 
 export default function CenterView({children, black}) {
+  useEffect(() => {
+    async function init() {
+      await RNBootSplash.hide({fade: true});
+    }
+
+    init();
+  }, []);
   return (
     <Provider store={store}>
       <ReduxQueryProvider queriesSelector={getQueries}>
