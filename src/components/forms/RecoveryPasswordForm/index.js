@@ -1,14 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-} from 'react-native';
-import {Field, reduxForm} from 'redux-form/immutable';
 import styled from 'styled-components/native';
-
-import {email, minLength, required} from '@cashelec/shared/validators';
 
 import BasicField from 'components/fields/BasicField';
 import BasicButton from 'components/buttons/BasicButton';
@@ -16,8 +8,6 @@ import AttentionBlock from 'components/blocks/AttentionBlock';
 import {Column} from 'components/styled';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
-
-const minLength6 = minLength(6);
 
 const StyledForm = styled.View`
   height: 180px;

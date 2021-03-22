@@ -55,8 +55,8 @@ const SignInScreen = ({navigation}) => {
             }
           }
         },
-        errorCallback: ({data}) =>
-          toast({...getErrorToastConfig({message: 'data'})}),
+        errorCallback: ({errorCode}) =>
+          toast({...getErrorToastConfig({message: errorCodes[errorCode]})}),
       });
     },
 

@@ -73,15 +73,13 @@ const StyledInput = styled.Text`
 const colors = ['rgb(27 27, 27)', 'rgb(35,35,39)'];
 
 const DropdownField = ({
-  input: {onChange, value},
-  meta: {},
   isDisabled,
   placeholder,
   readOnly,
   dropdownItems,
   label,
 }) => {
-  const [selectedItem, setSelectedItem] = useState(value);
+  const [selectedItem, setSelectedItem] = useState('');
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [itemListRef, setItemListRef] = useState();
   const [offsetTop, setOffsetTop] = useState(0);
@@ -241,7 +239,6 @@ const DropdownField = ({
                       if (isDropdownOpen) {
                         closeDropdown();
                         setSelectedItem(item.element);
-                        onChange(item.value);
                       }
                     }}>
                     {item.element}

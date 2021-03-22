@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import styled from 'styled-components/native';
-import {change, reduxForm} from 'redux-form/immutable';
 
 import BasicButton from 'components/buttons/BasicButton';
 import CodeField from 'components/fields/CodeField';
-import {useDispatch} from 'react-redux';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 

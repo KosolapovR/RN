@@ -7,42 +7,42 @@ import PopoverContent from './index';
 import PauseIcon from '../../../assets/img/offer/pause-grey.svg';
 import CopyIcon from '../../../assets/img/copy-grey.svg';
 import EditIcon from '../../../assets/img/edit-mobile.svg';
-import {WhiteText} from '../../styled';
+import {Row, WhiteText} from '../../styled';
 
 const popoverItems = [
   {
     id: 1,
     element: (
-      <>
+      <Row>
         <PauseIcon width={15} height={15} marginRight={10} />
         <View>
           <WhiteText>Приостановить объявление</WhiteText>
         </View>
-      </>
+      </Row>
     ),
     onClick: action('onClick'),
   },
   {
     id: 2,
     element: (
-      <>
+      <Row>
         <CopyIcon width={15} height={15} marginRight={10} />
         <View>
           <WhiteText>Скопировать ссылку</WhiteText>
         </View>
-      </>
+      </Row>
     ),
     onClick: action('onClick'),
   },
   {
     id: 3,
     element: (
-      <>
+      <Row>
         <EditIcon width={15} height={15} marginRight={10} />
         <View>
           <WhiteText>Редактировать</WhiteText>
         </View>
-      </>
+      </Row>
     ),
     onClick: action('onClick'),
   },
