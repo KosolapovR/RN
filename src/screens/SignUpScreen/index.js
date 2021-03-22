@@ -8,6 +8,7 @@ import {useAuthApi} from 'hooks/api';
 import {Column} from 'components/styled';
 import FormWrapper from 'components/forms/FormWrapper';
 import RegistrationForm from 'components/forms/RegistrationForm';
+import {getWarningToastConfig} from '../../utils/toast';
 
 const Container = styled(Column)`
   flex: 1;
@@ -35,11 +36,7 @@ const SignUpScreen = ({navigation}) => {
         });
       },
       errorCallback: ({errorCode}) => {
-        toast({
-          message: 'Ошибка',
-          subMessage: errorCodes[errorCode],
-          intent: 'ERROR',
-        });
+        toast({...getWarningToastConfig({message: errorCodes[errorCode]})});
       },
     });
   };

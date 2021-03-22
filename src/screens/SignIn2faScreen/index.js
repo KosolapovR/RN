@@ -1,14 +1,13 @@
 import * as React from 'react';
-import {useCallback, useContext} from 'react';
+import {useContext} from 'react';
 import styled from 'styled-components/native';
-import AuthForm from 'components/forms/AuthForm';
 import {AuthContext} from 'context/AuthContext';
 import FormWrapper from 'components/forms/FormWrapper';
 import useAuthApi from 'hooks/api/useAuthApi';
 import {useToast} from 'react-native-styled-toast';
-import errorCodes, {TWOFA_REQUIRED} from '@cashelec/shared/consts/errorCodes';
 import Login2faForm from 'components/forms/Login2faForm';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import {getErrorToastConfig} from '../../utils/toast';
 
 const Wrapper = styled.View`
   background-color: #141416;
@@ -37,11 +36,7 @@ const SignIn2faScreen = ({route}) => {
         signIn(token);
       },
       errorCallback: () => {
-        toast({
-          message: 'Ошибка!',
-          subMessage: 'Неверный пасскод',
-          intent: 'ERROR',
-        });
+        toast({...getErrorToastConfig({message: 'Неверный пасскод'})});
       },
     });
   };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useCallback, useContext} from 'react';
+import {useCallback, useContext, useEffect} from 'react';
 import styled from 'styled-components/native';
 import AuthForm from 'components/forms/AuthForm';
 import {AuthContext} from 'context/AuthContext';
@@ -8,6 +8,11 @@ import useAuthApi from 'hooks/api/useAuthApi';
 import {useToast} from 'react-native-styled-toast';
 import errorCodes, {TWOFA_REQUIRED} from '@cashelec/shared/consts/errorCodes';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import {
+  getErrorToastConfig,
+  getSuccessToastConfig,
+  getWarningToastConfig,
+} from '../../utils/toast';
 
 const Wrapper = styled.View`
   background-color: #141416;
@@ -45,26 +50,19 @@ const SignInScreen = ({navigation}) => {
               if (!is2faActive) {
                 navigation.navigate('Connect2fa', {token});
               } else {
-                toast({
-                  message: ' Ошибка',
-                  subMessage: data,
-                  intent: 'ERROR',
-                });
+                toast(getErrorToastConfig({message: data}));
               }
             }
           }
         },
         errorCallback: ({data}) =>
-          toast({
-            message: ' Ошибка',
-            subMessage: data,
-            intent: 'ERROR',
-          }),
+          toast({...getErrorToastConfig({message: 'data'})}),
       });
     },
 
     [],
   );
+
   return (
     <Wrapper>
       <FormWrapper>

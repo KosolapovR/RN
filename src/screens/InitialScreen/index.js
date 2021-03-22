@@ -8,6 +8,7 @@ import BasicButton from '../../components/buttons/BasicButton';
 import BenefitLogo1 from '../../assets/img/benefits/benefits-6.1.svg';
 import BenefitLogo2 from '../../assets/img/benefits/benefits-5.1.svg';
 import BenefitLogo3 from '../../assets/img/faq-robot.1.svg';
+import {useToast} from 'react-native-styled-toast';
 
 const Wrapper = styled.View`
   background-color: #141416;

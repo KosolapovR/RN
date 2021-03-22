@@ -6,8 +6,9 @@ import {useToast} from 'react-native-styled-toast';
 
 import Connection2faForm from 'components/forms/Connection2faForm';
 import {AuthContext} from 'context/AuthContext';
-import {useAuthApi, useSettingsApi} from 'hooks/api';
+import {useAuthApi} from 'hooks/api';
 import errorCodes from '@cashelec/shared/consts/errorCodes';
+import {getErrorToastConfig, getSuccessToastConfig} from '../../utils/toast';
 
 const Wrapper = styled.View`
   background-color: #141416;
@@ -45,18 +46,15 @@ const Connection2faScreen = ({navigation, route}) => {
         type: 'app',
       },
       errorCallback: ({errorCode}) => {
-        toast({
-          message: 'Ошибка',
-          subMessage: errorCodes[errorCode],
-          intent: 'ERROR',
-        });
+        toast({...getErrorToastConfig({message: errorCodes[errorCode]})});
       },
       successCallback: () => {
         toast({
-          message: 'Двухфакторная аутентификация успешно подключена',
-          intent: 'SUCCESS',
-        });
-        signIn(route.params.token);
+          ...getSuccessToastConfig({
+            message: 'Двухфакторная аутентификация успешно подключена',
+          }),
+        }),
+          signIn(route.params.token);
       },
     });
   };
@@ -68,9 +66,9 @@ const Connection2faScreen = ({navigation, route}) => {
   const onCopyKey = async () => {
     Clipboard.setString(key2faShort);
     toast({
-      message: 'Успешно!',
-      subMessage: 'Код успешно скопирован в буфер обмена',
-      shouldVibrate: true,
+      ...getSuccessToastConfig({
+        message: 'Код успешно скопирован в буфер обмена',
+      }),
     });
   };
 

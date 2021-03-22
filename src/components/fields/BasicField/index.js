@@ -38,8 +38,10 @@ const StyledRightSymbolWrapper = styled.TouchableOpacity`
 `;
 
 const StyledField = styled.TextInput`
-  background-color: ${(props) =>
-    props.theme.main.backgroundColors.primaryLighter};
+  background-color: ${({theme, isActive}) =>
+    isActive
+      ? theme.main.backgroundColors.primaryLighter2
+      : theme.main.backgroundColors.primaryLighter};
   justify-content: center;
   align-items: center;
   height: 40px;
@@ -89,54 +91,65 @@ const BasicField = ({
   error,
   touched,
   ...rest
-}) => (
-  <StyledInputWrapper style={containerStyle}>
-    {Boolean(label) && (
-      <StyledLabel
-        isDisabled={isDisabled}
-        invalid={touched && withError && error}>
-        {label}
-      </StyledLabel>
-    )}
-    <StyledLeftSymbolWrapper
-      onPress={onClickLeftSymbol}
-      activeOpacity={onClickLeftSymbol ? 0.7 : 1}>
-      {leftSymbol}
-    </StyledLeftSymbolWrapper>
-    <StyledField
-      invalid={touched && withError && error}
-      style={fieldStyle}
-      editable={!isDisabled && !readOnly}
-      placeholder={!isDisabled ? placeholder : null}
-      placeholderTextColor={'rgba(182,182,182,0.47)'}
-      secureTextEntry={isSecurity}
-      leftSymbol={leftSymbol}
-      rightSymbol={rightSymbol}
-      keyboardAppearance="dark"
-      {...rest}
-    />
-    <StyledRightSymbolWrapper
-      onPress={onClickRightSymbol}
-      activeOpacity={onClickRightSymbol ? 0.7 : 1}>
-      {rightSymbol}
-    </StyledRightSymbolWrapper>
-    {/*{isCheck && !rest.meta.error && !meta.asyncValidating && (*/}
-    {/*  <StyledRightSymbolWrapper>*/}
-    {/*    <Icon*/}
-    {/*      name="check-circle"*/}
-    {/*      size={16}*/}
-    {/*      color={theme.main.backgroundColors.green}*/}
-    {/*    />*/}
-    {/*  </StyledRightSymbolWrapper>*/}
-    {/*)}*/}
-    {touched && withError && error && (
-      <StyledErrorText>{error}</StyledErrorText>
-    )}
-    {Boolean(additionalInfo) && (
-      <StyledAdditionalInfoText>{additionalInfo}</StyledAdditionalInfoText>
-    )}
-  </StyledInputWrapper>
-);
+}) => {
+  const [isActive, setActive] = useState(false);
+
+  return (
+    <StyledInputWrapper style={containerStyle}>
+      {Boolean(label) && (
+        <StyledLabel
+          isDisabled={isDisabled}
+          invalid={touched && withError && error}>
+          {label}
+        </StyledLabel>
+      )}
+      <StyledLeftSymbolWrapper
+        onPress={onClickLeftSymbol}
+        activeOpacity={onClickLeftSymbol ? 0.7 : 1}>
+        {leftSymbol}
+      </StyledLeftSymbolWrapper>
+      <StyledField
+        isActive={isActive}
+        invalid={touched && withError && error}
+        style={fieldStyle}
+        editable={!isDisabled && !readOnly}
+        placeholder={!isDisabled ? placeholder : null}
+        placeholderTextColor={'rgba(182,182,182,0.47)'}
+        secureTextEntry={isSecurity}
+        leftSymbol={leftSymbol}
+        rightSymbol={rightSymbol}
+        keyboardAppearance="dark"
+        onFocus={() => {
+          setActive(true);
+        }}
+        onEndEditing={() => {
+          setActive(false);
+        }}
+        {...rest}
+      />
+      <StyledRightSymbolWrapper
+        onPress={onClickRightSymbol}
+        activeOpacity={onClickRightSymbol ? 0.7 : 1}>
+        {rightSymbol}
+      </StyledRightSymbolWrapper>
+      {/*{isCheck && !rest.meta.error && !meta.asyncValidating && (*/}
+      {/*  <StyledRightSymbolWrapper>*/}
+      {/*    <Icon*/}
+      {/*      name="check-circle"*/}
+      {/*      size={16}*/}
+      {/*      color={theme.main.backgroundColors.green}*/}
+      {/*    />*/}
+      {/*  </StyledRightSymbolWrapper>*/}
+      {/*)}*/}
+      {touched && withError && error && (
+        <StyledErrorText>{error}</StyledErrorText>
+      )}
+      {Boolean(additionalInfo) && (
+        <StyledAdditionalInfoText>{additionalInfo}</StyledAdditionalInfoText>
+      )}
+    </StyledInputWrapper>
+  );
+};
 
 BasicField.propTypes = {
   /**
