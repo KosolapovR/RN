@@ -50,7 +50,15 @@ const CheckIconHorizontal = styled.View`
   width: 12px;
   background: ${(props) => (props.checkBoxActive ? '#fff' : 'transparent')};
 `;
-const CheckBoxField = ({input: {value, onChange}, label, isDisabled}) => {
+const CheckBoxField = ({
+  label,
+  name,
+  isDisabled,
+  error,
+  touched,
+  value,
+  onChange,
+}) => {
   const [checked, setChecked] = useState(value);
 
   return (

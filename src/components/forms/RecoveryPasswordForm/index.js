@@ -14,6 +14,8 @@ import BasicField from 'components/fields/BasicField';
 import BasicButton from 'components/buttons/BasicButton';
 import AttentionBlock from 'components/blocks/AttentionBlock';
 import {Column} from 'components/styled';
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
 
 const minLength6 = minLength(6);
 
@@ -25,42 +27,60 @@ const StyledButtonsWrapper = styled.View`
   margin-top: 20px;
 `;
 
-const RecoveryPasswordForm = ({handleSubmit, invalid}) => (
-  <Column>
-    <StyledForm>
-      <AttentionBlock
-        text="Если вы указали в настройках контрольные вопросы для восстановления, то
-        вы сможете восстановить пароль без доступа к почте."
-        paddingBottom={20}
-      />
-      <Field
-        name="email"
-        component={BasicField}
-        props={{
-          label: 'Введите почту указанную при регистрации:',
-        }}
-        validate={[required, minLength6, email]}
-        type="text"
-      />
-    </StyledForm>
-    <StyledButtonsWrapper>
-      <BasicButton
-        color="primary"
-        title="Выслать инструкцию"
-        onClick={() => {
-          handleSubmit();
-        }}
-        isDisabled={invalid}
-      />
-    </StyledButtonsWrapper>
-  </Column>
-);
+const RecoveryPasswordSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Некорректый email')
+    .min(6, 'Не менне 6 символов!')
+    .max(30, 'Не более 30 символов')
+    .required('Обязательное поле'),
+});
 
-RecoveryPasswordForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  invalid: PropTypes.bool.isRequired,
+const RecoveryPasswordForm = ({onSubmit}) => {
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    values,
+    errors,
+    touched,
+    isValid,
+    dirty,
+  } = useFormik({
+    validationSchema: RecoveryPasswordSchema,
+    initialValues: {email: ''},
+    onSubmit: (formValues) => onSubmit(formValues),
+  });
+  return (
+    <Column>
+      <StyledForm>
+        <AttentionBlock
+          text="Если вы указали в настройках контрольные вопросы для восстановления, то
+        вы сможете восстановить пароль без доступа к почте."
+          paddingBottom={20}
+        />
+        <BasicField
+          onChangeText={handleChange('email')}
+          onBlur={handleBlur('email')}
+          error={errors.email}
+          touched={touched.email}
+          value={values.email}
+          label={'Введите почту указанную при регистрации:'}
+        />
+      </StyledForm>
+      <StyledButtonsWrapper>
+        <BasicButton
+          color="primary"
+          title="Выслать инструкцию"
+          onClick={handleSubmit}
+          isDisabled={!isValid || !dirty}
+        />
+      </StyledButtonsWrapper>
+    </Column>
+  );
 };
 
-export default reduxForm({
-  form: 'recoveryPasswordForm',
-})(RecoveryPasswordForm);
+RecoveryPasswordForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+export default RecoveryPasswordForm;

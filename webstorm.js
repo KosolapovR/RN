@@ -8,5 +8,6 @@ System.config({
     'hooks/*': './src/hooks/*',
     'context/*': './src/context/*',
     'screens/*': './src/screens/*',
+    'validationsSchemes/*': './src/validationsSchemes/*',
   },
 });

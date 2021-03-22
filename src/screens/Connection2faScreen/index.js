@@ -38,10 +38,10 @@ const Connection2faScreen = ({navigation, route}) => {
     getKey();
   }, []);
 
-  const onSubmit = (formData) => {
+  const onSubmit = ({passcode}) => {
     post2faEnable({
       requestBody: {
-        passcode: formData.get('passcode'),
+        passcode,
         type: 'app',
       },
       errorCallback: ({errorCode}) => {

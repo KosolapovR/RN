@@ -22,7 +22,7 @@ const SignIn2faScreen = ({route}) => {
   const {postLogin2fa, postLogin2faIsFetching} = useAuthApi();
   const {toast} = useToast();
 
-  const onSubmit = async (formValues) => {
+  const onSubmit = async ({passcode}) => {
     const email = await EncryptedStorage.getItem('AUTH_EMAIL');
     const password = await EncryptedStorage.getItem('AUTH_PASSWORD');
 
@@ -30,7 +30,7 @@ const SignIn2faScreen = ({route}) => {
       requestBody: {
         email,
         password,
-        ...formValues.toJS(),
+        passcode,
       },
       successCallback: ({data}) => {
         const {token} = data;

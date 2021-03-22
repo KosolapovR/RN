@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -12,6 +12,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import styled from 'styled-components/native';
 
+const windowHeight = Dimensions.get('window').height;
+
 import SuccessIcon from 'assets/img/completed.svg';
 import SuccessRegistrationIcon from 'assets/img/group-3.svg';
 
@@ -19,13 +21,13 @@ const colors = ['rgba(255,255,255, 0.01)', 'rgba(255,255,255, 0.15)'];
 
 const Container = styled.View`
   position: absolute;
-  top: -100px;
+  top: ${({offsetTop}) => `-${offsetTop}px`};
 `;
 function SuccessIconBlock({type}) {
   const borderColorOuterRing = useSharedValue(0);
   const borderColorMiddleRing = useSharedValue(0);
   const borderColorInnerRing = useSharedValue(0);
-
+  console.log('windowHeight', windowHeight);
   const outerRingAnimatedStyles = useAnimatedStyle(() => {
     return {
       borderColor: interpolateColor(borderColorOuterRing.value, [0, 1], colors),
@@ -63,7 +65,7 @@ function SuccessIconBlock({type}) {
     );
   }, []);
   return (
-    <Container>
+    <Container offsetTop={(900 - windowHeight) / 3}>
       <Animated.View style={[outerRingAnimatedStyles, styles.ring]}>
         <Animated.View style={[middleRingAnimatedStyles, styles.ring]}>
           <Animated.View style={[innerRingAnimatedStyles, styles.ring]}>

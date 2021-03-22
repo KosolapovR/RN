@@ -8,10 +8,8 @@ import CenterView from '../../../../storybook/stories/CenterView';
 import BasicField from './index';
 import SearchIcon from '../../../assets/img/search-white.svg';
 import CopyIcon from '../../../assets/img/copy-grey.svg';
-import WithReduxForm from '../../../../storybook/stories/WithReduxForm';
 
 storiesOf('Инпуты', module)
-  .addDecorator((getStory) => <WithReduxForm>{getStory()}</WithReduxForm>)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
 
   .add('Обычный инпут', () => (

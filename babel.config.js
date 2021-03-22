@@ -36,6 +36,7 @@ module.exports = {
           schemas: './src/schemas',
           hooks: './src/hooks',
           context: './src/context',
+          validationsSchemes: './src/validationsSchemes',
         },
       },
     ],

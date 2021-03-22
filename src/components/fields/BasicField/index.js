@@ -71,140 +71,71 @@ const StyledAdditionalInfoText = styled.Text`
   font-size: ${(props) => props.theme.main.fontSize.small};
 `;
 
-const areEqual = (prevProps, nextProps) =>
-  prevProps.additionalInfo === nextProps.additionalInfo &&
-  prevProps.readOnly === nextProps.readOnly &&
-  prevProps.input.value === nextProps.input.value &&
-  prevProps.meta.error === nextProps.meta.error &&
-  prevProps.meta.active === nextProps.meta.active &&
-  prevProps.meta.touched === nextProps.meta.touched &&
-  prevProps.meta.pristine === nextProps.meta.pristine &&
-  prevProps.meta.asyncValidating === nextProps.meta.asyncValidating &&
-  prevProps.isDisabled === nextProps.isDisabled &&
-  prevProps.rightSymbol === nextProps.rightSymbol &&
-  prevProps.leftSymbol === nextProps.leftSymbol;
-
-const BasicField = React.memo(
-  ({
-    input,
-    meta,
-    isDisabled,
-    placeholder,
-    label,
-    withError,
-    isValidChange,
-    isSecurity,
-    readOnly,
-    additionalInfo,
-    leftSymbol,
-    rightSymbol,
-    onClickLeftSymbol,
-    onClickRightSymbol,
-    containerStyle,
-    fieldStyle,
-    isCheck,
-  }) => {
-    const theme = useTheme();
-    const [DebounceInputValue, setDebounceInputValue] = useState(input.value);
-    const [debouncing, setDebouncing] = useState(false);
-    const lastInputValue = useRef(input.value);
-
-    useEffect(() => {
-      if (debouncing) {
-        return;
-      }
-      if (input.value === lastInputValue.current) {
-        return;
-      }
-
-      lastInputValue.current = input.value;
-      setDebounceInputValue(input.value);
-    }, [debouncing, input.value]);
-
-    const call = useMemo(
-      () =>
-        debounce((onChange, evt) => {
-          setDebouncing(false);
-          onChange(evt);
-        }, 200),
-      [setDebouncing],
-    );
-
-    const onChange = useCallback(
-      (evt) => {
-        evt.persist();
-        setDebouncing(true);
-        call(input.onChange, evt);
-        setDebounceInputValue(evt.nativeEvent.text);
-      },
-      [setDebouncing, call, setDebounceInputValue],
-    );
-
-    const onEndEditing = useCallback(
-      (evt) => {
-        call.cancel();
-        setDebouncing(false);
-        input.onChange(evt);
-        if (input.onBlur) {
-          input.onBlur(evt);
-        }
-      },
-      [call, setDebouncing, input.onChange, input.onBlur],
-    );
-
-    const invalid =
-      ((!meta.active && meta.touched) || (isValidChange && !meta.pristine)) &&
-      withError &&
-      meta.error;
-
-    return (
-      <StyledInputWrapper style={containerStyle}>
-        {Boolean(label) && (
-          <StyledLabel isDisabled={isDisabled} invalid={Boolean(invalid)}>
-            {label}
-          </StyledLabel>
-        )}
-        <StyledLeftSymbolWrapper
-          onPress={onClickLeftSymbol}
-          activeOpacity={onClickLeftSymbol ? 0.7 : 1}>
-          {leftSymbol}
-        </StyledLeftSymbolWrapper>
-        <StyledField
-          invalid={Boolean(invalid)}
-          style={fieldStyle}
-          editable={!isDisabled && !readOnly}
-          {...input}
-          onChange={onChange}
-          onEndEditing={onEndEditing}
-          value={DebounceInputValue}
-          placeholder={!isDisabled ? placeholder : null}
-          placeholderTextColor={'rgba(182,182,182,0.47)'}
-          secureTextEntry={isSecurity}
-          leftSymbol={leftSymbol}
-          rightSymbol={rightSymbol}
-        />
-        <StyledRightSymbolWrapper
-          onPress={onClickRightSymbol}
-          activeOpacity={onClickRightSymbol ? 0.7 : 1}>
-          {rightSymbol}
-        </StyledRightSymbolWrapper>
-        {isCheck && meta.valid && !meta.asyncValidating && (
-          <StyledRightSymbolWrapper>
-            <Icon
-              name="check-circle"
-              size={16}
-              color={theme.main.backgroundColors.green}
-            />
-          </StyledRightSymbolWrapper>
-        )}
-        {invalid && <StyledErrorText>{meta.error}</StyledErrorText>}
-        {Boolean(additionalInfo) && (
-          <StyledAdditionalInfoText>{additionalInfo}</StyledAdditionalInfoText>
-        )}
-      </StyledInputWrapper>
-    );
-  },
-  areEqual,
+const BasicField = ({
+  isDisabled,
+  placeholder,
+  label,
+  withError,
+  isSecurity,
+  readOnly,
+  additionalInfo,
+  leftSymbol,
+  rightSymbol,
+  onClickLeftSymbol,
+  onClickRightSymbol,
+  containerStyle,
+  fieldStyle,
+  isCheck,
+  error,
+  touched,
+  ...rest
+}) => (
+  <StyledInputWrapper style={containerStyle}>
+    {Boolean(label) && (
+      <StyledLabel
+        isDisabled={isDisabled}
+        invalid={touched && withError && error}>
+        {label}
+      </StyledLabel>
+    )}
+    <StyledLeftSymbolWrapper
+      onPress={onClickLeftSymbol}
+      activeOpacity={onClickLeftSymbol ? 0.7 : 1}>
+      {leftSymbol}
+    </StyledLeftSymbolWrapper>
+    <StyledField
+      invalid={touched && withError && error}
+      style={fieldStyle}
+      editable={!isDisabled && !readOnly}
+      placeholder={!isDisabled ? placeholder : null}
+      placeholderTextColor={'rgba(182,182,182,0.47)'}
+      secureTextEntry={isSecurity}
+      leftSymbol={leftSymbol}
+      rightSymbol={rightSymbol}
+      keyboardAppearance="dark"
+      {...rest}
+    />
+    <StyledRightSymbolWrapper
+      onPress={onClickRightSymbol}
+      activeOpacity={onClickRightSymbol ? 0.7 : 1}>
+      {rightSymbol}
+    </StyledRightSymbolWrapper>
+    {/*{isCheck && !rest.meta.error && !meta.asyncValidating && (*/}
+    {/*  <StyledRightSymbolWrapper>*/}
+    {/*    <Icon*/}
+    {/*      name="check-circle"*/}
+    {/*      size={16}*/}
+    {/*      color={theme.main.backgroundColors.green}*/}
+    {/*    />*/}
+    {/*  </StyledRightSymbolWrapper>*/}
+    {/*)}*/}
+    {touched && withError && error && (
+      <StyledErrorText>{error}</StyledErrorText>
+    )}
+    {Boolean(additionalInfo) && (
+      <StyledAdditionalInfoText>{additionalInfo}</StyledAdditionalInfoText>
+    )}
+  </StyledInputWrapper>
 );
 
 BasicField.propTypes = {

@@ -11,6 +11,8 @@ import {change, reduxForm} from 'redux-form/immutable';
 import BasicButton from 'components/buttons/BasicButton';
 import CodeField from 'components/fields/CodeField';
 import {useDispatch} from 'react-redux';
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
 
 const StyledForm = styled.View`
   flex: 1;
@@ -21,11 +23,19 @@ const StyledButtonsWrapper = styled.View`
   height: 100px;
 `;
 
-const Login2faForm = ({handleSubmit, invalid, onSubmit, isFetching}) => {
-  const dispatch = useDispatch();
+const Login2faSchema = Yup.object().shape({
+  passcode: Yup.string().required('Обязательное поле'),
+});
+
+const Login2faForm = ({onSubmit, isFetching}) => {
+  const {handleSubmit, setFieldValue, isValid, dirty} = useFormik({
+    validationSchema: Login2faSchema,
+    initialValues: {email: '', password: ''},
+    onSubmit: (formValues) => onSubmit(formValues),
+  });
 
   const onFinishCheckingCode = (passcode) => {
-    dispatch(change('login2faForm', 'passcode', passcode));
+    setFieldValue('passcode', passcode);
   };
 
   return (
@@ -40,16 +50,10 @@ const Login2faForm = ({handleSubmit, invalid, onSubmit, isFetching}) => {
             <BasicButton
               color="primary"
               title="Продолжить"
-              onClick={handleSubmit(onSubmit)}
-              isDisabled={invalid}
+              onClick={handleSubmit}
+              isDisabled={!isValid || !dirty}
               isLoading={isFetching}
             />
-            {/*<BasicButton*/}
-            {/*  color="secondary"*/}
-            {/*  title="Войти с помощью кодов восстановления"*/}
-            {/*  onClick={onEnterWithRecoveryCodes}*/}
-            {/*  isDisabled={invalid}*/}
-            {/*/>*/}
           </StyledButtonsWrapper>
         </StyledForm>
       </TouchableWithoutFeedback>
@@ -58,9 +62,7 @@ const Login2faForm = ({handleSubmit, invalid, onSubmit, isFetching}) => {
 };
 
 Login2faForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  invalid: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool,
 };
 
@@ -68,6 +70,4 @@ Login2faForm.defaultProps = {
   postLogin2faIsFetching: false,
 };
 
-export default reduxForm({
-  form: 'login2faForm',
-})(Login2faForm);
+export default Login2faForm;

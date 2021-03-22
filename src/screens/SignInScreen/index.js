@@ -16,7 +16,6 @@ const Wrapper = styled.View`
 `;
 
 const SignInScreen = ({navigation}) => {
-  const {signIn} = useContext(AuthContext);
   const {postLogin, postLoginIsFetching} = useAuthApi();
   const {toast} = useToast();
 
@@ -30,13 +29,10 @@ const SignInScreen = ({navigation}) => {
         requestBody: formValues,
         successCallback: async ({data, errorCode}) => {
           if (errorCode === TWOFA_REQUIRED) {
-            await EncryptedStorage.setItem(
-              'AUTH_EMAIL',
-              formValues.get('email'),
-            );
+            await EncryptedStorage.setItem('AUTH_EMAIL', formValues.email);
             await EncryptedStorage.setItem(
               'AUTH_PASSWORD',
-              formValues.get('password'),
+              formValues.password,
             );
             navigation.navigate('SignIn2fa');
             //TODO redirect to 2fa screen

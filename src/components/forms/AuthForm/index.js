@@ -1,22 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Field, reduxForm} from 'redux-form/immutable';
 import styled from 'styled-components/native';
-
-import {
-  email,
-  maxLength,
-  minLength,
-  password,
-  required,
-} from '@cashelec/shared/validators';
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
 
 import BasicField from 'components/fields/BasicField';
 import BasicButton from 'components/buttons/BasicButton';
 import {Column} from 'components/styled';
-
-const minLength6 = minLength(6);
-const maxLength30 = maxLength(30);
+import debounce from 'debounce-promise';
+import endpoints from '@cashelec/shared/api/endpoints';
 
 const StyledForm = styled(Column)`
   height: 180px;
@@ -26,47 +18,71 @@ const StyledButtonsWrapper = styled.View`
   height: 100px;
 `;
 
-const AuthForm = ({
-  handleSubmit,
-  isFetching,
-  invalid,
-  onRecoveryPassword,
-  onSubmit,
-}) => {
+const LoginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Некорректый email')
+    .min(6, 'Не менне 6 символов!')
+    .max(30, 'Не более 30 символов')
+    .required('Обязательное поле'),
+  password: Yup.string()
+    .min(6, 'Не менне 6 символов')
+    .max(30, 'Не более 30 символов')
+    .required('Обязательное поле'),
+});
+
+const AuthForm = ({isFetching, onRecoveryPassword, onSubmit}) => {
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    values,
+    errors,
+    touched,
+    isValid,
+    dirty,
+  } = useFormik({
+    validationSchema: LoginSchema,
+    initialValues: {email: '', password: ''},
+    onSubmit: (formValues) => onSubmit(formValues),
+  });
+
   return (
     <Column>
       <StyledForm>
-        <Field
-          name="email"
-          component={BasicField}
-          props={{
-            label: 'Ваша почта:',
-          }}
-          validate={[required, minLength6, email]}
-          type="text"
-        />
-        <Field
-          name="password"
-          component={BasicField}
-          props={{
-            label: 'Пароль:',
-            isSecurity: true,
-          }}
-          validate={[required, minLength6, maxLength30, password]}
-          type="text"
-        />
-      </StyledForm>
+        <Column>
+          <BasicField
+            onChangeText={handleChange('email')}
+            onBlur={handleBlur('email')}
+            error={errors.email}
+            touched={touched.email}
+            value={values.email}
+            label={'Ваша почта:'}
+          />
+          <BasicField
+            onChangeText={handleChange('password')}
+            onBlur={handleBlur('password')}
+            error={errors.password}
+            touched={touched.password}
+            value={values.password}
+            label={'Пароль:'}
+            isSecurity
+          />
 
-      <StyledButtonsWrapper>
-        <BasicButton
-          color="primary"
-          title="Войти"
-          onClick={handleSubmit(onSubmit)}
-          isDisabled={invalid}
-          isLoading={isFetching}
-        />
-        <BasicButton title="Восстановить пароль" onClick={onRecoveryPassword} />
-      </StyledButtonsWrapper>
+          <StyledButtonsWrapper>
+            <BasicButton
+              color="primary"
+              title="Войти"
+              onClick={handleSubmit}
+              isDisabled={!isValid || !dirty}
+              isLoading={isFetching}
+            />
+            <BasicButton
+              title="Восстановить пароль"
+              onClick={onRecoveryPassword}
+            />
+          </StyledButtonsWrapper>
+        </Column>
+      </StyledForm>
     </Column>
   );
 };
@@ -83,6 +99,4 @@ AuthForm.defaultProps = {
   isFetching: false,
 };
 
-export default reduxForm({
-  form: 'authForm',
-})(AuthForm);
+export default AuthForm;

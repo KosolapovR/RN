@@ -1,9 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import {Linking, Platform, Pressable, TouchableOpacity} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {change, Field, reduxForm} from 'redux-form/immutable';
 import {SharedElement} from 'react-navigation-shared-element';
 
 import BasicButton from 'components/buttons/BasicButton';
@@ -14,23 +12,46 @@ import CodeField from 'components/fields/CodeField';
 import CopyIcon from 'assets/img/copy-grey.svg';
 import PulsarLoader from 'components/loaders/PulsarLoader';
 import IconButton from 'components/buttons/IconButton';
+import {useFormik} from 'formik';
 
 const StyledForm = styled.ScrollView`
   flex: 1;
 `;
 
 const Connection2faForm = ({
-  handleSubmit,
   onSubmit,
   route,
   navigation,
   onSkip,
   get2faKeyIsFinish,
   onCopyKey,
+  initialValues: {key},
 }) => {
-  const dispatch = useDispatch();
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    values,
+    errors,
+    touched,
+    isValid,
+    dirty,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      key: '',
+    },
+    onSubmit: (formValues) => {
+      console.log('submit', formValues);
+      onSubmit(formValues);
+    },
+  });
 
   const {item, token} = route.params;
+
+  useEffect(() => {
+    setFieldValue('key', key);
+  }, [key]);
 
   const goToAuthySite = () => {
     Linking.openURL(
@@ -41,7 +62,7 @@ const Connection2faForm = ({
   };
 
   const onFinishCheckingCode = (passcode) => {
-    dispatch(change('connection2faForm', 'passcode', passcode));
+    setFieldValue('passcode', passcode);
   };
 
   return (
@@ -71,16 +92,16 @@ const Connection2faForm = ({
         .
       </PrimaryText>
       {get2faKeyIsFinish ? (
-        <Field
-          name="key"
-          component={BasicField}
-          props={{
-            label: 'Ключ',
-            readOnly: true,
-            withError: false,
-            rightSymbol: <IconButton onClick={onCopyKey} icon={<CopyIcon />} />,
-          }}
-          type="text"
+        <BasicField
+          onChangeText={handleChange('key')}
+          onBlur={handleBlur('key')}
+          error={errors.key}
+          touched={touched.key}
+          value={values.key}
+          label={'Ключ:'}
+          readOnly={true}
+          withError={false}
+          rightSymbol={<IconButton onClick={onCopyKey} icon={<CopyIcon />} />}
         />
       ) : (
         <PulsarLoader containerStyles={{height: 90}} />
@@ -94,7 +115,7 @@ const Connection2faForm = ({
       <BasicButton
         color="primary"
         title="Подключить"
-        onClick={handleSubmit(onSubmit)}
+        onClick={handleSubmit}
         containerStyles={{marginBottom: 20}}
       />
       <BasicButton title="Не подключать 2FA" onClick={onSkip} />
@@ -106,7 +127,4 @@ Connection2faForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default reduxForm({
-  form: 'connection2faForm',
-  enableReinitialize: true,
-})(Connection2faForm);
+export default Connection2faForm;

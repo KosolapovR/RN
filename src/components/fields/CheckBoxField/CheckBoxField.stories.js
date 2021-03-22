@@ -5,12 +5,10 @@ import {action} from '@storybook/addon-actions';
 
 import CenterView from '../../../../storybook/stories/CenterView';
 import CheckBoxField from './index';
-import WithReduxForm from '../../../../storybook/stories/WithReduxForm';
 import {Field} from 'redux-form';
 
 storiesOf('Инпуты', module)
-  .addDecorator(getStory => <WithReduxForm>{getStory()}</WithReduxForm>)
-  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+  .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
 
   .add('Чекбокс', () => (
     <Field

@@ -6,11 +6,9 @@ import {action} from '@storybook/addon-actions';
 import {Field} from 'redux-form';
 
 import CenterView from '../../../../storybook/stories/CenterView';
-import WithReduxForm from '../../../../storybook/stories/WithReduxForm';
 import DropdownField from './index';
 
 storiesOf('Инпуты', module)
-  .addDecorator((getStory) => <WithReduxForm>{getStory()}</WithReduxForm>)
   .addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
 
   .add('Дропдаун', () => (
