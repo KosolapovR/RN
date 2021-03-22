@@ -3,6 +3,7 @@ import {useContext} from 'react';
 import styled from 'styled-components/native';
 import {AuthContext} from 'context/AuthContext';
 import Select2faForm from 'components/forms/Select2faForm';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 const Wrapper = styled.View`
   background-color: #141416;
@@ -10,26 +11,28 @@ const Wrapper = styled.View`
   flex: 1;
 `;
 
-const Select2faScreen = ({navigation, route}) => {
+const Select2faScreen = ({
+  navigation,
+  route: {
+    params: {token},
+  },
+}) => {
   const {signIn} = useContext(AuthContext);
 
-  const handleSubmitForm = (id2FA) => {
-    navigation.navigate('Connection2fa', {id2FA});
+  const handleSubmitForm = async (id2FA) => {
+    //записываем временный токен в хранилище т.к запрос recoveryCodes требуюет токен
+    await EncryptedStorage.setItem('AUTH_TOKEN_BEFORE_2FA', token);
+
+    navigation.navigate('RecoveryCodes', {id2FA, token});
   };
 
   const onSkip = () => {
-    const {token} = route.params;
     signIn(token);
   };
 
   return (
     <Wrapper>
-      <Select2faForm
-        onSubmit={handleSubmitForm}
-        onSkip={onSkip}
-        navigation={navigation}
-        route={route}
-      />
+      <Select2faForm onSubmit={handleSubmitForm} onSkip={onSkip} />
     </Wrapper>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import InitialScreen from 'screens/InitialScreen';
 import SignInScreen from 'screens/SignInScreen';
@@ -18,8 +18,9 @@ import {SecondaryBoldTextLightLarge} from 'components/styled';
 import HelpIcon from 'assets/img/help/help.svg';
 import BackIcon from 'assets/img/arrows/arrow-back-white.svg';
 import RegistrationSuccessScreen from 'screens/RegistrationSuccessScreen';
+import RecoveryCodesScreen from 'screens/RecoveryCodesScreen';
 
-const Stack = createSharedElementStackNavigator();
+const Stack = createStackNavigator();
 
 const HeaderLeft = ({navigation}) => {
   return (
@@ -121,31 +122,19 @@ export const AuthStack = ({navigation}) => {
             ...getHeader({navigation, title: 'Подключить 2FA'}),
             headerLeft: null,
           })}
-          sharedElementsConfig={(route) => {
-            const {SelectItem} = route.params;
-            return SelectItem
-              ? [
-                  {
-                    id: `item.${SelectItem.id}`,
-                  },
-                ]
-              : [];
-          }}
+        />
+        <Stack.Screen
+          name="RecoveryCodes"
+          component={RecoveryCodesScreen}
+          options={({route}) => ({
+            ...getHeader({navigation, title: 'Коды восстановления 2FA'}),
+          })}
         />
         <Stack.Screen
           name="Connection2fa"
           component={Connection2faScreen}
-          sharedElementsConfig={(route) => {
-            const {item} = route.params;
-            return [
-              {
-                id: `item.${item.id}`,
-              },
-            ];
-          }}
           options={() => ({
             ...getHeader({navigation, title: 'Подключить 2FA'}),
-            headerLeft: null,
           })}
         />
         <Stack.Screen

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import {TouchableOpacity} from 'react-native';
 
 import BasicButton from 'components/buttons/BasicButton';
-import {PrimaryText} from 'components/styled';
+import {Column, PrimaryText} from 'components/styled';
 import AppIcon from 'assets/img/2fa-mobile.svg';
 import AppSelectedIcon from 'assets/img/2fa-active.svg';
 import TelegramIcon from 'assets/img/new-settings/telegram-grey.svg';
@@ -28,8 +28,9 @@ const items = [
     title: '2FA App',
     subtitle: 'Authy/Google Authenticator',
     icon: <AppIcon height={25} width={25} />,
-    isSelected: true,
+    isSelected: false,
     selectedIcon: <AppSelectedIcon height={25} width={25} />,
+    isAvailable: true,
   },
   {
     id: 2,
@@ -38,33 +39,46 @@ const items = [
     icon: <TelegramIcon height={23} width={23} />,
     isSelected: false,
     selectedIcon: <TelegramSelectedIcon height={23} width={23} />,
+    isAvailable: false,
   },
 ];
 
-const Select2faForm = ({onSkip, navigation, route}) => {
+const Select2faForm = ({onSkip, onSubmit}) => {
+  const [selectedItemID, setSelectedItemID] = useState();
+
+  const handleContinue = useCallback(() => {
+    onSubmit(selectedItemID);
+  }, [selectedItemID]);
+
   function renderItem(item) {
-    return (
+    return item.isAvailable ? (
       <TouchableOpacity
         onPress={() => {
-          navigation.push('Connection2fa', {item, token});
+          setSelectedItemID(item.id);
         }}>
-        <SharedElement id={`item.${item.id}`}>
-          <Selected2faItem
-            icon={item.icon}
-            onSelect2FA={() => {}}
-            title={item.title}
-            id={item.id}
-            selectedIcon={item.selectedIcon}
-            subtitle={item.subtitle}
-          />
-        </SharedElement>
+        <Selected2faItem
+          icon={item.icon}
+          title={item.title}
+          id={item.id}
+          isSelected={item.id === selectedItemID}
+          selectedIcon={item.selectedIcon}
+          subtitle={item.subtitle}
+          isAvailable={item.isAvailable}
+        />
       </TouchableOpacity>
+    ) : (
+      <Column>
+        <Selected2faItem
+          icon={item.icon}
+          title={item.title}
+          id={item.id}
+          isSelected={item.id === selectedItemID}
+          selectedIcon={item.selectedIcon}
+          subtitle={item.subtitle}
+          isAvailable={item.isAvailable}
+        />
+      </Column>
     );
-  }
-  const {SelectItem, token} = route.params;
-
-  if (SelectItem) {
-    items[SelectItem.id - 1] = SelectItem;
   }
 
   return (
@@ -74,6 +88,12 @@ const Select2faForm = ({onSkip, navigation, route}) => {
       </PrimaryText>
       {items.map((item) => renderItem(item))}
       <StyledButtonsWrapper>
+        <BasicButton
+          title="Продолжить"
+          onClick={handleContinue}
+          color="primary"
+          isDisabled={!selectedItemID}
+        />
         <BasicButton title="Не подключать 2FA" onClick={onSkip} />
       </StyledButtonsWrapper>
     </StyledForm>

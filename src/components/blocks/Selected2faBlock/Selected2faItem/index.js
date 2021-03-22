@@ -63,15 +63,10 @@ function Selected2faItem({
   icon,
   isSelected,
   selectedIcon,
-  onSelect2FA,
   editable,
 }) {
   return (
-    <Container
-      selected={isSelected}
-      onPress={() => {
-        onSelect2FA(id);
-      }}>
+    <Container selected={isSelected}>
       <RowSpaceBetween>
         <Row>
           <IconWrapper>{isSelected ? selectedIcon : icon}</IconWrapper>
@@ -101,7 +96,6 @@ Selected2faItem.propTypes = {
   subtitle: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
   selectedIcon: PropTypes.string.isRequired,
-  onSelect2FA: PropTypes.func.isRequired,
   editable: PropTypes.bool,
 };
 

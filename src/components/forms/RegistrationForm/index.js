@@ -95,7 +95,6 @@ const RegistrationForm = ({onSubmit}) => {
       agreeTerms: true,
     },
     onSubmit: (formValues) => {
-      console.log('submit', formValues);
       onSubmit(formValues);
     },
   });

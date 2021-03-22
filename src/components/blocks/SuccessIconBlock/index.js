@@ -27,7 +27,7 @@ function SuccessIconBlock({type}) {
   const borderColorOuterRing = useSharedValue(0);
   const borderColorMiddleRing = useSharedValue(0);
   const borderColorInnerRing = useSharedValue(0);
-  console.log('windowHeight', windowHeight);
+
   const outerRingAnimatedStyles = useAnimatedStyle(() => {
     return {
       borderColor: interpolateColor(borderColorOuterRing.value, [0, 1], colors),

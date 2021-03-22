@@ -68,6 +68,7 @@ const App = () => {
       },
       signOut: async () => {
         await EncryptedStorage.removeItem('AUTH_TOKEN');
+        await EncryptedStorage.removeItem('AUTH_TOKEN_BEFORE_2FA');
         dispatch({type: 'SIGN_OUT'});
       },
       signUp: async (data) => {

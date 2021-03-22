@@ -42,7 +42,6 @@ const Connection2faForm = ({
       key: '',
     },
     onSubmit: (formValues) => {
-      console.log('submit', formValues);
       onSubmit(formValues);
     },
   });

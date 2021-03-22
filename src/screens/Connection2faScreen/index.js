@@ -28,15 +28,7 @@ const Connection2faScreen = ({navigation, route}) => {
   } = useAuthApi();
 
   useEffect(() => {
-    const getKey = async () => {
-      await EncryptedStorage.setItem(
-        'AUTH_TOKEN_BEFORE_2FA',
-        route.params.token,
-      );
-      get2faKey();
-    };
-
-    getKey();
+    get2faKey();
   }, []);
 
   const onSubmit = ({passcode}) => {
@@ -63,7 +55,7 @@ const Connection2faScreen = ({navigation, route}) => {
     signIn(route.params.token);
   };
 
-  const onCopyKey = async () => {
+  const handleCopyKey = async () => {
     Clipboard.setString(key2faShort);
     toast({
       ...getSuccessToastConfig({
@@ -81,7 +73,7 @@ const Connection2faScreen = ({navigation, route}) => {
         onSkip={onSkip}
         key2faShort={key2faShort}
         get2faKeyIsFinish={get2faKeyIsFinish}
-        onCopyKey={onCopyKey}
+        onCopyKey={handleCopyKey}
         initialValues={{
           key: key2faShort,
         }}
