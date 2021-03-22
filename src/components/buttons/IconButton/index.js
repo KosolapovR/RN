@@ -47,6 +47,7 @@ const IconButton = ({
 };
 
 IconButton.propTypes = {
+  icon: PropTypes.element.isRequired,
   onClick: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool,
   containerStyles: PropTypes.object,
