@@ -1,6 +1,8 @@
+// @flow
 import styled from 'styled-components/native';
+import * as React from 'react';
 
-const StyledText = styled.Text`
+const StyledText = (styled.Text`
   line-height: 22px;
   padding-right: ${(props) =>
     typeof props.paddingRight !== 'undefined'
@@ -16,83 +18,92 @@ const StyledText = styled.Text`
       : '0px'};
   padding-top: ${(props) =>
     typeof props.paddingTop !== 'undefined' ? `${props.paddingTop}px` : '0px'};
-`;
-const PrimaryText = styled(StyledText)`
+`: React.ComponentType<{
+  paddingTop?: number,
+  paddingLeft?: number,
+  paddingRight?: number,
+  paddingBottom?: number,
+}>);
+const PrimaryText: typeof StyledText = styled(StyledText)`
   color: ${(props) => props.theme.main.colors.primary};
   font-size: ${(props) => props.theme.main.fontSize.medium};
 `;
 
-const PrimarySmallText = styled(PrimaryText)`
+const PrimarySmallText: typeof StyledText = styled(PrimaryText)`
   font-size: ${(props) => props.theme.main.fontSize.small};
 `;
 
-const PrimaryLargeText = styled(PrimaryText)`
+const PrimaryLargeText: typeof StyledText = styled(PrimaryText)`
   font-size: ${(props) => props.theme.main.fontSize.large};
 `;
 
-const PrimaryBoldText = styled(PrimaryText)`
+const PrimaryBoldText: typeof StyledText = styled(PrimaryText)`
   font-weight: bold;
 `;
 
-const PrimaryBoldSmallText = styled(PrimaryBoldText)`
+const PrimaryBoldSmallText: typeof StyledText = styled(PrimaryBoldText)`
   font-size: ${(props) => props.theme.main.fontSize.small};
 `;
 
-const PrimaryBoldLargeText = styled(PrimaryBoldText)`
+const PrimaryBoldLargeText: typeof StyledText = styled(PrimaryBoldText)`
   font-size: ${(props) => props.theme.main.fontSize.large};
 `;
 
-const PrimaryBoldLargeCenteredText = styled(PrimaryBoldLargeText)`
+const PrimaryBoldLargeCenteredText: typeof StyledText = styled(
+  PrimaryBoldLargeText,
+)`
   text-align: center;
 `;
 
-const SecondaryText = styled(StyledText)`
+const SecondaryText: typeof StyledText = styled(StyledText)`
   color: ${(props) => props.theme.main.colors.secondary};
 `;
 
-const SecondaryCenteredText = styled(SecondaryText)`
+const SecondaryCenteredText: typeof StyledText = styled(SecondaryText)`
   text-align: center;
 `;
-const SecondaryBoldText = styled(SecondaryText)`
+const SecondaryBoldText: typeof StyledText = styled(SecondaryText)`
   font-weight: bold;
 `;
-const SecondaryBoldTextLightLarge = styled(SecondaryBoldText)`
+const SecondaryBoldTextLightLarge: typeof StyledText = styled(
+  SecondaryBoldText,
+)`
   font-size: 16px;
 `;
 
-const SecondaryTextSmall = styled(SecondaryText)`
+const SecondaryTextSmall: typeof StyledText = styled(SecondaryText)`
   font-size: 12px;
 `;
 
-const WhiteText = styled(StyledText)`
+const WhiteText: typeof StyledText = styled(StyledText)`
   color: #ffffff;
 `;
 
-const WhiteBoldText = styled(WhiteText)`
+const WhiteBoldText: typeof StyledText = styled(WhiteText)`
   font-weight: bold;
 `;
-const WhiteExtraLargeText = styled(WhiteText)`
+const WhiteExtraLargeText: typeof StyledText = styled(WhiteText)`
   font-size: 18px;
 `;
 
-const GreenText = styled(StyledText)`
+const GreenText: typeof StyledText = styled(StyledText)`
   color: ${(props) => props.theme.main.colors.green};
 `;
 
-const BlueText = styled(StyledText)`
+const BlueText: typeof StyledText = styled(StyledText)`
   color: ${(props) => props.theme.main.colors.blue};
   font-size: ${(props) => props.theme.main.fontSize.medium};
 `;
 
-const RedText = styled(StyledText)`
+const RedText: typeof StyledText = styled(StyledText)`
   color: ${(props) => props.theme.main.colors.error};
 `;
 
-const BlueBoldText = styled(BlueText)`
+const BlueBoldText: typeof StyledText = styled(BlueText)`
   font-weight: bold;
 `;
 
-const CardContainer = styled.TouchableOpacity`
+const CardContainer: typeof CardContainer = styled.TouchableOpacity`
   margin-right: ${(props) =>
     typeof props.marginRight !== 'undefined'
       ? `${props.marginRight}px`
@@ -104,37 +115,37 @@ const CardContainer = styled.TouchableOpacity`
     typeof props.padding !== 'undefined' ? `${props.padding}px` : '0px'};
 `;
 
-const Column = styled.View``;
-const ColumnAlignCenter = styled(Column)`
+const Column: typeof Column = styled.View``;
+const ColumnAlignCenter: typeof Column = styled(Column)`
   align-items: center;
 `;
 
-const CenterColumn = styled(ColumnAlignCenter)`
+const CenterColumn: typeof Column = styled(ColumnAlignCenter)`
   justify-content: center;
   flex: 1;
 `;
 
-const Row = styled.View`
+const Row: typeof Column = styled.View`
   flex-direction: row;
   align-items: center;
   padding-bottom: ${(props) =>
     props.paddingBottom ? `${props.paddingBottom}px` : 0};
 `;
 
-const RowEnd = styled(Row)`
+const RowEnd: typeof Column = styled(Row)`
   justify-content: flex-end;
 `;
 
-const RowSpaceBetween = styled(Row)`
+const RowSpaceBetween: typeof Column = styled(Row)`
   justify-content: space-between;
   opacity: ${(props) => (props.halfOpacity ? 0.5 : 1)};
 `;
 
-const RowSpaceAround = styled(Row)`
+const RowSpaceAround: typeof Column = styled(Row)`
   justify-content: space-around;
 `;
 
-const ModalBody = styled.View`
+const ModalBody: typeof Column = styled.View`
   padding: 20px;
   background-color: ${(props) => props.theme.main.backgroundColors.primary};
   border-bottom-left-radius: ${(props) => props.theme.main.borderRadius};

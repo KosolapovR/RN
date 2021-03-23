@@ -10,7 +10,6 @@ import {enableScreens} from 'react-native-screens';
 import store from './src/configureStore';
 import theme from './src/theme';
 import {AuthContext} from 'context/AuthContext';
-import SplashScreen from './src/screens/SplashScreen';
 import RootStack from './src/navigators/RootStack';
 
 enableScreens();

@@ -1,3 +1,4 @@
+// @flow
 import * as React from 'react';
 import {useCallback, useContext, useEffect} from 'react';
 import {ScrollView} from 'react-native';
@@ -15,11 +16,11 @@ import {getErrorToastConfig, getSuccessToastConfig} from '../../utils/toast';
 import {useToast} from 'react-native-styled-toast';
 import EncryptedStorage from 'react-native-encrypted-storage';
 
-const Wrapper = styled.View`
+const Wrapper = (styled.View`
   background-color: #141416;
   padding: 20px;
   flex: 1;
-`;
+`: React.ComponentType<{}>);
 
 const ButtonsWrapper = styled.View`
   height: 160px;
@@ -27,7 +28,13 @@ const ButtonsWrapper = styled.View`
   margin-top: 20px;
 `;
 
-const RecoveryCodesScreen = ({navigation, route}) => {
+const RecoveryCodesScreen = ({
+  navigation,
+  route,
+}: {
+  navigation: Object,
+  route: Object,
+}) => {
   const {signIn} = useContext(AuthContext);
   const {toast} = useToast();
   const {recoveryCodes, get2faCodesIsFetching, get2faCodes} = useAuthApi();

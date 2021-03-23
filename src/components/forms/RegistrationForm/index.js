@@ -1,4 +1,5 @@
-import React from 'react';
+// @flow
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -18,6 +19,7 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
 const StyledForm = styled.ScrollView``;
+
 const StyledButtonsWrapper = styled.View`
   margin-top: 20px;
   justify-content: space-between;
@@ -74,7 +76,7 @@ const RegistrationSchema = Yup.object().shape({
   agreeTerms: Yup.bool().oneOf([true]),
 });
 
-const RegistrationForm = ({onSubmit}) => {
+const RegistrationForm = ({onSubmit}: {onSubmit: Function}) => {
   const {
     handleChange,
     handleSubmit,

@@ -1,5 +1,5 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
@@ -7,13 +7,11 @@ import * as Yup from 'yup';
 import BasicField from 'components/fields/BasicField';
 import BasicButton from 'components/buttons/BasicButton';
 import {Column} from 'components/styled';
-import debounce from 'debounce-promise';
-import endpoints from '@cashelec/shared/api/endpoints';
 
 const StyledForm = styled(Column)`
   height: 180px;
 `;
-const StyledButtonsWrapper = styled.View`
+const StyledButtonsWrapper = styled(Column)`
   justify-content: space-between;
   height: 100px;
 `;
@@ -30,7 +28,15 @@ const LoginSchema = Yup.object().shape({
     .required('Обязательное поле'),
 });
 
-const AuthForm = ({isFetching, onRecoveryPassword, onSubmit}) => {
+const AuthForm = ({
+  isFetching,
+  onRecoveryPassword,
+  onSubmit,
+}: {
+  isFetching?: boolean,
+  onRecoveryPassword: Function,
+  onSubmit: Function,
+}) => {
   const {
     handleChange,
     handleSubmit,
@@ -85,14 +91,6 @@ const AuthForm = ({isFetching, onRecoveryPassword, onSubmit}) => {
       </StyledForm>
     </Column>
   );
-};
-
-AuthForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  invalid: PropTypes.bool.isRequired,
-  onRecoveryPassword: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool,
 };
 
 AuthForm.defaultProps = {

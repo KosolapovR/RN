@@ -2,7 +2,9 @@
 ; We fork some components by platform
 .*/*[.]android.js
 
-; Ignore "BUCK" generated dirs
+.*/node_modules/styled-components/.*
+
+        ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/
 
 ; Ignore polyfills
@@ -16,6 +18,7 @@ node_modules/warning/.*
 .*/Libraries/Utilities/LoadingView.js
 
 [untyped]
+.*/node_modules/react-native-fs
 .*/node_modules/@react-native-community/cli/.*/.*
 
 [include]
@@ -38,6 +41,13 @@ munge_underscores=true
 
 module.name_mapper='^react-native/\(.*\)$' -> '<PROJECT_ROOT>/node_modules/react-native/\1'
 module.name_mapper='^@?[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|webp\|m4v\|mov\|mp4\|mpeg\|mpg\|webm\|aac\|aiff\|caf\|m4a\|mp3\|wav\|html\|pdf\)$' -> '<PROJECT_ROOT>/node_modules/react-native/Libraries/Image/RelativeImageStub'
+
+module.name_mapper='screens' ->'<PROJECT_ROOT>/src/screens'
+module.name_mapper='components' ->'<PROJECT_ROOT>/src/components'
+module.name_mapper='theme' ->'<PROJECT_ROOT>/src/theme'
+module.name_mapper='hooks' ->'<PROJECT_ROOT>/src/hooks'
+module.name_mapper='context' ->'<PROJECT_ROOT>/src/context'
+module.name_mapper='components' ->'<PROJECT_ROOT>/src/components'
 
 suppress_type=$FlowIssue
 suppress_type=$FlowFixMe
