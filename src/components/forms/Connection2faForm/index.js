@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
-import {Linking, Platform, Pressable, TouchableOpacity} from 'react-native';
-import {SharedElement} from 'react-navigation-shared-element';
+import {Linking, Platform, Pressable} from 'react-native';
 
 import BasicButton from 'components/buttons/BasicButton';
 import Selected2faItem from 'components/blocks/Selected2faBlock/Selected2faItem';
@@ -13,15 +12,39 @@ import CopyIcon from 'assets/img/copy-grey.svg';
 import PulsarLoader from 'components/loaders/PulsarLoader';
 import IconButton from 'components/buttons/IconButton';
 import {useFormik} from 'formik';
+import AppIcon from 'assets/img/2fa-mobile.svg';
+import AppSelectedIcon from 'assets/img/2fa-active.svg';
+import TelegramIcon from 'assets/img/new-settings/telegram-grey.svg';
+import TelegramSelectedIcon from 'assets/img/new-settings/telegram-active.svg';
 
 const StyledForm = styled.ScrollView`
   flex: 1;
 `;
 
+const items = [
+  {
+    id: 1,
+    title: '2FA App',
+    subtitle: 'Authy/Google Authenticator',
+    icon: <AppIcon height={25} width={25} />,
+    isSelected: false,
+    selectedIcon: <AppSelectedIcon height={25} width={25} />,
+    isAvailable: true,
+  },
+  {
+    id: 2,
+    title: 'Telegram',
+    subtitle: 'Push-уведомления',
+    icon: <TelegramIcon height={23} width={23} />,
+    isSelected: false,
+    selectedIcon: <TelegramSelectedIcon height={23} width={23} />,
+    isAvailable: false,
+  },
+];
+
 const Connection2faForm = ({
   onSubmit,
-  route,
-  navigation,
+  selectedItemID,
   onSkip,
   get2faKeyIsFinish,
   onCopyKey,
@@ -34,8 +57,6 @@ const Connection2faForm = ({
     values,
     errors,
     touched,
-    isValid,
-    dirty,
     setFieldValue,
   } = useFormik({
     initialValues: {
@@ -45,8 +66,6 @@ const Connection2faForm = ({
       onSubmit(formValues);
     },
   });
-
-  const {item, token} = route.params;
 
   useEffect(() => {
     setFieldValue('key', key);
@@ -66,21 +85,16 @@ const Connection2faForm = ({
 
   return (
     <StyledForm>
-      <TouchableOpacity
-        onPress={() => navigation.push('Select2fa', {SelectItem: item, token})}>
-        <SharedElement id={`item.${item.id}`}>
-          <Selected2faItem
-            subtitle={item.subtitle}
-            onSelect2FA={() => {}}
-            icon={item.icon}
-            id={item.id}
-            title={item.title}
-            selectedIcon={item.selectedIcon}
-            isSelected
-            editable
-          />
-        </SharedElement>
-      </TouchableOpacity>
+      <Selected2faItem
+        subtitle={items[selectedItemID - 1].subtitle}
+        onSelect2FA={() => {}}
+        icon={items[selectedItemID - 1].icon}
+        id={items[selectedItemID - 1].id}
+        title={items[selectedItemID - 1].title}
+        selectedIcon={items[selectedItemID - 1].selectedIcon}
+        isSelected
+        editable
+      />
 
       <PrimaryText paddingBottom={15}>
         Добавьте аккаунт вручную в вашем 2FA приложении. Мы рекомендуем

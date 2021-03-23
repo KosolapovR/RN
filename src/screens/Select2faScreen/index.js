@@ -11,22 +11,15 @@ const Wrapper = styled.View`
   flex: 1;
 `;
 
-const Select2faScreen = ({
-  navigation,
-  route: {
-    params: {token},
-  },
-}) => {
+const Select2faScreen = ({navigation}) => {
   const {signIn} = useContext(AuthContext);
 
   const handleSubmitForm = async (id2FA) => {
-    //записываем временный токен в хранилище т.к запрос recoveryCodes требуюет токен
-    await EncryptedStorage.setItem('AUTH_TOKEN_BEFORE_2FA', token);
-
-    navigation.navigate('RecoveryCodes', {id2FA, token});
+    navigation.navigate('RecoveryCodes', {id2FA});
   };
 
-  const onSkip = () => {
+  const onSkip = async () => {
+    const token = await EncryptedStorage.getItem('AUTH_PASSWORD');
     signIn(token);
   };
 

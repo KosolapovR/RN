@@ -48,7 +48,8 @@ const SignInScreen = ({navigation}) => {
                 token,
               } = data;
               if (!is2faActive) {
-                navigation.navigate('Connect2fa', {token});
+                await EncryptedStorage.setItem('AUTH_TOKEN_BEFORE_2FA', token);
+                navigation.navigate('Connect2fa');
               } else {
                 toast(getErrorToastConfig({message: data}));
               }

@@ -3,6 +3,7 @@ import {useContext} from 'react';
 import styled from 'styled-components/native';
 import Connect2faForm from 'components/forms/Connect2faForm';
 import {AuthContext} from 'context/AuthContext';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 const Wrapper = styled.View`
   background-color: #141416;
@@ -10,14 +11,13 @@ const Wrapper = styled.View`
   flex: 1;
 `;
 
-const Connect2faScreen = ({navigation, route}) => {
+const Connect2faScreen = ({navigation}) => {
   const {signIn} = useContext(AuthContext);
-  const handleSubmitForm = (needSetup2FA) => {
-    const {token} = route.params;
-
+  const handleSubmitForm = async (needSetup2FA) => {
     if (needSetup2FA) {
-      navigation.navigate('Select2fa', {token});
+      navigation.navigate('Select2fa');
     } else {
+      const token = await EncryptedStorage.getItem('AUTH_PASSWORD');
       signIn(token);
     }
   };

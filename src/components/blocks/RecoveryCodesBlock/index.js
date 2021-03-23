@@ -32,14 +32,18 @@ const IconWrapper = styled(Column)`
 
 function RecoveryCodesBlock({codes, onClickCopy, isFetching}) {
   if (isFetching) {
-    return <PulsarLoader />;
+    return (
+      <CodeItemWrapper smallWidth={windowWidth < 375}>
+        <PulsarLoader />
+      </CodeItemWrapper>
+    );
   }
 
   return (
     <Container>
       {codes.map((code, i) => (
-        <CodeItemWrapper smallWidth={windowWidth < 375}>
-          <PrimaryBoldText key={i}>{code}</PrimaryBoldText>
+        <CodeItemWrapper key={i} smallWidth={windowWidth < 375}>
+          <PrimaryBoldText>{code}</PrimaryBoldText>
         </CodeItemWrapper>
       ))}
       <IconWrapper>

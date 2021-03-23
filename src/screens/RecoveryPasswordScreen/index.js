@@ -16,7 +16,7 @@ const RecoveryPasswordScreen = ({navigation}) => {
 
   const onSubmit = useCallback(
     (formValues) => {
-      const email = formValues.toJS().email;
+      const email = formValues.email;
 
       getPasswordRecovery({
         requestBody: {email: encodeURIComponent(email)},

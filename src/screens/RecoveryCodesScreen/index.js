@@ -13,6 +13,7 @@ import BasicButton from 'components/buttons/BasicButton';
 import {AuthContext} from 'context/AuthContext';
 import {getErrorToastConfig, getSuccessToastConfig} from '../../utils/toast';
 import {useToast} from 'react-native-styled-toast';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 const Wrapper = styled.View`
   background-color: #141416;
@@ -30,18 +31,20 @@ const RecoveryCodesScreen = ({navigation, route}) => {
   const {signIn} = useContext(AuthContext);
   const {toast} = useToast();
   const {recoveryCodes, get2faCodesIsFetching, get2faCodes} = useAuthApi();
-  const {token, id2FA} = route.params;
+  const {id2FA} = route.params;
 
   useEffect(() => {
     get2faCodes();
   }, []);
 
-  const handleSkip = useCallback(() => {
+  const handleSkip = useCallback(async () => {
+    const token = await EncryptedStorage.getItem('AUTH_TOKEN_BEFORE_2FA');
     signIn(token);
   }, []);
 
   const handleContinue = useCallback(() => {
-    navigation.navigate('Connection2fa', {token, id2FA});
+    console.log('id2FA before navigation', id2FA);
+    navigation.navigate('Connection2fa', {id2FA});
   }, []);
 
   const handleDownloadCodes = useCallback(() => {

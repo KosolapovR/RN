@@ -40,19 +40,22 @@ const Connection2faScreen = ({navigation, route}) => {
       errorCallback: ({errorCode}) => {
         toast({...getErrorToastConfig({message: errorCodes[errorCode]})});
       },
-      successCallback: () => {
+      successCallback: async () => {
         toast({
           ...getSuccessToastConfig({
             message: 'Двухфакторная аутентификация успешно подключена',
           }),
-        }),
-          signIn(route.params.token);
+        });
+
+        const token = await EncryptedStorage.getItem('AUTH_TOKEN_BEFORE_2FA');
+        signIn(token);
       },
     });
   };
 
-  const onSkip = () => {
-    signIn(route.params.token);
+  const onSkip = async () => {
+    const token = await EncryptedStorage.getItem('AUTH_TOKEN_BEFORE_2FA');
+    signIn(token);
   };
 
   const handleCopyKey = async () => {
@@ -67,7 +70,7 @@ const Connection2faScreen = ({navigation, route}) => {
   return (
     <Wrapper>
       <Connection2faForm
-        route={route}
+        selectedItemID={route.params.id2FA}
         navigation={navigation}
         onSubmit={onSubmit}
         onSkip={onSkip}
