@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {Field, reduxForm} from 'redux-form/immutable';
 import styled from 'styled-components/native';
 
 import {maxLength, minLength, required} from '@cashelec/shared/validators';
@@ -46,99 +45,99 @@ const WithdrawFrom = ({
   return (
     <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <StyledForm>
-          <BasicButton
-            color="primary"
-            title="Продолжить"
-            onClick={() => {
-              handleSubmit();
-            }}
-            isDisabled={invalid}
-          />
-          <Row>
-            <Field
-              name="mainerCommission"
-              component={BasicField}
-              input={{value: mainerCommission.toString()}}
-              props={{
-                label: 'Комиссия за транзакцию майнерам:',
-                readOnly: true,
-                rightSymbol: <SecondaryText>{selectedCurrency}</SecondaryText>,
-              }}
-              validate={[required, minLength6, maxLength30]}
-            />
-          </Row>
-          <Divider />
-          <Row>
-            <Field
-              name="amount"
-              component={BasicField}
-              props={{
-                label: 'Сумма:',
-                placeholder: '0',
-                rightSymbol: <SecondaryText>{selectedCurrency}</SecondaryText>,
-              }}
-              validate={[required]}
-            />
-          </Row>
+        {/*<StyledForm>*/}
+        {/*  <BasicButton*/}
+        {/*    color="primary"*/}
+        {/*    title="Продолжить"*/}
+        {/*    onClick={() => {*/}
+        {/*      handleSubmit();*/}
+        {/*    }}*/}
+        {/*    isDisabled={invalid}*/}
+        {/*  />*/}
+        {/*  <Row>*/}
+        {/*    <Field*/}
+        {/*      name="mainerCommission"*/}
+        {/*      component={BasicField}*/}
+        {/*      input={{value: mainerCommission.toString()}}*/}
+        {/*      props={{*/}
+        {/*        label: 'Комиссия за транзакцию майнерам:',*/}
+        {/*        readOnly: true,*/}
+        {/*        rightSymbol: <SecondaryText>{selectedCurrency}</SecondaryText>,*/}
+        {/*      }}*/}
+        {/*      validate={[required, minLength6, maxLength30]}*/}
+        {/*    />*/}
+        {/*  </Row>*/}
+        {/*  <Divider />*/}
+        {/*  <Row>*/}
+        {/*    <Field*/}
+        {/*      name="amount"*/}
+        {/*      component={BasicField}*/}
+        {/*      props={{*/}
+        {/*        label: 'Сумма:',*/}
+        {/*        placeholder: '0',*/}
+        {/*        rightSymbol: <SecondaryText>{selectedCurrency}</SecondaryText>,*/}
+        {/*      }}*/}
+        {/*      validate={[required]}*/}
+        {/*    />*/}
+        {/*  </Row>*/}
 
-          <RowSpaceBetween>
-            <Field
-              name="partnerAddress"
-              component={BasicField}
-              props={{
-                label: 'На адрес:',
-                placeholder: 'Вставьте адрес или сканируйте',
-              }}
-              validate={[required, minLength6, maxLength30]}
-              type="text"
-            />
-            <IconButton
-              marginLeft={10}
-              onClick={onCLickQR}
-              icon={<QRScanIcon paddingLeft={10} height={18} width={18} />}
-            />
-          </RowSpaceBetween>
-          <Field
-            name="currency"
-            component={DropdownField}
-            input={{onChange: action('onChange')}}
-            props={{
-              placeholder: 'Выберите кошелек',
-              isDisabled: boolean('Disabled', false),
-              readOnly: boolean('readOnly', false),
-              dropdownItems: wallets.map((w) => ({
-                id: w.id,
-                element: (
-                  <DropdownItemWithIcon
-                    isLocalSvgIcon
-                    text={w.address}
-                    icon={w.icon}
-                  />
-                ),
-                value: 'BTC',
-              })),
-            }}
-            validate={[required]}
-            type="text"
-          />
-          <Field
-            name="wallet"
-            component={DropdownField}
-            input={{onChange: (v) => onSelectCurrency(v)}}
-            props={{
-              label: 'Валюта и кошелек отправки:',
-              placeholder: 'Выберите валюту',
-              dropdownItems: currencies.map((c) => ({
-                id: c.id,
-                element: <DropdownItemWithIcon text={c.alias} icon={c.icon} />,
-                value: c.alias,
-              })),
-            }}
-            validate={[required]}
-            type="text"
-          />
-        </StyledForm>
+        {/*  <RowSpaceBetween>*/}
+        {/*    <Field*/}
+        {/*      name="partnerAddress"*/}
+        {/*      component={BasicField}*/}
+        {/*      props={{*/}
+        {/*        label: 'На адрес:',*/}
+        {/*        placeholder: 'Вставьте адрес или сканируйте',*/}
+        {/*      }}*/}
+        {/*      validate={[required, minLength6, maxLength30]}*/}
+        {/*      type="text"*/}
+        {/*    />*/}
+        {/*    <IconButton*/}
+        {/*      marginLeft={10}*/}
+        {/*      onClick={onCLickQR}*/}
+        {/*      icon={<QRScanIcon paddingLeft={10} height={18} width={18} />}*/}
+        {/*    />*/}
+        {/*  </RowSpaceBetween>*/}
+        {/*  <Field*/}
+        {/*    name="currency"*/}
+        {/*    component={DropdownField}*/}
+        {/*    input={{onChange: action('onChange')}}*/}
+        {/*    props={{*/}
+        {/*      placeholder: 'Выберите кошелек',*/}
+        {/*      isDisabled: boolean('Disabled', false),*/}
+        {/*      readOnly: boolean('readOnly', false),*/}
+        {/*      dropdownItems: wallets.map((w) => ({*/}
+        {/*        id: w.id,*/}
+        {/*        element: (*/}
+        {/*          <DropdownItemWithIcon*/}
+        {/*            isLocalSvgIcon*/}
+        {/*            text={w.address}*/}
+        {/*            icon={w.icon}*/}
+        {/*          />*/}
+        {/*        ),*/}
+        {/*        value: 'BTC',*/}
+        {/*      })),*/}
+        {/*    }}*/}
+        {/*    validate={[required]}*/}
+        {/*    type="text"*/}
+        {/*  />*/}
+        {/*  <Field*/}
+        {/*    name="wallet"*/}
+        {/*    component={DropdownField}*/}
+        {/*    input={{onChange: (v) => onSelectCurrency(v)}}*/}
+        {/*    props={{*/}
+        {/*      label: 'Валюта и кошелек отправки:',*/}
+        {/*      placeholder: 'Выберите валюту',*/}
+        {/*      dropdownItems: currencies.map((c) => ({*/}
+        {/*        id: c.id,*/}
+        {/*        element: <DropdownItemWithIcon text={c.alias} icon={c.icon} />,*/}
+        {/*        value: c.alias,*/}
+        {/*      })),*/}
+        {/*    }}*/}
+        {/*    validate={[required]}*/}
+        {/*    type="text"*/}
+        {/*  />*/}
+        {/*</StyledForm>*/}
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
@@ -171,6 +170,4 @@ WithdrawFrom.defaultProps = {
   mainerCommission: 0,
 };
 
-export default reduxForm({
-  form: 'withdrawFrom',
-})(WithdrawFrom);
+export default WithdrawFrom;

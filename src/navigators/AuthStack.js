@@ -19,6 +19,7 @@ import HelpIcon from 'assets/img/help/help.svg';
 import BackIcon from 'assets/img/arrows/arrow-back-white.svg';
 import RegistrationSuccessScreen from 'screens/RegistrationSuccessScreen';
 import RecoveryCodesScreen from 'screens/RecoveryCodesScreen';
+import TermsOfUseScreen from "screens/TermsOfUseScreen";
 
 const Stack = createStackNavigator();
 
@@ -157,6 +158,13 @@ export const AuthStack = ({navigation}) => {
           component={RegistrationSuccessScreen}
           options={() => ({
             headerShown: false,
+          })}
+        />
+        <Stack.Screen
+          name="TermsOfUse"
+          component={TermsOfUseScreen}
+          options={() => ({
+            ...getHeader({navigation, title: 'Пользовательское соглашение'}),
           })}
         />
         <Stack.Screen

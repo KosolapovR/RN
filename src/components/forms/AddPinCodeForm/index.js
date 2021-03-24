@@ -5,7 +5,6 @@ import {
   Keyboard,
   KeyboardAvoidingView,
 } from 'react-native';
-import {Field, reduxForm} from 'redux-form/immutable';
 import styled from 'styled-components/native';
 
 import {
@@ -13,7 +12,6 @@ import {
   required,
   maxLength,
   password,
-  email,
 } from '@cashelec/shared/validators';
 
 import BasicField from 'components/fields/BasicField';
@@ -31,38 +29,38 @@ const StyledButtonsWrapper = styled.View``;
 const AddPinCodeForm = ({handleSubmit, invalid}) => (
   <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <StyledForm>
-        <CodeField
-          codeCount={4}
-          onFinishCheckingCode={() => {}}
-          label="Введите PIN-код:"
-        />
-        <CodeField
-          codeCount={4}
-          onFinishCheckingCode={() => {}}
-          label="Повторите PIN-код:"
-        />
-        <Field
-          name="password"
-          component={BasicField}
-          props={{
-            label: 'Текущий пароль:',
-            isSecurity: true,
-          }}
-          validate={[required, minLength6, maxLength30, password]}
-          type="text"
-        />
-        <StyledButtonsWrapper>
-          <BasicButton
-            color="primary"
-            title="Сохранить"
-            onClick={() => {
-              handleSubmit();
-            }}
-            isDisabled={invalid}
-          />
-        </StyledButtonsWrapper>
-      </StyledForm>
+      {/*<StyledForm>*/}
+      {/*  <CodeField*/}
+      {/*    codeCount={4}*/}
+      {/*    onFinishCheckingCode={() => {}}*/}
+      {/*    label="Введите PIN-код:"*/}
+      {/*  />*/}
+      {/*  <CodeField*/}
+      {/*    codeCount={4}*/}
+      {/*    onFinishCheckingCode={() => {}}*/}
+      {/*    label="Повторите PIN-код:"*/}
+      {/*  />*/}
+      {/*  <Field*/}
+      {/*    name="password"*/}
+      {/*    component={BasicField}*/}
+      {/*    props={{*/}
+      {/*      label: 'Текущий пароль:',*/}
+      {/*      isSecurity: true,*/}
+      {/*    }}*/}
+      {/*    validate={[required, minLength6, maxLength30, password]}*/}
+      {/*    type="text"*/}
+      {/*  />*/}
+      {/*  <StyledButtonsWrapper>*/}
+      {/*    <BasicButton*/}
+      {/*      color="primary"*/}
+      {/*      title="Сохранить"*/}
+      {/*      onClick={() => {*/}
+      {/*        handleSubmit();*/}
+      {/*      }}*/}
+      {/*      isDisabled={invalid}*/}
+      {/*    />*/}
+      {/*  </StyledButtonsWrapper>*/}
+      {/*</StyledForm>*/}
     </TouchableWithoutFeedback>
   </KeyboardAvoidingView>
 );
@@ -73,6 +71,4 @@ AddPinCodeForm.propTypes = {
   onRecoveryPassword: PropTypes.func.isRequired,
 };
 
-export default reduxForm({
-  form: 'addPinCodeForm',
-})(AddPinCodeForm);
+export default AddPinCodeForm;

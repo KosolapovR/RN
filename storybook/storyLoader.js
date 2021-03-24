@@ -13,6 +13,7 @@ function loadStories() {
   require('../src/components/blocks/RegistrationSuccessBlock/RegistrationSuccessBlock.stories');
   require('../src/components/blocks/Selected2faBlock/Selected2faBlock.stories');
   require('../src/components/blocks/SelectedCryptoBlock/SelectedCryptoBlock.stories');
+  require('../src/components/blocks/TermsOfUseBlock/TermsOfUseBlock.stories');
   require('../src/components/blocks/WalletHeaderBlock/WalletHeaderBlock.stories');
   require('../src/components/buttons/BasicButton/BasicButton.stories');
   require('../src/components/buttons/IconButton/IconButton.stories');
@@ -57,6 +58,7 @@ const stories = [
   '../src/components/blocks/RegistrationSuccessBlock/RegistrationSuccessBlock.stories',
   '../src/components/blocks/Selected2faBlock/Selected2faBlock.stories',
   '../src/components/blocks/SelectedCryptoBlock/SelectedCryptoBlock.stories',
+  '../src/components/blocks/TermsOfUseBlock/TermsOfUseBlock.stories',
   '../src/components/blocks/WalletHeaderBlock/WalletHeaderBlock.stories',
   '../src/components/buttons/BasicButton/BasicButton.stories',
   '../src/components/buttons/IconButton/IconButton.stories',

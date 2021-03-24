@@ -2,6 +2,12 @@
 import styled from 'styled-components/native';
 import * as React from 'react';
 
+const ScreenWrapper = (styled.View`
+  background-color: #141416;
+  padding: 20px;
+  flex: 1;
+`: React.ComponentType<{}>);
+
 const StyledText = (styled.Text`
   line-height: 22px;
   padding-right: ${(props) =>
@@ -153,6 +159,7 @@ const ModalBody: typeof Column = styled.View`
 `;
 
 export {
+  ScreenWrapper,
   PrimaryText,
   PrimarySmallText,
   PrimaryLargeText,

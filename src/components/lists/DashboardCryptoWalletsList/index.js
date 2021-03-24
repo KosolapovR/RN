@@ -1,10 +1,21 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import {ScrollView, View} from 'react-native';
 import CryptoWalletCard from 'components/cards/CryptoWalletCard';
 import {SecondaryBoldText} from 'components/styled';
 
-const DashboardCryptoWalletList = ({wallets}) => {
+const DashboardCryptoWalletList = ({
+  wallets,
+}: {
+  wallets: Array<{
+    id: string,
+    walletName: string,
+    icon: string,
+    additionalInfo: string,
+    onClickWallet: Function,
+    isDashboard?: boolean,
+  }>,
+}) => {
   const handleWalletClick = () => {};
   return (
     <View>
@@ -23,19 +34,6 @@ const DashboardCryptoWalletList = ({wallets}) => {
       </ScrollView>
     </View>
   );
-};
-
-DashboardCryptoWalletList.propTypes = {
-  wallets: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      icon: PropTypes.string.isRequired,
-      walletName: PropTypes.string.isRequired,
-      additionalInfo: PropTypes.string.isRequired,
-      onClickWallet: PropTypes.func.isRequired,
-      isDashboard: PropTypes.bool,
-    }),
-  ),
 };
 
 DashboardCryptoWalletList.defaultProps = {

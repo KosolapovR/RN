@@ -1,19 +1,9 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  StatusBar,
-  StyleSheet,
-  Platform,
-  StatusBarIOS,
-  SafeAreaView,
-} from 'react-native';
+import {View, StatusBar, StyleSheet, SafeAreaView} from 'react-native';
 import {ThemeProvider} from 'styled-components/native';
-import {Provider} from 'react-redux';
-import {Provider as ReduxQueryProvider} from 'redux-query-immutable-react';
 
 import theme from 'theme';
-import store from '../../../src/configureStore';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import RNBootSplash from 'react-native-bootsplash';
 
@@ -28,28 +18,23 @@ export default function CenterView({children, black}) {
     init();
   }, []);
   return (
-    <Provider store={store}>
-      <ReduxQueryProvider queriesSelector={getQueries}>
-        <ThemeProvider theme={theme}>
-          <SafeAreaProvider>
-            <SafeAreaView style={styles.topSafeArea} />
-            <SafeAreaView mode="padding" style={styles.bottomSafeArea}>
-              <StatusBar
-                animated={true}
-                backgroundColor="#000000"
-                barStyle="light-content"
-                // showHideTransition={statusBarTransition}
-                hidden={false}
-              />
-              <StatusBar backgroundColor="#141416" />
-              <View style={black ? styles.blackContent : styles.content}>
-                {children}
-              </View>
-            </SafeAreaView>
-          </SafeAreaProvider>
-        </ThemeProvider>
-      </ReduxQueryProvider>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.topSafeArea} />
+        <SafeAreaView mode="padding" style={styles.bottomSafeArea}>
+          <StatusBar
+            animated={true}
+            backgroundColor="#000000"
+            barStyle="light-content"
+            hidden={false}
+          />
+          <StatusBar backgroundColor="#141416" />
+          <View style={black ? styles.blackContent : styles.content}>
+            {children}
+          </View>
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </ThemeProvider>
   );
 }
 

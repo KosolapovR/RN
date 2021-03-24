@@ -8,19 +8,13 @@ import RNFS from 'react-native-fs';
 
 import useAuthApi from 'hooks/api/useAuthApi';
 import AttentionBlock from 'components/blocks/AttentionBlock';
-import {SecondaryText} from 'components/styled';
+import {SecondaryText, ScreenWrapper} from 'components/styled';
 import RecoveryCodesBlock from 'components/blocks/RecoveryCodesBlock';
 import BasicButton from 'components/buttons/BasicButton';
 import {AuthContext} from 'context/AuthContext';
 import {getErrorToastConfig, getSuccessToastConfig} from '../../utils/toast';
 import {useToast} from 'react-native-styled-toast';
 import EncryptedStorage from 'react-native-encrypted-storage';
-
-const Wrapper = (styled.View`
-  background-color: #141416;
-  padding: 20px;
-  flex: 1;
-`: React.ComponentType<{}>);
 
 const ButtonsWrapper = styled.View`
   height: 160px;
@@ -84,7 +78,7 @@ const RecoveryCodesScreen = ({
   }, []);
 
   return (
-    <Wrapper>
+    <ScreenWrapper>
       <ScrollView>
         <AttentionBlock
           text={
@@ -113,7 +107,7 @@ const RecoveryCodesScreen = ({
           <BasicButton onClick={handleSkip} title={'Не подключать 2fa'} />
         </ButtonsWrapper>
       </ScrollView>
-    </Wrapper>
+    </ScreenWrapper>
   );
 };
 

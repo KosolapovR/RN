@@ -1,4 +1,6 @@
-import React, {useEffect, useState} from 'react';
+// @flow
+import * as React from 'react';
+import {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Dimensions, Platform} from 'react-native';
 import styled from 'styled-components/native';
@@ -18,10 +20,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Container = styled.View`
+const Container = (styled.View`
   align-self: stretch;
   margin-bottom: 10px;
-`;
+  width: ${({width}) => `${width}px` || '100%'};
+`: React.ComponentType<{width?: number | string}>);
 
 const Overlay = styled.TouchableOpacity`
   left: 0;
@@ -78,6 +81,21 @@ const DropdownField = ({
   readOnly,
   dropdownItems,
   label,
+  itemWidth,
+  onSelect,
+  initialItemId,
+}: {
+  isDisabled?: boolean,
+  placeholder?: string,
+  readOnly?: boolean,
+  label?: string,
+  itemWidth?: number | string,
+  onSelect: Function,
+  initialItemId?: string,
+  dropdownItems: Array<{
+    id: string,
+    element?: React.Element<any>,
+  }>,
 }) => {
   const [selectedItem, setSelectedItem] = useState('');
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -109,6 +127,7 @@ const DropdownField = ({
 
   const animatedItemStyles = useAnimatedStyle(() => {
     return {
+      width: itemWidth,
       backgroundColor: interpolateColor(itemColor.value, [0, 1], colors),
     };
   });
@@ -185,8 +204,20 @@ const DropdownField = ({
     }
   }, []);
 
+  useEffect(() => {
+    if (initialItemId) {
+      const initialItem = dropdownItems.find(
+        (item) => item.id === initialItemId,
+      );
+      if (initialItem) {
+        onSelect(initialItem.id);
+        setSelectedItem(initialItem.element);
+      }
+    }
+  }, [initialItemId]);
+
   return (
-    <Container>
+    <Container width={itemWidth}>
       {label !== '' && <Label>{label}</Label>}
       <InputWrapper
         activeOpacity={readOnly || isDisabled ? 1 : 0.6}
@@ -228,7 +259,7 @@ const DropdownField = ({
             height={windowHeight}
             offsetTop={offsetTop}>
             <ItemsList
-              ref={(component) => setItemListRef(component)}
+              ref={(component: any) => setItemListRef(component)}
               offsetTop={offsetTop}>
               <Animated.View style={animatedItemStyles}>
                 {dropdownItems.map((item, index) => (
@@ -238,6 +269,7 @@ const DropdownField = ({
                     onPress={() => {
                       if (isDropdownOpen) {
                         closeDropdown();
+                        onSelect(item.id);
                         setSelectedItem(item.element);
                       }
                     }}>
@@ -253,27 +285,14 @@ const DropdownField = ({
   );
 };
 
-DropdownField.propTypes = {
-  isDisabled: PropTypes.bool,
-  placeholder: PropTypes.string,
-  readOnly: PropTypes.bool,
-  dropdownItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      element: PropTypes.node,
-    }),
-  ),
-  label: PropTypes.string,
-  offsetTop: PropTypes.number,
-};
-
 DropdownField.defaultProps = {
   isDisabled: false,
   placeholder: '',
   readOnly: false,
   dropdownItems: [],
   label: '',
-  offsetTop: 0,
+  itemWidth: '100%',
+  initialItemId: '',
 };
 
 export default DropdownField;

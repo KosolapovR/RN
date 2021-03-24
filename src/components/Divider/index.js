@@ -1,11 +1,12 @@
-import React from 'react';
+// @flow
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import {Dimensions} from 'react-native';
 import styled from 'styled-components/native';
 
 const windowWidth = Dimensions.get('window').width;
 
-const StyledView = styled.View`
+const StyledView = (styled.View`
   height: ${({height}) => (height ? `${height}px` : '1px')};
   background-color: ${({black}) => (black ? '#000000' : '#ffffff')};
   opacity: ${({black}) => (black ? 1 : 0.07)};
@@ -14,9 +15,9 @@ const StyledView = styled.View`
   bottom: ${({fullWidth}) => (fullWidth ? '0' : '0')};
   width: ${({fullWidth, width}) => (fullWidth ? width : '100%')};
   margin: ${({fullWidth}) => (fullWidth ? 0 : '20px 0')};
-`;
+`: React.ComponentType<{}>);
 
-function Divider({...rest}) {
+function Divider({...rest}: {}) {
   return <StyledView {...rest} width={windowWidth} />;
 }
 
